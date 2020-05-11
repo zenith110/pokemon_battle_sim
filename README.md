@@ -1,6 +1,6 @@
 # pokemon_battle_sim
 ## Intention
-* Repliace the pokemon battle system as closely as possible
+* Replicate the pokemon battle system as closely as possible
 * Allow peer to peer battles between users, as well as local host battles
 
 ## Technology
