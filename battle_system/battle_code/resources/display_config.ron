@@ -1,0 +1,4 @@
+(
+  title: "Pokemon Battle Simulator",
+  dimensions: Some((255, 192)),
+)
