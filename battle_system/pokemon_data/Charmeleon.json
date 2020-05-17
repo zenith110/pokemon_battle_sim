@@ -13,6 +13,8 @@
     },
     "Graphics":
     {
-        "Front_Sprite": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/resources/graphics/pokemon_sprites/Charmeleon/icon.png"
+        "Image_dir": "../battle_system/battle_code/resources/graphics/pokemon_sprites/Charmeleon/"
     }
+
+    
 }

@@ -11,9 +11,10 @@
         "Potion": 5,
         "Super Potion": 6
     },
-
     "Graphics":
     {
-        "Front_Sprite": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/resources/graphics/pokemon_sprites/Ivysaur/icon.png"
+        "Image_dir": "../battle_system/battle_code/resources/graphics/pokemon_sprites/Ivysaur/"
     }
+
+    
 }

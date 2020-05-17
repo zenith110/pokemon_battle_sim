@@ -1,13 +1,13 @@
 {
- "Name": "aaa",
- "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/battle_system/battle_code/resources/graphics/trainer_sprite/trainer_02.png",
+ "Name": "bbb",
+ "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/launcher/graphics/trainer_sprite/trainer_03.png",
  "Time_Spent": "0",
  "Pokemon1": [
-  "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion"
  ],
@@ -21,15 +21,6 @@
   "Potion"
  ],
  "Pokemon3": [
-  "Venusaur",
-  "Tackle",
-  "Tackle",
-  "Tackle",
-  "Tackle",
-  0,
-  "Potion"
- ],
- "Pokemon4": [
   "Charmander",
   "Tackle",
   "Tackle",
@@ -38,8 +29,17 @@
   0,
   "Potion"
  ],
+ "Pokemon4": [
+  "Ivysaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion"
+ ],
  "Pokemon5": [
-  "Charmeleon",
+  "Venusaur",
   "Tackle",
   "Tackle",
   "Tackle",
@@ -48,7 +48,7 @@
   "Potion"
  ],
  "Pokemon6": [
-  "Charizard",
+  "Charmeleon",
   "Tackle",
   "Tackle",
   "Tackle",

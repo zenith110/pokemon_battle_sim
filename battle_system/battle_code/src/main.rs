@@ -9,7 +9,8 @@ use amethyst::{
     },
     utils::application_root_dir,
 };
-mod state;
+mod battle_ui;
+use crate::battle_ui::BattleUi;
 // Starts up the game
 fn main() -> amethyst::Result<()>{
     amethyst::start_logger(Default::default());

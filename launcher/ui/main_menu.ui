@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Main Menu</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../graphics/icon.png</normaloff>../graphics/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="new_trainer">

@@ -10,6 +10,11 @@
     {
         "Potion": 5,
         "Super Potion": 6
+    },
+    "Graphics":
+    {
+        "Image_dir": "../battle_system/battle_code/resources/graphics/pokemon_sprites/Wartortle/"
     }
+
     
 }

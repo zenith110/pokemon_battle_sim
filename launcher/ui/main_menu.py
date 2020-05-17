@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'main_menu.ui',
 # licensing of 'main_menu.ui' applies.
 #
-# Created: Sun May 10 21:37:30 2020
+# Created: Sat May 16 15:09:28 2020
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,6 +14,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(657, 187)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../graphics/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.new_trainer = QtWidgets.QPushButton(self.centralwidget)
@@ -86,7 +89,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "MainWindow", None, -1))
+        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "Trainer Screen", None, -1))
         self.new_trainer.setText(QtWidgets.QApplication.translate("MainWindow", "New Trainer", None, -1))
         self.localhost.setText(QtWidgets.QApplication.translate("MainWindow", "Localhost", None, -1))
         self.pvp.setText(QtWidgets.QApplication.translate("MainWindow", "Player Vs Player", None, -1))

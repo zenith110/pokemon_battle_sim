@@ -1,10 +1,21 @@
 {
     "Moves":
     {
-        "Tackle": 10,
-        "Growl": 3,
-        "Leer": 0,
-        "Leech-Seed": 40
+        "Growl" : 0,	
+        "Tackle": 40,	
+        "Vine Whip": 45,	
+        "Growth": 0,		
+        "Leech Seed": 0,
+        "Razor Leaf": 55,	
+        "Poison Powder": 0,	
+        "Sleep Powder": 0,	
+        "Seed Bomb": 80,	
+        "Take Down": 90,	
+        "Sweet Scent": 0,	
+        "Synthesis": 0,	
+        "Worry Seed": 0,
+        "Double-Edge": 120,	
+        "Solar Beam": 120
     },
     "Items":
     {
@@ -13,7 +24,7 @@
     },
     "Graphics":
     {
-        "Front_Sprite": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+        "Image_dir": "../battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/"
     }
 
     

@@ -1,13 +1,13 @@
 {
- "Name": "aaa",
- "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/battle_system/battle_code/resources/graphics/trainer_sprite/trainer_02.png",
+ "Name": "abrahan",
+ "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim2/battle_system/battle_code/resources/graphics/trainer_sprite/trainer_02.png",
  "Time_Spent": "0",
  "Pokemon1": [
   "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion"
  ],
@@ -39,7 +39,7 @@
   "Potion"
  ],
  "Pokemon5": [
-  "Charmeleon",
+  "Charizard",
   "Tackle",
   "Tackle",
   "Tackle",
