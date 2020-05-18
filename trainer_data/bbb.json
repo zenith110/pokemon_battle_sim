@@ -1,13 +1,13 @@
 {
  "Name": "bbb",
- "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/launcher/graphics/trainer_sprite/trainer_03.png",
+ "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/graphics/trainer_sprite/trainer_01.png",
  "Time_Spent": "0",
  "Pokemon1": [
-  "Charizard",
-  "Tackle",
-  "Tackle",
-  "Tackle",
-  "Tackle",
+  "Bulbasaur",
+  "Vine Whip",
+  "Poison Powder",
+  "Sleep Powder",
+  "Growth",
   0,
   "Potion"
  ],
@@ -30,7 +30,7 @@
   "Potion"
  ],
  "Pokemon4": [
-  "Ivysaur",
+  "Venusaur",
   "Tackle",
   "Tackle",
   "Tackle",
@@ -48,7 +48,7 @@
   "Potion"
  ],
  "Pokemon6": [
-  "Charmeleon",
+  "Venusaur",
   "Tackle",
   "Tackle",
   "Tackle",

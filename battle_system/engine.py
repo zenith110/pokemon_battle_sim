@@ -150,22 +150,37 @@ def local_host_play(player1, player2):
                 carryOn = False # Flag that we are done so we exit this loop
             
         # --- Game logic should go here
+        # Will be rewritten
             pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
-                print (mx, my)
+                print (str(mx) + " is the current x " + str(my) + " is the current y")
                 if mx in range(128, 191) and my in range(164, 175):
                     print("mouse is over 'fight option'")
+                    # Need to blip away the stuff here
                     screen.blit(move_bar, (0,160))
                     Move_1 = font.render(player1_data["Pokemon1"][1],True, BLACK)
-                    screen.blit(Move_1, (10,165))
+                    screen.blit(Move_1, (4,165))
                     Move_2 = font.render(player1_data["Pokemon1"][2],True, BLACK)
-                    screen.blit(Move_2, (10,180))
+                    screen.blit(Move_2, (4,180))
                     Move_3 = font.render(player1_data["Pokemon1"][3],True, BLACK)
                     screen.blit(Move_3, (65,165))
                     Move_4 = font.render(player1_data["Pokemon1"][4],True, BLACK)
                     screen.blit(Move_4, (65,180))
-                    
+                # This could be done better...
+                if mx in range(3, 58) and my in range(164, 172):
+                    print(player1_data["Pokemon1"][1] + " is being used!")
+                    pokemon1_attack = True
+                if mx in range(63, 122) and my in range(162, 173):
+                    print(player1_data["Pokemon1"][3] + " is being used!")
+                    pokemon1_attack = True
+                if mx in range(2, 58) and my in range(177, 187):
+                    print(player1_data["Pokemon1"][2] + " is being used!")
+                    pokemon1_attack = True
+                if mx in range(65, 121) and my in range(184, 191):
+                    print(player1_data["Pokemon1"][4] + " is being used!")
+                    pokemon1_attack = True
+
                 if mx in range(195, 250) and my in range(164, 175):
                     print("mouse is over 'bag option'")
                 if mx in range(128, 191) and my in range(180, 187):
