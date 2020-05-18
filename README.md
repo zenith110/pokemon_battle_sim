@@ -4,6 +4,6 @@
 * Allow peer to peer battles between users, as well as local host battles
 
 ## Technology
-* Uses Python for the main menu
-* Uses Rust for the battle engine, rendering, and various other handling
+* Uses Python for the battle enginer rendering
+* Uses Rust for the networking portion
 
