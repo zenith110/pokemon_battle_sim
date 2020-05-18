@@ -24,7 +24,7 @@
     },
     "Graphics":
     {
-        "Image_dir": "../battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/"
+        "Image_dir": "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/"
     }
 
     

@@ -2,13 +2,11 @@
 from ui import main_menu, create_trainer
 from PySide2 import QtWidgets, QtCore, QtGui
 from PySide2.QtMultimedia import QSound
-from playsound import playsound
 import json
 import os
 import filecmp
 from PySide2.QtWidgets import QMessageBox
-frin cffi import FFI
-
+from battle_system/battle_code import engine
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -239,7 +237,6 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                     for k in mon_file["Items"]:
                         self.pokemon6_item.addItem(k)
 
-
 class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(main_menu, self).__init__()
@@ -345,7 +342,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         pokemon5_icon = mon_file["Graphics"]["Image_dir"]
         pokemon5_icon_path = os.path.dirname(pokemon5_icon)
         self.pokemon_5.setPixmap(os.path.join(pokemon5_icon_path, 'icon.png'))
-
+        
         pokemon6_data = dataBox["Pokemon6"][0]
         with open("../battle_system/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
@@ -356,6 +353,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
 
         # Displays total amount of time played on the save file
         self.time_played.setText(dataBox["Time_Spent"])
+
     # Command for localhost
     def localhost_option(self):
         file1, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
@@ -364,13 +362,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             print("These files are the same, we cannot use them in the battle system unfortuantely.")
         else:
             print("Now entering the local host battle system!")
-            # Begins the passing to rust
-            ffi = FFI()
-            ffi.cdef("""
-                    typedef struct { char[500] name; char[500] Image_url; signed int Time_Spent; char[500] Pokemon1[8]; char[500] Pokemon2[8]; char[500] Pokemon3[8]; char[500] Pokemon4[8]; char[500] Pokemon5[8]; char[500] Pokemon6[8];}TrainerData;
-                """)
-            trainer1 = ffi("TrainerData *")
-            trainer2 = ffi("TrainerData *")
+            # Takes care of player1 data
             with open(file1, "r") as loop:
                 dataBox = json.load(loop)
             trainer1.Name = dataBox["Name"]
@@ -383,8 +375,9 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
                 trainer1.Pokemon4[x] = dataBox["Pokemon4"][x]
                 trainer1.Pokemon5[x] = dataBox["Pokemon5"][x]
                 trainer1.Pokemon6[x] = dataBox["Pokemon6"][x]
-            
-             with open(file2, "r") as loop:
+
+            # Takes care of opponent struct
+            with open(file2, "r") as loop:
                 dataBox = json.load(loop)
             trainer2.Name = dataBox["Name"]
             trainer2.Image_url = dataBox["Image_url"]
@@ -396,7 +389,6 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
                 trainer2.Pokemon4[x] = dataBox["Pokemon4"][x]
                 trainer2.Pokemon5[x] = dataBox["Pokemon5"][x]
                 trainer2.Pokemon6[x] = dataBox["Pokemon6"][x]
-
 
     def new_trainer_creator(self):
         # Hides the window

@@ -13,7 +13,7 @@
     },
     "Graphics":
     {
-        "Image_dir": "../battle_system/battle_code/resources/graphics/pokemon_sprites/Wartortle/"
+        "Image_dir": "battle_system/battle_code/resources/graphics/pokemon_sprites/Wartortle/"
     }
 
     
