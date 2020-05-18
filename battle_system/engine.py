@@ -6,7 +6,6 @@ import random
 from pathlib import Path
 from pypresence import Presence
 import time
-
 from datetime import datetime
 BLACK = (0, 0, 0)
 transparent = (0, 0, 0, 0)
