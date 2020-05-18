@@ -7,6 +7,8 @@ import os
 import filecmp
 from PySide2.QtWidgets import QMessageBox
 from battle_system import engine
+import time
+from pypresence import Presence
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -365,8 +367,10 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             print("These files are the same, we cannot use them in the battle system unfortuantely.")
         else:
             print("Now entering the local host battle system!")
+            self.hide()
             engine.local_host_play(file1, file2)
-            self.close()
+            
+            
     def new_trainer_creator(self):
         # Hides the window
         self.hide()

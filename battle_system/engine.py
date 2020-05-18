@@ -4,8 +4,12 @@ import json
 import glob
 import random
 from pathlib import Path
-pygame.init()
+from pypresence import Presence
+import time
+
+from datetime import datetime
 BLACK = (0, 0, 0)
+transparent = (0, 0, 0, 0)
 def pokemon_back_render(name_of_pokemon):
     with open("battle_system/pokemon_data/" + name_of_pokemon + ".json", "r") as loop:
                 mon_file = json.load(loop)
@@ -16,13 +20,10 @@ def pokemon_front_render(name_of_pokemon):
                 mon_file = json.load(loop)
     front_string = mon_file["Graphics"]["Image_dir"] + name_of_pokemon + "_front.png"
     return front_string
-def select_background(background_dir):
-    background_list = []
-    for path in Path(background_dir).rglob('*.png'):
-        path = str(path).replace("\\", "/")
-        background_list.append(str(path))
-    background = random.choice(background_list)
-    return music
+def select_background(background_dir, time_tag):
+    backgrounds = [d for d in os.listdir(background_dir) if 'night' in d]
+    background = random.choice(backgrounds)
+    return background_dir + background
 def select_music(string_of_music_dir):
     music_list = []
     for path in Path(string_of_music_dir).rglob('*.ogg'):
@@ -30,7 +31,11 @@ def select_music(string_of_music_dir):
         music_list.append(str(path))
     music = random.choice(music_list)
     return music
+
 def local_host_play(player1, player2):
+    # Checks to see that the pokemons have attacked yet
+    pokemon1_attack = False
+    pokemon2_attack = False
     pygame.init()
     print(os.getcwd())
     with open("battle_system/battle_code/config/game_config.json", "r") as loop:
@@ -44,23 +49,39 @@ def local_host_play(player1, player2):
     screenB = pygame.display.set_mode((500,195), 0, 32)
     with open(player1, "r") as loop:
                 player1_data = json.load(loop)
+    player1_name = player1_data["Name"]
     player_pokemon_data = player1_data["Pokemon1"][0]
     player_pokemon_string = pokemon_back_render(player_pokemon_data)
     player1_sprite =  pygame.image.load(player_pokemon_string).convert_alpha()
 
     with open(player2, "r") as loop:
                 player2_data = json.load(loop)
-    enemy_pokemon_data = player2_data["Pokemon1"][0]            
+    enemy_pokemon_data = player2_data["Pokemon1"][0]
+    enemy_name = player2_data["Name"]
+    
+    now = datetime.now()
+    current_time = now.strftime("%H")
+    print("Current Time =", current_time)
+    if int(current_time) >= 18 or int(current_time) <= 24 or int(current_time) >= 1 or int(current_time) < 7:
+        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "night")
+    if int(current_time) >= 7 or int(current_time) <= 11:
+        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "morning")
+    if int(current_time) >= 12 or int(current_time) <= 17:
+        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "afternoon")
+        
     enemy_sprite_string = pokemon_front_render(enemy_pokemon_data)
     enemy_sprite =  pygame.image.load(enemy_sprite_string).convert_alpha()
-    background = pygame.image.load("battle_system/battle_code/resources/graphics/battle_backgrounds/morning_1.png").convert_alpha()
+    background = pygame.image.load(background).convert_alpha()
     system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
     hp_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
     enemy_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
+    arrow = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/arrow.png").convert_alpha()
+    move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
     font = pygame.font.SysFont(None, 12)
     what_will_you_do_text = font.render("What will " + player_pokemon_data + " do?", True, BLACK)
     level_text = font.render(str(player1_data["Pokemon1"][5]), True, BLACK)
     Fight_option = font.render("FIGHT", True, BLACK)
+    Fight_rec = Fight_option.get_rect()
     Pokemon_option = font.render("POKEéMON", True, BLACK)
     Bag_option = font.render("BAG", True, BLACK)
     Quit_option = font.render("QUIT", True, BLACK)
@@ -76,6 +97,7 @@ def local_host_play(player1, player2):
     screen.blit(what_will_you_do_text, (8, 163))
     screen.blit(level_text, (235, 124))
     screen.blit(Fight_option, (130, 165))
+    #screen.blit(arrow, (175, 160))
     screen.blit(Pokemon_option, (130, 180))
     screen.blit(Bag_option, (195, 165))
     screen.blit(Quit_option, (195, 180))
@@ -128,12 +150,29 @@ def local_host_play(player1, player2):
                 carryOn = False # Flag that we are done so we exit this loop
             
         # --- Game logic should go here
- 
-        # --- Drawing code should go here
+            pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    print("hi")
- 
+                mx, my = pygame.mouse.get_pos()
+                print (mx, my)
+                if mx in range(128, 191) and my in range(164, 175):
+                    print("mouse is over 'fight option'")
+                    screen.blit(move_bar, (0,160))
+                    Move_1 = font.render(player1_data["Pokemon1"][1],True, BLACK)
+                    screen.blit(Move_1, (10,165))
+                    Move_2 = font.render(player1_data["Pokemon1"][2],True, BLACK)
+                    screen.blit(Move_2, (10,180))
+                    Move_3 = font.render(player1_data["Pokemon1"][3],True, BLACK)
+                    screen.blit(Move_3, (65,165))
+                    Move_4 = font.render(player1_data["Pokemon1"][4],True, BLACK)
+                    screen.blit(Move_4, (65,180))
+                    
+                if mx in range(195, 250) and my in range(164, 175):
+                    print("mouse is over 'bag option'")
+                if mx in range(128, 191) and my in range(180, 187):
+                    print("mouse is over 'pokemon option'")
+                if mx in range(194, 250) and my in range(183, 187):
+                    print("mouse is over 'quit option'")
+                    
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
      
