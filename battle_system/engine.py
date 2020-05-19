@@ -31,6 +31,56 @@ def select_music(string_of_music_dir):
     music = random.choice(music_list)
     return music
 
+def render1_after_attack_physical(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
+    screen.blit(background, (0,0))
+    screen.blit(player1_sprite, (5,110))
+    screen.blit(enemy_sprite, (150,50))
+    screen.blit(system_bar, (0,160))
+    screen.blit(hp_bar, (120,113))
+    screen.blit(enemy_bar, (0,20))
+    screen.blit(what_will_you_do_text, (8, 163))
+    screen.blit(level_text, (235, 124))
+    screen.blit(Fight_option, (130, 165))
+    screen.blit(Pokemon_option, (130, 180))
+    screen.blit(Bag_option, (195, 165))
+    screen.blit(Quit_option, (195, 180))
+    screen.blit(Enemy_Level, (81, 32))
+    screen.blit(Enemy_name, (0, 30))
+    screen.blit(Player_pokemon_name, (150, 125))
+    screen.blit(pokemon1_max_hp, (215, 144))
+    screen.blit(pokemon1_current_hp, (195, 144))
+def render_moves(screen, background, player1_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
+    screen.blit(background, (0,0))
+    screen.blit(player1_sprite, (5,110))
+    screen.blit(enemy_sprite, (150,50))
+    screen.blit(move_bar, (0,160))
+    screen.blit(hp_bar, (120,113))
+    screen.blit(enemy_bar, (0,20))
+    screen.blit(level_text, (235, 124))
+    screen.blit(Enemy_Level, (81, 32))
+    screen.blit(Enemy_name, (0, 30))
+    screen.blit(Player_pokemon_name, (150, 125))
+    screen.blit(pokemon1_max_hp, (215, 144))
+    screen.blit(pokemon1_current_hp, (195, 144))
+def render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
+    screen.blit(background, (0,0))
+    screen.blit(player1_sprite, (5,110))
+    screen.blit(enemy_sprite, (150,50))
+    screen.blit(system_bar, (0,160))
+    screen.blit(hp_bar, (120,113))
+    screen.blit(enemy_bar, (0,20))
+    screen.blit(what_will_you_do_text, (8, 163))
+    screen.blit(level_text, (235, 124))
+    screen.blit(Fight_option, (130, 165))
+    #screen.blit(arrow, (175, 160))
+    screen.blit(Pokemon_option, (130, 180))
+    screen.blit(Bag_option, (195, 165))
+    screen.blit(Quit_option, (195, 180))
+    screen.blit(Enemy_Level, (81, 32))
+    screen.blit(Enemy_name, (0, 30))
+    screen.blit(Player_pokemon_name, (150, 125))
+    screen.blit(pokemon1_max_hp, (215, 144))
+    screen.blit(pokemon1_current_hp, (195, 144))
 def local_host_play(player1, player2):
     # Checks to see that the pokemons have attacked yet
     pokemon1_attack = False
@@ -76,6 +126,7 @@ def local_host_play(player1, player2):
     enemy_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
     arrow = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/arrow.png").convert_alpha()
     move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
+    
     font = pygame.font.SysFont(None, 12)
     what_will_you_do_text = font.render("What will " + player_pokemon_data + " do?", True, BLACK)
     level_text = font.render(str(player1_data["Pokemon1"][5]), True, BLACK)
@@ -87,23 +138,11 @@ def local_host_play(player1, player2):
     Enemy_Level = font.render(str(player2_data["Pokemon1"][5]), True, BLACK)
     Enemy_name = font.render(str(player2_data["Pokemon1"][0]), True, BLACK)
     Player_pokemon_name = font.render(str(player1_data["Pokemon1"][0]), True, BLACK)
-    screen.blit(background, (0,0))
-    screen.blit(player1_sprite, (5,110))
-    screen.blit(enemy_sprite, (150,50))
-    screen.blit(system_bar, (0,160))
-    screen.blit(hp_bar, (120,113))
-    screen.blit(enemy_bar, (0,20))
-    screen.blit(what_will_you_do_text, (8, 163))
-    screen.blit(level_text, (235, 124))
-    screen.blit(Fight_option, (130, 165))
-    #screen.blit(arrow, (175, 160))
-    screen.blit(Pokemon_option, (130, 180))
-    screen.blit(Bag_option, (195, 165))
-    screen.blit(Quit_option, (195, 180))
-    screen.blit(Enemy_Level, (81, 32))
-    screen.blit(Enemy_name, (0, 30))
-    screen.blit(Player_pokemon_name, (150, 125))
-
+    pokemon1_max_hp = font.render(str(player1_data["Pokemon1"][7]), True, BLACK)
+    damage = 0
+    current_health = player1_data["Pokemon1"][7]
+    pokemon1_current_hp = font.render(str(current_health), True, BLACK)
+    render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
     
     music_string = select_music('battle_system/battle_code/resources/music/')
     pygame.mixer.music.load(music_string)
@@ -157,7 +196,8 @@ def local_host_play(player1, player2):
                 if mx in range(128, 191) and my in range(164, 175):
                     print("mouse is over 'fight option'")
                     # Need to blip away the stuff here
-                    screen.blit(move_bar, (0,160))
+                    screen.fill(pygame.Color("black")) # erases the entire screen surface
+                    render_moves(screen, background, player1_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                     Move_1 = font.render(player1_data["Pokemon1"][1],True, BLACK)
                     screen.blit(Move_1, (4,165))
                     Move_2 = font.render(player1_data["Pokemon1"][2],True, BLACK)
@@ -168,7 +208,29 @@ def local_host_play(player1, player2):
                     screen.blit(Move_4, (65,180))
                 # This could be done better...
                 if mx in range(3, 58) and my in range(164, 172):
-                    print(player1_data["Pokemon1"][1] + " is being used!")
+                    Move1 = player1_data["Pokemon1"][1]
+                    with open("battle_system/move_data/" + Move1 + ".json", "r") as loop:
+                        move1 = json.load(loop)
+                    
+                    damage = move1["Data"]["Base_Damage"]
+                    print(damage)
+                    #status = 
+                    # Checks if have any health
+                    if(current_health > 0):
+                        current_health -= damage
+                        print(player1_data["Pokemon1"][1] + " is being used!")
+                        screen.fill(pygame.Color("black")) # erases the entire screen surface
+                        pokemon1_current_hp = font.render(str(current_health), True, BLACK)
+                        render1_after_attack_physical(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                        print("Total hp is: " + str(current_health))
+                        print("There's still health to go after!")
+                    if(current_health <= 0):
+                        screen.fill(pygame.Color("black")) # erases the entire screen surface
+                        current_health = 0
+                        pokemon1_current_hp = font.render(str(current_health), True, BLACK)
+                        render1_after_attack_physical(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                        print("Do nothing, we're dead.")
+                    
                     pokemon1_attack = True
                 if mx in range(63, 122) and my in range(162, 173):
                     print(player1_data["Pokemon1"][3] + " is being used!")

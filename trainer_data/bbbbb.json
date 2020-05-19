@@ -1,16 +1,15 @@
 {
- "Name": "bbb",
+ "Name": "bbbbb",
  "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/graphics/trainer_sprite/trainer_01.png",
  "Time_Spent": "0",
  "Pokemon1": [
   "Bulbasaur",
-  "Growth",
-  "Growth",
+  "Growl",
+  "Growl",
   "Growl",
   "Growl",
   99,
-  "Potion",
-  255
+  "Potion"
  ],
  "Pokemon2": [
   "Ivysaur",

@@ -1,4 +1,8 @@
 {
+    "Stats":
+    {
+        "HP": 45
+    },
     "Moves":
     {
         "Growl" : 0,	

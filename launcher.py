@@ -51,7 +51,11 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         pokemon1_move4 = self.pokemon1_move4.currentText()
         pokemon1_level = self.pokemon1_level.value()
         pokemon1_item = self.pokemon1_item.currentText()
-
+        with open("battle_system/pokemon_data/" + pokemon1_name + ".json", "r") as loop:
+                    mon_file = json.load(loop)
+        # Formula = ({[IV+2*Base Stat+([EVs]/4)+100] * Level}/100)+10)
+        pokemon1_hp = mon_file["Stats"]["HP"]
+        print(pokemon1_hp)
         pokemon2_name = self.pokemon2_combo.currentText()
         pokemon2_move1 = self.pokemon2_move1.currentText()
         pokemon2_move2 = self.pokemon2_move2.currentText()
@@ -59,7 +63,9 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         pokemon2_move4 = self.pokemon2_move4.currentText()
         pokemon2_level = self.pokemon2_level.value()
         pokemon2_item = self.pokemon2_item.currentText()
-
+        with open("battle_system/pokemon_data/" + pokemon2_name + ".json", "r") as loop:
+                    mon_file = json.load(loop)
+        pokemon2_hp = mon_file["Stats"]["HP"]
 
         pokemon3_name = self.pokemon3_combo.currentText()
         pokemon3_move1 = self.pokemon3_move1.currentText()
@@ -68,7 +74,9 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         pokemon3_move4 = self.pokemon3_move4.currentText()
         pokemon3_level = self.pokemon3_level.value()
         pokemon3_item = self.pokemon3_item.currentText()
-
+        with open("battle_system/pokemon_data/" + pokemon3_name + ".json", "r") as loop:
+                    mon_file = json.load(loop)
+        pokemon3_hp = mon_file["Stats"]["HP"]
         pokemon4_name = self.pokemon4_combo.currentText()
         pokemon4_move1 = self.pokemon4_move1.currentText()
         pokemon4_move2 = self.pokemon4_move2.currentText()
@@ -76,7 +84,9 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         pokemon4_move4 = self.pokemon4_move4.currentText()
         pokemon4_level = self.pokemon4_level.value()
         pokemon4_item = self.pokemon4_item.currentText()
-
+        with open("battle_system/pokemon_data/" + pokemon4_name + ".json", "r") as loop:
+                    mon_file = json.load(loop)
+        pokemon4_hp = mon_file["Stats"]["HP"]
         pokemon5_name = self.pokemon5_combo.currentText()
         pokemon5_move1 = self.pokemon5_move1.currentText()
         pokemon5_move2 = self.pokemon5_move2.currentText()
@@ -84,7 +94,9 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         pokemon5_move4 = self.pokemon5_move4.currentText()
         pokemon5_level = self.pokemon5_level.value()
         pokemon5_item = self.pokemon5_item.currentText()
-
+        with open("battle_system/pokemon_data/" + pokemon5_name + ".json", "r") as loop:
+                    mon_file = json.load(loop)
+        pokemon5_hp = mon_file["Stats"]["HP"]
         pokemon6_name = self.pokemon6_combo.currentText()
         pokemon6_move1 = self.pokemon6_move1.currentText()
         pokemon6_move2 = self.pokemon6_move2.currentText()
@@ -92,17 +104,19 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         pokemon6_move4 = self.pokemon6_move4.currentText()
         pokemon6_level = self.pokemon6_level.value()
         pokemon6_item = self.pokemon6_item.currentText()
-
+        with open("battle_system/pokemon_data/" + pokemon6_name + ".json", "r") as loop:
+                    mon_file = json.load(loop)
+        pokemon6_hp = mon_file["Stats"]["HP"]
         data = {}
         data["Name"] = name
         data["Image_url"] = image
         data["Time_Spent"] =  "0"
-        data["Pokemon1"] = [pokemon1_name, pokemon1_move1, pokemon1_move2, pokemon1_move3, pokemon1_move4, pokemon1_level, pokemon1_item]
-        data["Pokemon2"] = [pokemon2_name, pokemon2_move1, pokemon2_move2, pokemon2_move3, pokemon2_move4, pokemon2_level, pokemon2_item]
-        data["Pokemon3"] = [pokemon3_name, pokemon3_move1, pokemon3_move2, pokemon3_move3, pokemon3_move4, pokemon3_level, pokemon3_item]
-        data["Pokemon4"] = [pokemon4_name, pokemon4_move1, pokemon4_move2, pokemon4_move3, pokemon4_move4, pokemon4_level, pokemon4_item]
-        data["Pokemon5"] = [pokemon5_name, pokemon5_move1, pokemon5_move2, pokemon5_move3, pokemon5_move4, pokemon5_level, pokemon5_item]
-        data["Pokemon6"] = [pokemon6_name, pokemon6_move1, pokemon6_move2, pokemon6_move3, pokemon6_move4, pokemon6_level, pokemon6_item]
+        data["Pokemon1"] = [pokemon1_name, pokemon1_move1, pokemon1_move2, pokemon1_move3, pokemon1_move4, pokemon1_level, pokemon1_item, pokemon1_hp]
+        data["Pokemon2"] = [pokemon2_name, pokemon2_move1, pokemon2_move2, pokemon2_move3, pokemon2_move4, pokemon2_level, pokemon2_item, pokemon2_hp]
+        data["Pokemon3"] = [pokemon3_name, pokemon3_move1, pokemon3_move2, pokemon3_move3, pokemon3_move4, pokemon3_level, pokemon3_item, pokemon3_hp]
+        data["Pokemon4"] = [pokemon4_name, pokemon4_move1, pokemon4_move2, pokemon4_move3, pokemon4_move4, pokemon4_level, pokemon4_item, pokemon4_hp]
+        data["Pokemon5"] = [pokemon5_name, pokemon5_move1, pokemon5_move2, pokemon5_move3, pokemon5_move4, pokemon5_level, pokemon5_item, pokemon5_hp]
+        data["Pokemon6"] = [pokemon6_name, pokemon6_move1, pokemon6_move2, pokemon6_move3, pokemon6_move4, pokemon6_level, pokemon6_item, pokemon6_hp]
         
         
         file = open("trainer_data/" + name + ".json", "w")
