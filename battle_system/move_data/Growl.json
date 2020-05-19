@@ -1,0 +1,12 @@
+{
+    "Data":
+    {
+        "Status": "Status-effect",
+        "Base_Damage": 40,
+        "Description": "When tackle is used, it will inflict 40 hp to opponent",
+        "Type": "Normal"
+    }
+    
+
+    
+}

@@ -1,0 +1,65 @@
+{
+ "Name": "bbb",
+ "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/graphics/trainer_sprite/trainer_02.png",
+ "Time_Spent": "0",
+ "Pokemon1": [
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  78
+ ],
+ "Pokemon2": [
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  78
+ ],
+ "Pokemon3": [
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  78
+ ],
+ "Pokemon4": [
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  78
+ ],
+ "Pokemon5": [
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  78
+ ],
+ "Pokemon6": [
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  78
+ ]
+}

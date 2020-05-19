@@ -1,4 +1,8 @@
 {
+    "Stats":
+    {
+        "HP": 78
+    },
     "Moves":
     {
         "Tackle": 10,
