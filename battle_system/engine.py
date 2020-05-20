@@ -30,6 +30,24 @@ def select_music(string_of_music_dir):
         music_list.append(str(path))
     music = random.choice(music_list)
     return music
+def render_pokemon_fainted(screen, background, player1_sprite, move_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
+    screen.blit(background, (0,0))
+    screen.blit(player1_sprite, (5,110))
+    screen.blit(move_bar, (0,160))
+    screen.blit(hp_bar, (120,113))
+    screen.blit(level_text, (235, 124))
+    screen.blit(Player_pokemon_name, (150, 125))
+    screen.blit(pokemon1_max_hp, (215, 144))
+    screen.blit(pokemon1_current_hp, (195, 144))
+    screen.blit(move_text,(8, 163))
+def render2_status_screen(screen, background, icon1, icon2, icon3, icon4, icon5, icon6):
+    screen.blit(background, (250,0))
+    screen.blit(icon1, (255,0))
+    screen.blit(icon2, (343,0))
+    screen.blit(icon3, (430,0))
+    screen.blit(icon4, (255,80))
+    screen.blit(icon5, (343,80))
+    screen.blit(icon6, (430,80))
 def render1_attack_menu_bar(screen, background, player1_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
     screen.blit(background, (0,0))
     screen.blit(player1_sprite, (5,110))
@@ -162,7 +180,57 @@ def local_host_play(player1, player2):
     with open(player1, "r") as loop:
                 player1_data = json.load(loop)
     player1_name = player1_data["Name"]
+
+    # Will refactor later
     player_pokemon_data = player1_data["Pokemon1"][0]
+    player_pokemon2_data = player1_data["Pokemon2"][0]
+    player_pokemon3_data = player1_data["Pokemon3"][0]
+    player_pokemon4_data = player1_data["Pokemon4"][0]
+    player_pokemon5_data = player1_data["Pokemon5"][0]
+    player_pokemon6_data = player1_data["Pokemon6"][0]
+
+    with open("battle_system/pokemon_data/" + player_pokemon_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+    pokemon_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon_icon_path = pokemon_icon + "icon.png"
+    print(os.getcwd() + " is the current directory")
+    print(pokemon_icon_path)
+    player_pokemon_icon =  pygame.image.load(pokemon_icon_path)
+    with open("battle_system/pokemon_data/" + player_pokemon2_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon2_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon2_icon_path = pokemon2_icon + "icon.png"
+    player_pokemon_icon_2 =  pygame.image.load(pokemon2_icon_path)
+
+    with open("battle_system/pokemon_data/" + player_pokemon3_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon3_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon3_icon_path = pokemon3_icon + "icon.png"
+    player_pokemon_icon_3 =  pygame.image.load(pokemon3_icon_path)
+
+    with open("battle_system/pokemon_data/" + player_pokemon4_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon4_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon4_icon_path = pokemon4_icon + "icon.png"
+    player_pokemon_icon_4 =  pygame.image.load(pokemon4_icon_path)
+
+    with open("battle_system/pokemon_data/" + player_pokemon5_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon5_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon5_icon_path = pokemon5_icon + "icon.png"
+    player_pokemon_icon_5 =  pygame.image.load(pokemon5_icon_path)
+
+    with open("battle_system/pokemon_data/" + player_pokemon6_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon6_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon6_icon_path = pokemon6_icon + "icon.png"
+    player_pokemon_icon_6 =  pygame.image.load(pokemon6_icon_path)
+
     player_pokemon_string = pokemon_back_render(player_pokemon_data)
     player1_sprite =  pygame.image.load(player_pokemon_string).convert_alpha()
 
@@ -170,6 +238,55 @@ def local_host_play(player1, player2):
                 player2_data = json.load(loop)
     enemy_pokemon_data = player2_data["Pokemon1"][0]
     enemy_name = player2_data["Name"]
+
+        # Will refactor later
+    enemy_pokemon2_data = player2_data["Pokemon2"][0]
+    enemy_pokemon3_data = player2_data["Pokemon3"][0]
+    enemy_pokemon4_data = player2_data["Pokemon4"][0]
+    enemy_pokemon5_data = player2_data["Pokemon5"][0]
+    enemy_pokemon6_data = player2_data["Pokemon6"][0]
+
+    with open("battle_system/pokemon_data/" + enemy_pokemon_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+    pokemon_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon_icon_path = pokemon_icon + "icon.png"
+    enemy_pokemon_icon =  pygame.image.load(pokemon_icon_path)
+
+    with open("battle_system/pokemon_data/" + enemy_pokemon2_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon2_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon2_icon_path = pokemon2_icon + "icon.png"
+    enemy_pokemon_icon_2 =  pygame.image.load(pokemon_icon_path)
+
+    with open("battle_system/pokemon_data/" + enemy_pokemon3_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon3_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon3_icon_path = pokemon3_icon + "icon.png"
+    enemy_pokemon_icon_3 =  pygame.image.load(pokemon3_icon_path)
+
+    with open("battle_system/pokemon_data/" + enemy_pokemon4_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon4_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon4_icon_path = pokemon4_icon + "icon.png"
+    enemy_pokemon_icon_4 =  pygame.image.load(pokemon4_icon_path)
+
+    with open("battle_system/pokemon_data/" + enemy_pokemon5_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon5_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon5_icon_path = pokemon5_icon + "icon.png"
+    enemy_pokemon_icon_5 =  pygame.image.load(pokemon5_icon_path)
+
+    with open("battle_system/pokemon_data/" + enemy_pokemon6_data + ".json", "r") as loop:
+                        mon_file = json.load(loop)
+
+    pokemon6_icon = mon_file["Graphics"]["Image_dir"]
+    pokemon6_icon_path = pokemon6_icon + "icon.png"
+    enemy_pokemon_icon_6 =  pygame.image.load(pokemon6_icon_path)
+
     now = datetime.now()
     current_time = now.strftime("%H")
     print("Current Time =", current_time)
@@ -191,6 +308,7 @@ def local_host_play(player1, player2):
     arrow = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/arrow.png").convert_alpha()
     move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
     move_attack_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
+    status_screen = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/status_screen.png").convert_alpha()
     font = pygame.font.SysFont(None, 12)
     what_will_you_do_text = font.render("What will " + player_pokemon_data + " do?", True, BLACK)
     level_text = font.render(str(player1_data["Pokemon1"][5]), True, BLACK)
@@ -290,7 +408,7 @@ def local_host_play(player1, player2):
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
                                 what_will_you_do_textB = font.render(enemy_pokemon_data + " was dealt " + str(damage) + " damage from " + player_pokemon_data + "'s " + Move1, True, BLACK)
                                 render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
-                                time.sleep(5)
+                                
                                 screenB.fill(pygame.Color("black"))
                                 what_will_you_do_textB = font.render("What will " + enemy_pokemon_data + " do?", True, BLACK)
                                 render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
@@ -301,8 +419,9 @@ def local_host_play(player1, player2):
                                 screenB.fill(pygame.Color("black")) # erases the entire screen surface
                                 enemy_current_health = 0
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
-                                render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
-                                render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
+                                move_text = font.render(enemy_pokemon_data + " has fainted! Now awaiting for next pokemon", True, BLACK)
+                                render_pokemon_fainted(screen, background, player1_sprite, move_attack_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text)
+                                render2_status_screen(screenB, status_screen, enemy_pokemon_icon, enemy_pokemon_icon_2, enemy_pokemon_icon_3, enemy_pokemon_icon_4, enemy_pokemon_icon_5, enemy_pokemon_icon_6)
                                 print(enemy_pokemon_data + " has fainted!")
                         if(status == "Status-effect"):
                             print(Move1 + " causes a status, no damage taken!")
