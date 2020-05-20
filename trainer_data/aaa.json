@@ -3,63 +3,63 @@
  "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/graphics/trainer_sprite/trainer_01.png",
  "Time_Spent": "0",
  "Pokemon1": [
-  "Bulbasaur",
+  "Blastoise",
   "Tackle",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
-  45
+  79
  ],
  "Pokemon2": [
-  "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Charmeleon",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
-  45
+  58
  ],
  "Pokemon3": [
-  "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Charizard",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
-  45
+  78
  ],
  "Pokemon4": [
-  "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Wartortle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
-  45
+  59
  ],
  "Pokemon5": [
-  "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Squirtle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
-  45
+  44
  ],
  "Pokemon6": [
-  "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Charmander",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
-  45
+  39
  ]
 }
