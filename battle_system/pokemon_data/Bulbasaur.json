@@ -1,7 +1,12 @@
 {
     "Stats":
     {
-        "HP": 45
+        "HP": 45,
+        "Attack": 49,
+        "Defense": 49,
+        "Sp. Atk": 65,
+        "Sp. Def": 65,
+        "Speed": 45
     },
     "Moves":
     {

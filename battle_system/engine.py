@@ -9,6 +9,31 @@ import time
 from datetime import datetime
 BLACK = (0, 0, 0)
 transparent = (0, 0, 0, 0)
+# Makes our basic player class
+class player_data(object):
+    def __init__(self, player_data_file, enemy_sprite):
+        with open(player_data_file, "r") as loop:
+                player_data = json.load(loop)
+        self.name = player_data["Name"]
+        self.trainer_image = player_data["Image_url"]
+        self.time_spent = player_data["Time_Spent"]
+        # Declares our lists that has the pokemon data
+        self.pokemon1 = []
+        self.pokemon2 = []
+        self.pokemon3 = []
+        self.pokemon4 = []
+        self.pokemon5 = []
+        self.pokemon6 = []
+        for i in range(0, 11):
+            self.pokemon1.append(player_data["Pokemon1"][i])
+            self.pokemon1.append(player_data["Pokemon2"][i])
+            self.pokemon1.append(player_data["Pokemon3"][i])
+            self.pokemon1.append(player_data["Pokemon4"][i])
+            self.pokemon1.append(player_data["Pokemon5"][i])
+            self.pokemon1.append(player_data["Pokemon6"][i])
+        self.enemy_sprite = enemy_sprite
+        self.is_defeated = False
+        self.has_attacked = False
 def pokemon_back_render(name_of_pokemon):
     with open("battle_system/pokemon_data/" + name_of_pokemon + ".json", "r") as loop:
                 mon_file = json.load(loop)
@@ -93,6 +118,7 @@ def render_moves(screen, background, player1_sprite, enemy_sprite, move_bar, hp_
     screen.blit(Player_pokemon_name, (150, 125))
     screen.blit(pokemon1_max_hp, (215, 144))
     screen.blit(pokemon1_current_hp, (195, 144))
+
 def render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp):
     screenB.blit(background, (250,0))
     screenB.blit(playerB_sprite, (415,40))
@@ -107,6 +133,7 @@ def render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite
     screenB.blit(Enemy_name, (390, 125))
     screenB.blit(enemy_max_hp, (472, 143))
     screenB.blit(enemy_current_hp, (452, 143))
+
 def render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp):
     screenB.blit(background, (250,0))
     screenB.blit(playerB_sprite, (415,40))
@@ -164,8 +191,6 @@ def render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar,
     screen.blit(pokemon1_current_hp, (195, 144))
 def local_host_play(player1, player2):
     # Checks to see that the pokemons have attacked yet
-    pokemon1_attack = False
-    pokemon2_attack = False
     pygame.init()
     print(os.getcwd())
     with open("battle_system/battle_code/config/game_config.json", "r") as loop:
@@ -177,109 +202,18 @@ def local_host_play(player1, player2):
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("Pokemon Battle Sim")
     screenB = pygame.display.set_mode((500,195), 0, 32)
+
+    # Loads for the first pokemon sprite
     with open(player1, "r") as loop:
                 player1_data = json.load(loop)
-    player1_name = player1_data["Name"]
 
-    # Will refactor later
-    player_pokemon_data = player1_data["Pokemon1"][0]
-    player_pokemon2_data = player1_data["Pokemon2"][0]
-    player_pokemon3_data = player1_data["Pokemon3"][0]
-    player_pokemon4_data = player1_data["Pokemon4"][0]
-    player_pokemon5_data = player1_data["Pokemon5"][0]
-    player_pokemon6_data = player1_data["Pokemon6"][0]
-
-    with open("battle_system/pokemon_data/" + player_pokemon_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-    pokemon_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon_icon_path = pokemon_icon + "icon.png"
-    print(os.getcwd() + " is the current directory")
-    print(pokemon_icon_path)
-    player_pokemon_icon =  pygame.image.load(pokemon_icon_path)
-    with open("battle_system/pokemon_data/" + player_pokemon2_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon2_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon2_icon_path = pokemon2_icon + "icon.png"
-    player_pokemon_icon_2 =  pygame.image.load(pokemon2_icon_path)
-
-    with open("battle_system/pokemon_data/" + player_pokemon3_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon3_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon3_icon_path = pokemon3_icon + "icon.png"
-    player_pokemon_icon_3 =  pygame.image.load(pokemon3_icon_path)
-
-    with open("battle_system/pokemon_data/" + player_pokemon4_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon4_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon4_icon_path = pokemon4_icon + "icon.png"
-    player_pokemon_icon_4 =  pygame.image.load(pokemon4_icon_path)
-
-    with open("battle_system/pokemon_data/" + player_pokemon5_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon5_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon5_icon_path = pokemon5_icon + "icon.png"
-    player_pokemon_icon_5 =  pygame.image.load(pokemon5_icon_path)
-
-    with open("battle_system/pokemon_data/" + player_pokemon6_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon6_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon6_icon_path = pokemon6_icon + "icon.png"
-    player_pokemon_icon_6 =  pygame.image.load(pokemon6_icon_path)
-
-    player_pokemon_string = pokemon_back_render(player_pokemon_data)
-    player1_sprite =  pygame.image.load(player_pokemon_string).convert_alpha()
-
+    # Loads for the first pokemon sprite
     with open(player2, "r") as loop:
                 player2_data = json.load(loop)
-    enemy_pokemon_data = player2_data["Pokemon1"][0]
-    enemy_name = player2_data["Name"]
-
-        # Will refactor later
-    enemy_pokemon2_data = player2_data["Pokemon2"][0]
-    enemy_pokemon3_data = player2_data["Pokemon3"][0]
-    enemy_pokemon4_data = player2_data["Pokemon4"][0]
-    enemy_pokemon5_data = player2_data["Pokemon5"][0]
-    enemy_pokemon6_data = player2_data["Pokemon6"][0]
-
-    with open("battle_system/pokemon_data/" + enemy_pokemon_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-    pokemon_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon_icon_path = pokemon_icon + "icon.png"
-    enemy_pokemon_icon =  pygame.image.load(pokemon_icon_path)
-
-    with open("battle_system/pokemon_data/" + enemy_pokemon2_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon2_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon2_icon_path = pokemon2_icon + "icon.png"
-    enemy_pokemon_icon_2 =  pygame.image.load(pokemon_icon_path)
-
-    with open("battle_system/pokemon_data/" + enemy_pokemon3_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon3_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon3_icon_path = pokemon3_icon + "icon.png"
-    enemy_pokemon_icon_3 =  pygame.image.load(pokemon3_icon_path)
-
-    with open("battle_system/pokemon_data/" + enemy_pokemon4_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon4_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon4_icon_path = pokemon4_icon + "icon.png"
-    enemy_pokemon_icon_4 =  pygame.image.load(pokemon4_icon_path)
-
-    with open("battle_system/pokemon_data/" + enemy_pokemon5_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
-
-    pokemon5_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon5_icon_path = pokemon5_icon + "icon.png"
-    enemy_pokemon_icon_5 =  pygame.image.load(pokemon5_icon_path)
-
+    player = player_data(player1, player2_data["Pokemon1"][9])
+    opponent = player_data(player2, player1_data["Pokemon1"][9])
+    
+    # Work in progress to make more OOP
     with open("battle_system/pokemon_data/" + enemy_pokemon6_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
 
@@ -290,6 +224,7 @@ def local_host_play(player1, player2):
     now = datetime.now()
     current_time = now.strftime("%H")
     print("Current Time =", current_time)
+
     if int(current_time) >= 18  or int(current_time) >= 1 and int(current_time) < 7:
         print("It's night")
         background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "night")
@@ -298,7 +233,8 @@ def local_host_play(player1, player2):
     if int(current_time) >= 12 and int(current_time) <= 17:
         print("It's afternoon")
         background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "afternoon")
-    print(background)   
+
+    #   
     enemy_sprite_string = pokemon_front_render(enemy_pokemon_data)
     enemy_sprite =  pygame.image.load(enemy_sprite_string).convert_alpha()
     background = pygame.image.load(background).convert_alpha()
@@ -326,6 +262,7 @@ def local_host_play(player1, player2):
     enemy_max_health  = player2_data["Pokemon1"][7]
     enemy_current_health  = player2_data["Pokemon1"][7]
     pokemon1_current_hp = font.render(str(current_health), True, BLACK)
+
     render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
     
     music_string = select_music('battle_system/battle_code/resources/music/')
@@ -342,18 +279,15 @@ def local_host_play(player1, player2):
     PokemonB_option = font.render("POKEéMON", True, BLACK)
     BagB_option = font.render("BAG", True, BLACK)
     QuitB_option = font.render("QUIT", True, BLACK)
+
     # Begins the second window
     enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
     enemy_max_hp = font.render(str(enemy_max_health), True, BLACK)
     render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
+
     # The loop will carry on until the user exit the game (e.g. clicks the close button).
     carryOn = True
-    isPokemon1 = True
-    isPokemon2 = False
-    isPokemon3 = False
-    isPokemon4 = False
-    isPokemon5 = False
-    isPokemon6 = False
+
     # The clock will be used to control how fast the screen updates
     clock = pygame.time.Clock()
  
@@ -426,6 +360,7 @@ def local_host_play(player1, player2):
                         if(status == "Status-effect"):
                             print(Move1 + " causes a status, no damage taken!")
                             pokemon1_attack = True
+                            
                 if mx in range(63, 122) and my in range(162, 173):
                     if(isPokemon1 == True):
                         Move2 = player1_data["Pokemon1"][2]

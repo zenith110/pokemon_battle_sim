@@ -7,32 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>573</width>
-    <height>565</height>
+    <height>669</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Trainer Creator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLineEdit" name="name">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>47</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Name</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="name">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>0</y>
-      <width>113</width>
+      <width>141</width>
       <height>20</height>
      </rect>
     </property>
@@ -226,7 +213,7 @@
      <rect>
       <x>0</x>
       <y>220</y>
-      <width>61</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
@@ -308,7 +295,7 @@
      <rect>
       <x>200</x>
       <y>220</y>
-      <width>61</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
@@ -795,7 +782,7 @@
      <rect>
       <x>410</x>
       <y>220</y>
-      <width>61</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
@@ -956,12 +943,12 @@
      <rect>
       <x>430</x>
       <y>480</y>
-      <width>61</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Level:</string>
+     <string>Level</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_42">
@@ -1101,7 +1088,7 @@
      <x>0</x>
      <y>0</y>
      <width>573</width>
-     <height>21</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
