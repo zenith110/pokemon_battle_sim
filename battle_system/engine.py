@@ -152,6 +152,7 @@ def render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite,
     screenB.blit(Enemy_name, (390, 125))
     screenB.blit(enemy_max_hp, (472, 143))
     screenB.blit(enemy_current_hp, (452, 143))
+    
 def render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp):
     screenB.blit(background, (250,0))
     screenB.blit(playerB_sprite, (415,40))
