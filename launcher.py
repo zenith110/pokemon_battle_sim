@@ -55,7 +55,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                     mon_file = json.load(loop)
         # Formula = ({[IV+2*Base Stat+([EVs]/4)+100] * Level}/100)+10)
         pokemon1_base_hp = mon_file["Stats"]["HP"]
-        pokemon1_base_speed = mon_file["Stats"]["Attack]
+        pokemon1_base_speed = mon_file["Stats"]["Attack"]
         pokemon1_base_hp = mon_file["Stats"]["Defense"]
         pokemon1_base_hp = mon_file["Stats"]["Sp. Atk"]
         pokemon1_base_hp = mon_file["Stats"]["Sp. Def"]
