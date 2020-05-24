@@ -26,24 +26,15 @@ class player_data(object):
         self.pokemon6 = []
         for i in range(0, 11):
             self.pokemon1.append(player_data["Pokemon1"][i])
-            self.pokemon1.append(player_data["Pokemon2"][i])
-            self.pokemon1.append(player_data["Pokemon3"][i])
-            self.pokemon1.append(player_data["Pokemon4"][i])
-            self.pokemon1.append(player_data["Pokemon5"][i])
-            self.pokemon1.append(player_data["Pokemon6"][i])
+            self.pokemon2.append(player_data["Pokemon2"][i])
+            self.pokemon3.append(player_data["Pokemon3"][i])
+            self.pokemon4.append(player_data["Pokemon4"][i])
+            self.pokemon5.append(player_data["Pokemon5"][i])
+            self.pokemon6.append(player_data["Pokemon6"][i])
         self.enemy_sprite = enemy_sprite
         self.is_defeated = False
         self.has_attacked = False
-def pokemon_back_render(name_of_pokemon):
-    with open("battle_system/pokemon_data/" + name_of_pokemon + ".json", "r") as loop:
-                mon_file = json.load(loop)
-    back_string = mon_file["Graphics"]["Image_dir"] + name_of_pokemon + "_back.png"
-    return back_string
-def pokemon_front_render(name_of_pokemon):
-    with open("battle_system/pokemon_data/" + name_of_pokemon + ".json", "r") as loop:
-                mon_file = json.load(loop)
-    front_string = mon_file["Graphics"]["Image_dir"] + name_of_pokemon + "_front.png"
-    return front_string
+
 def select_background(background_dir, time_tag):
     backgrounds = [d for d in os.listdir(background_dir) if time_tag in d]
     background = random.choice(backgrounds)
@@ -211,16 +202,16 @@ def local_host_play(player1, player2):
     # Loads for the first pokemon sprite
     with open(player2, "r") as loop:
                 player2_data = json.load(loop)
-    player = player_data(player1, player2_data["Pokemon1"][9])
+    player = player_data(player1, player2_data["Pokemon1"][8])
     opponent = player_data(player2, player1_data["Pokemon1"][9])
-    
+    print(player.enemy_sprite)
     # Work in progress to make more OOP
-    with open("battle_system/pokemon_data/" + enemy_pokemon6_data + ".json", "r") as loop:
-                        mon_file = json.load(loop)
+    # with open("battle_system/pokemon_data/" + enemy_pokemon6_data + ".json", "r") as loop:
+    #                     mon_file = json.load(loop)
 
-    pokemon6_icon = mon_file["Graphics"]["Image_dir"]
-    pokemon6_icon_path = pokemon6_icon + "icon.png"
-    enemy_pokemon_icon_6 =  pygame.image.load(pokemon6_icon_path)
+    # pokemon6_icon = mon_file["Graphics"]["Image_dir"]
+    # pokemon6_icon_path = pokemon6_icon + "icon.png"
+    # enemy_pokemon_icon_6 =  pygame.image.load(pokemon6_icon_path)
 
     now = datetime.now()
     current_time = now.strftime("%H")
@@ -235,8 +226,11 @@ def local_host_play(player1, player2):
         print("It's afternoon")
         background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "afternoon")
 
-    #   
-    enemy_sprite_string = pokemon_front_render(enemy_pokemon_data)
+    player_sprite_string = opponent.enemy_sprite
+    print(player_sprite_string)
+    player_sprite =  pygame.image.load(player_sprite_string).convert_alpha()  
+    enemy_sprite_string = player.enemy_sprite
+    print(player_sprite_string)
     enemy_sprite =  pygame.image.load(enemy_sprite_string).convert_alpha()
     background = pygame.image.load(background).convert_alpha()
     system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
@@ -247,35 +241,35 @@ def local_host_play(player1, player2):
     move_attack_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
     status_screen = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/status_screen.png").convert_alpha()
     font = pygame.font.SysFont(None, 12)
-    what_will_you_do_text = font.render("What will " + player_pokemon_data + " do?", True, BLACK)
-    level_text = font.render(str(player1_data["Pokemon1"][5]), True, BLACK)
+    what_will_you_do_text = font.render("What will " + player.pokemon1[0] + " do?", True, BLACK)
+    level_text = font.render(str(player.pokemon1[5]), True, BLACK)
     Fight_option = font.render("FIGHT", True, BLACK)
     Fight_rec = Fight_option.get_rect()
     Pokemon_option = font.render("POKEéMON", True, BLACK)
     Bag_option = font.render("BAG", True, BLACK)
     Quit_option = font.render("QUIT", True, BLACK)
-    Enemy_Level = font.render(str(player2_data["Pokemon1"][5]), True, BLACK)
-    Enemy_name = font.render(str(player2_data["Pokemon1"][0]), True, BLACK)
-    Player_pokemon_name = font.render(str(player1_data["Pokemon1"][0]), True, BLACK)
-    pokemon1_max_hp = font.render(str(player1_data["Pokemon1"][7]), True, BLACK)
+    Enemy_Level = font.render(str(opponent.pokemon1[5]), True, BLACK)
+    Enemy_name = font.render(str(opponent.pokemon1[0]), True, BLACK)
+    Player_pokemon_name = font.render(str(player.pokemon1[0]), True, BLACK)
+    pokemon1_max_hp = font.render(str(player.pokemon1[7]), True, BLACK)
     damage = 0
-    current_health = player1_data["Pokemon1"][7]
-    enemy_max_health  = player2_data["Pokemon1"][7]
-    enemy_current_health  = player2_data["Pokemon1"][7]
+    current_health = player.pokemon1[7]
+    enemy_max_health  = opponent.pokemon1[7]
+    enemy_current_health  = opponent.pokemon1[7]
     pokemon1_current_hp = font.render(str(current_health), True, BLACK)
 
-    render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+    render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
     
     music_string = select_music('battle_system/battle_code/resources/music/')
     pygame.mixer.music.load(music_string)
     pygame.mixer.music.play(-1)
 
-    playerB_sprite_string = pokemon_front_render(player_pokemon_data)
+    playerB_sprite_string = player.pokemon1[8]
     playerB_sprite =  pygame.image.load(playerB_sprite_string).convert_alpha() 
 
-    enemyB_sprite_string = pokemon_back_render(enemy_pokemon_data)
+    enemyB_sprite_string = opponent.pokemon1[9]
     enemyB_sprite =  pygame.image.load(enemyB_sprite_string).convert_alpha() 
-    what_will_you_do_textB = font.render("What will " + enemy_pokemon_data + " do?", True, BLACK)
+    what_will_you_do_textB = font.render("What will " + opponent.pokemon1[0] + " do?", True, BLACK)
     FightB_option = font.render("FIGHT", True, BLACK)
     PokemonB_option = font.render("POKEéMON", True, BLACK)
     BagB_option = font.render("BAG", True, BLACK)
@@ -288,7 +282,7 @@ def local_host_play(player1, player2):
 
     # The loop will carry on until the user exit the game (e.g. clicks the close button).
     carryOn = True
-
+    isPokemon1 = True
     # The clock will be used to control how fast the screen updates
     clock = pygame.time.Clock()
  
@@ -310,7 +304,7 @@ def local_host_play(player1, player2):
                     # Need to blip away the stuff here
                     if(isPokemon1 == True):
                         screen.fill(pygame.Color("black")) # erases the entire screen surface
-                        render_moves(screen, background, player1_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                        render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                         Move_1 = font.render(player1_data["Pokemon1"][1],True, BLACK)
                         screen.blit(Move_1, (4,165))
                         Move_2 = font.render(player1_data["Pokemon1"][2],True, BLACK)

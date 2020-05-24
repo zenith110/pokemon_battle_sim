@@ -1,0 +1,83 @@
+{
+ "Name": "jj",
+ "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/graphics/trainer_sprite/trainer_02.png",
+ "Time_Spent": "0",
+ "Pokemon1": [
+  "Bulbasaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  45,
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+ ],
+ "Pokemon2": [
+  "Bulbasaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  45,
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+ ],
+ "Pokemon3": [
+  "Bulbasaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  45,
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+ ],
+ "Pokemon4": [
+  "Bulbasaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  45,
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+ ],
+ "Pokemon5": [
+  "Bulbasaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  45,
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+ ],
+ "Pokemon6": [
+  "Bulbasaur",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  0,
+  "Potion",
+  45,
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+ ]
+}
