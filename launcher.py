@@ -139,7 +139,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         data["Name"] = name
         data["Image_url"] = image
         data["Time_Spent"] =  "0"
-        data["Pokemon1"] = [pokemon1_name, pokemon1_move1, pokemon1_move2, pokemon1_move3, pokemon1_move4, pokemon1_level, pokemon1_item, pokemon1_hp, pokemon1_front, pokemon1_back, pokemon1_icon]
+        data["Pokemon1"] = [pokemon1_name, pokemon1_move1, pokemon1_move2, pokemon1_move3, pokemon1_move4, pokemon1_level, pokemon1_item, pokemon1_base_hp, pokemon1_front, pokemon1_back, pokemon1_icon]
         data["Pokemon2"] = [pokemon2_name, pokemon2_move1, pokemon2_move2, pokemon2_move3, pokemon2_move4, pokemon2_level, pokemon2_item, pokemon2_hp, pokemon2_front, pokemon2_back, pokemon2_icon]
         data["Pokemon3"] = [pokemon3_name, pokemon3_move1, pokemon3_move2, pokemon3_move3, pokemon3_move4, pokemon3_level, pokemon3_item, pokemon3_hp, pokemon3_front, pokemon3_back, pokemon3_icon]
         data["Pokemon4"] = [pokemon4_name, pokemon4_move1, pokemon4_move2, pokemon4_move3, pokemon4_move4, pokemon4_level, pokemon4_item, pokemon4_hp, pokemon4_front, pokemon4_back, pokemon4_icon]
