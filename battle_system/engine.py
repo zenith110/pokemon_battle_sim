@@ -46,9 +46,9 @@ def select_music(string_of_music_dir):
         music_list.append(str(path))
     music = random.choice(music_list)
     return music
-def render_pokemon_fainted(screen, background, player1_sprite, move_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
+def render_pokemon_fainted(screen, background, player_sprite, move_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
     screen.blit(background, (0,0))
-    screen.blit(player1_sprite, (5,110))
+    screen.blit(player_sprite, (5,110))
     screen.blit(move_bar, (0,160))
     screen.blit(hp_bar, (120,113))
     screen.blit(level_text, (235, 124))
@@ -64,9 +64,9 @@ def render2_status_screen(screen, background, icon1, icon2, icon3, icon4, icon5,
     screen.blit(icon4, (255,80))
     screen.blit(icon5, (343,80))
     screen.blit(icon6, (430,80))
-def render1_attack_menu_bar(screen, background, player1_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
+def render1_attack_menu_bar(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
     screen.blit(background, (0,0))
-    screen.blit(player1_sprite, (5,110))
+    screen.blit(player_sprite, (5,110))
     screen.blit(enemy_sprite, (150,50))
     screen.blit(move_bar, (0,160))
     screen.blit(hp_bar, (120,113))
@@ -78,9 +78,9 @@ def render1_attack_menu_bar(screen, background, player1_sprite, enemy_sprite, mo
     screen.blit(pokemon1_max_hp, (215, 144))
     screen.blit(pokemon1_current_hp, (195, 144))
     screen.blit(move_text,(8, 163))
-def render1_after_attack_physical(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
+def render1_after_attack_physical(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
     screen.blit(background, (0,0))
-    screen.blit(player1_sprite, (5,110))
+    screen.blit(player_sprite, (5,110))
     screen.blit(enemy_sprite, (150,50))
     screen.blit(system_bar, (0,160))
     screen.blit(hp_bar, (120,113))
@@ -96,9 +96,9 @@ def render1_after_attack_physical(screen, background, player1_sprite, enemy_spri
     screen.blit(Player_pokemon_name, (150, 125))
     screen.blit(pokemon1_max_hp, (215, 144))
     screen.blit(pokemon1_current_hp, (195, 144))
-def render_moves(screen, background, player1_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
+def render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
     screen.blit(background, (0,0))
-    screen.blit(player1_sprite, (5,110))
+    screen.blit(player_sprite, (5,110))
     screen.blit(enemy_sprite, (150,50))
     screen.blit(move_bar, (0,160))
     screen.blit(hp_bar, (120,113))
@@ -162,9 +162,9 @@ def render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_ba
     screenB.blit(Enemy_name, (390, 125))
     screenB.blit(enemy_max_hp, (472, 143))
     screenB.blit(enemy_current_hp, (452, 143))
-def render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
+def render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
     screen.blit(background, (0,0))
-    screen.blit(player1_sprite, (5,110))
+    screen.blit(player_sprite, (5,110))
     screen.blit(enemy_sprite, (150,50))
     screen.blit(system_bar, (0,160))
     screen.blit(hp_bar, (120,113))
@@ -184,7 +184,6 @@ def render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar,
 def local_host_play(player1, player2):
     # Checks to see that the pokemons have attacked yet
     pygame.init()
-    print(os.getcwd())
     with open("battle_system/battle_code/config/game_config.json", "r") as loop:
                 gameconfig = json.load(loop)
     
@@ -204,7 +203,6 @@ def local_host_play(player1, player2):
                 player2_data = json.load(loop)
     player = player_data(player1, player2_data["Pokemon1"][8])
     opponent = player_data(player2, player1_data["Pokemon1"][9])
-    print(player.enemy_sprite)
     # Work in progress to make more OOP
     # with open("battle_system/pokemon_data/" + enemy_pokemon6_data + ".json", "r") as loop:
     #                     mon_file = json.load(loop)
@@ -227,10 +225,8 @@ def local_host_play(player1, player2):
         background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "afternoon")
 
     player_sprite_string = opponent.enemy_sprite
-    print(player_sprite_string)
     player_sprite =  pygame.image.load(player_sprite_string).convert_alpha()  
     enemy_sprite_string = player.enemy_sprite
-    print(player_sprite_string)
     enemy_sprite =  pygame.image.load(enemy_sprite_string).convert_alpha()
     background = pygame.image.load(background).convert_alpha()
     system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
@@ -318,7 +314,7 @@ def local_host_play(player1, player2):
                 if mx in range(3, 58) and my in range(164, 172):
                     # Going to make the below rendering into a method to make it a bit tidier
                     if(isPokemon1 == True):
-                        Move1 = player1_data["Pokemon1"][1]
+                        Move1 = player.pokemon1[1]
                         with open("battle_system/move_data/" + Move1 + ".json", "r") as loop:
                             move1 = json.load(loop)
                         
@@ -332,15 +328,15 @@ def local_host_play(player1, player2):
                                 enemy_current_health -= damage
                                 screen.fill(pygame.Color("black")) # erases the entire screen surface
                                 pokemon1_current_hp = font.render(str(current_health), True, BLACK)
-                                move_text = font.render(player_pokemon_data + " attacks "+ enemy_pokemon_data + " with " + Move1 + " dealing " +str(damage) + " damage", True, BLACK)
-                                render1_attack_menu_bar(screen, background, player1_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text)
+                                move_text = font.render(player.pokemon1[0] + " attacks "+ opponent.pokemon1[0] + " with " + Move1 + " dealing " +str(damage) + " damage", True, BLACK)
+                                render1_attack_menu_bar(screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text)
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
-                                what_will_you_do_textB = font.render(enemy_pokemon_data + " was dealt " + str(damage) + " damage from " + player_pokemon_data + "'s " + Move1, True, BLACK)
+                                what_will_you_do_textB = font.render(opponent.pokemon1[0] + " was dealt " + str(damage) + " damage from " + player.pokemon1[0] + "'s " + Move1, True, BLACK)
                                 render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
                                 
                                 screenB.fill(pygame.Color("black"))
-                                what_will_you_do_textB = font.render("What will " + enemy_pokemon_data + " do?", True, BLACK)
-                                render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                                what_will_you_do_textB = font.render("What will " + opponent.pokemon1[0] + " do?", True, BLACK)
+                                render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                                 render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
                                 print("Total hp is: " + str(enemy_current_health))
                                 print("There's still health to go after!")
@@ -348,17 +344,17 @@ def local_host_play(player1, player2):
                                 screenB.fill(pygame.Color("black")) # erases the entire screen surface
                                 enemy_current_health = 0
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
-                                move_text = font.render(enemy_pokemon_data + " has fainted! Now awaiting for next pokemon", True, BLACK)
-                                render_pokemon_fainted(screen, background, player1_sprite, move_attack_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text)
-                                render2_status_screen(screenB, status_screen, enemy_pokemon_icon, enemy_pokemon_icon_2, enemy_pokemon_icon_3, enemy_pokemon_icon_4, enemy_pokemon_icon_5, enemy_pokemon_icon_6)
-                                print(enemy_pokemon_data + " has fainted!")
+                                move_text = font.render(opponent.pokemon1[0] + " has fainted! Now awaiting for next pokemon", True, BLACK)
+                                render_pokemon_fainted(screen, background, player_sprite, move_attack_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text)
+                                #render2_status_screen(screenB, status_screen, enemy_pokemon_icon, enemy_pokemon_icon_2, enemy_pokemon_icon_3, enemy_pokemon_icon_4, enemy_pokemon_icon_5, enemy_pokemon_icon_6)
+                                print(opponent.pokemon1[0] + " has fainted!")
                         if(status == "Status-effect"):
                             print(Move1 + " causes a status, no damage taken!")
                             pokemon1_attack = True
                             
                 if mx in range(63, 122) and my in range(162, 173):
                     if(isPokemon1 == True):
-                        Move2 = player1_data["Pokemon1"][2]
+                        Move2 = player.pokemon1[2]
                         with open("battle_system/move_data/" + Move2 + ".json", "r") as loop:
                             move2 = json.load(loop)
                         
@@ -372,10 +368,10 @@ def local_host_play(player1, player2):
                                 enemy_current_health -= damage
                                 screen.fill(pygame.Color("black")) # erases the entire screen surface
                                 pokemon1_current_hp = font.render(str(current_health), True, BLACK)
-                                render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                                render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
                                 render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text,  Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
-                                render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                                render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                                 print("Total hp is: " + str(enemy_current_health))
                                 print("There's still health to go after!")
                             if(enemy_current_health <= 0):
@@ -389,7 +385,7 @@ def local_host_play(player1, player2):
                             pokemon1_attack = True
                 if mx in range(2, 58) and my in range(177, 187):
                     if(isPokemon1 == True):
-                        Move3 = player1_data["Pokemon1"][3]
+                        Move3 = player.pokemon1[3]
                         with open("battle_system/move_data/" + Move3 + ".json", "r") as loop:
                             move3 = json.load(loop)
                         
@@ -403,7 +399,7 @@ def local_host_play(player1, player2):
                                 enemy_current_health -= damage
                                 screen.fill(pygame.Color("black")) # erases the entire screen surface
                                 pokemon1_current_hp = font.render(str(current_health), True, BLACK)
-                                render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                                render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
                                 render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
                                 print("Total hp is: " + str(enemy_current_health))
@@ -419,7 +415,7 @@ def local_host_play(player1, player2):
                             pokemon1_attack = True
                 if mx in range(65, 121) and my in range(184, 191):
                     if(isPokemon1 == True):
-                        Move4 = player1_data["Pokemon1"][4]
+                        Move4 = player.pokemon1[4]
                         with open("battle_system/move_data/" + Move4 + ".json", "r") as loop:
                             move4 = json.load(loop)
                         
@@ -433,7 +429,7 @@ def local_host_play(player1, player2):
                                 enemy_current_health -= damage
                                 screen.fill(pygame.Color("black")) # erases the entire screen surface
                                 pokemon1_current_hp = font.render(str(current_health), True, BLACK)
-                                render1_screen(screen, background, player1_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
+                                render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, Enemy_Level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp)
                                 enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
                                 render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, FightB_option, PokemonB_option, BagB_option, QuitB_option, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
                                 print("Total hp is: " + str(enemy_current_health))
