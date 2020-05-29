@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from ui import main_menu, create_trainer
+from ui import main_menu, create_trainer, pvp_menu
 from PySide2 import QtWidgets, QtCore, QtGui
 from PySide2.QtMultimedia import QSound
 import json
@@ -9,6 +9,30 @@ from PySide2.QtWidgets import QMessageBox
 from battle_system import engine
 import time
 from pypresence import Presence
+import glob
+import socket
+class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
+    def __init__(self):
+        super(pvp_setup, self).__init__()
+        self.setupUi(self)
+        self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
+        self.data.clicked.connect(self.data_to_be_sent)
+        
+    def data_to_be_sent(self):
+        HOST = self.ip.text()  # The server's hostname or IP address
+        PORT = 65432        # The port used by the server
+        player, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            print("Hello, the ip is: " + HOST)
+            print("Now loading game...")
+            data = s.recv(1024)
+            # Hides the window
+            self.hide()
+            engine.server_host_play(player)
+            
+
+        
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -289,13 +313,17 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
         self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
+        self.pvp.clicked.connect(self.player_vs_player)
+        # Grabs all the files that are in trainer_data that are json files
+        list_of_files = glob.glob('trainer_data/*.json') 
+        # Grabs the one with the latest updates and saves it to the launcher
+        newest = max(list_of_files, key = os.path.getctime)
         try:
-            with open("trainer_data/aaa.json", "r") as loop:
+            with open(newest, "r") as loop:
                 dataBox = json.load(loop)
 
             self.trainer_name.setText(dataBox["Name"])
             self.trainer_image.setPixmap(dataBox["Image_url"])
-            
             pokemon1_data = dataBox["Pokemon1"][0]
             with open("battle_system/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
@@ -343,7 +371,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             # Displays total amount of time played on the save file
             self.time_played.setText(dataBox["Time_Spent"])
         except:
-            print("No trainer is available, go make one!")
+            print("")
     
     def load_trainer_data(self):
         trainer_file, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer profile"), self.tr("trainer_data"), self.tr("json (*.json)"))
@@ -354,8 +382,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.trainer_image.setPixmap(dataBox["Image_url"])
             
         pokemon1_data = dataBox["Pokemon1"][0]
-        #os.chdir("battle_system/pokemon_data/")
-        print(os.listdir())
+    
         with open("battle_system/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon1_icon = mon_file["Graphics"]["Image_dir"]
@@ -400,7 +427,14 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
 
         # Displays total amount of time played on the save file
         self.time_played.setText(dataBox["Time_Spent"])
-
+    def player_vs_player(self):
+        # Hides the window
+        self.hide()
+        # Opens the window
+        trainer = pvp_setup()
+        trainer.show()
+        trainer.exec_()
+        trainer.setWindowModality(QtCore.Qt.WindowModal)
     # Command for localhost
     def localhost_option(self):
         file1, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
