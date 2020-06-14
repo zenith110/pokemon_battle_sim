@@ -1,0 +1,79 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "556e79f0b798cc53a24cbc922fc85d5717b26c2b9c33065bcbcd087da43c2bb9"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pygame": {
+            "hashes": [
+                "sha256:17571a285e62429f5d46129862ae8a9b8dbf9541b66582d4f60a343618c0be73",
+                "sha256:1a341c6a73f0c7f57cd3d24e58ed015f0d4b77c84c7a048556ce708a32230eb6",
+                "sha256:3c3ac1f9903685b280236e7cb00acc7c151895430a8601ee29e40a8f2e25690d",
+                "sha256:3dda7d954c92a0f8c042c4f414416bd910045b4ed6390d8b90c8013db5e80efc",
+                "sha256:4271455547d41c59598aa40f425939cec1d158dccce1588e8657e36a073ba6ad",
+                "sha256:44cf6483466e739a04b8fef4308db040c33a9e97bd3f75835fd13c52c55ef2ef",
+                "sha256:5f77076c1991d7d5ff14da860fbc0251d357c140737f7e6e6c20249dc70501c2",
+                "sha256:814cb86c7b7ebe595fe1df867e48b0baefc58cb6d6f7dc76a8627817df827a35",
+                "sha256:8bfcb0f72606d37cc54f3f90302df24159850cf96c176fd959b52f72475382df",
+                "sha256:8ea02d61fe40b5d3feb9db186eecc925c426e889338bc2aed2996b4698f46400",
+                "sha256:935b1993fd1bf1543618df3891fb5c36be310a5a8415cb080721bd5762827bd2",
+                "sha256:96c8d5b99eb1bf321099d62d970622002aa170e6ceb3da652f60c2e82e78e2a1",
+                "sha256:a269db0c3876b5386497d4187246eaac0e5ccb5d97ca289965125dbe2ba94498",
+                "sha256:ade1ccc06f3ec07567eceac5407df8606233a34a6181c2889b0e8afa057b1515",
+                "sha256:aef37d5b7c92de8e3d3cb1beb154e5b825e447d1271b38bf4fbcab4ddf0afe4c",
+                "sha256:b12692160af44d1652e04d23ef1fa5864dd9463067753c7602b3268f135fd40d",
+                "sha256:cc0ff3eda290b24a2241d5c797a388b0c1e5240ebd1b6a3d67c1bc297ecb01bb",
+                "sha256:d1fd7189191998e30029c449174c5d33820f79cf2483571a2e53ee45074755c9",
+                "sha256:d26939cda57ba71da9e74f06effb5ed22de9fd1f7c130e143341cb43610f1bb3",
+                "sha256:dfe19aba8c76be842fc71849ec6a089b7fb957c6ee27a42eb2adc836bcbc2cbb",
+                "sha256:ed6dbcf6015c7413e39ecb567a5a5a41c1c01b87f31d521fa0b70f3c263b949b",
+                "sha256:f40862877e20c879bb53bab679f7d9266e6674f5bae02ad6227ffc0476acd567"
+            ],
+            "index": "pypi",
+            "version": "==2.0.0.dev4"
+        },
+        "pypresence": {
+            "hashes": [
+                "sha256:8eed4871d25f5c6bf52710bf2a9fe18601dc58c74726917e87c685de2e9151d9"
+            ],
+            "index": "pypi",
+            "version": "==4.0.0"
+        },
+        "pyside2": {
+            "hashes": [
+                "sha256:1478ea8a1ab5d8bc021ce41211933fbc238338fe70c02f7bcc2e80ea900dbf9e",
+                "sha256:2d72150f63025b9b55097c1a64d09da37ff9191f73f69237500dec7a4a130541",
+                "sha256:7c91a5074f3c60bac7e9336943a1dc9d5c8be8ab88a232dc55018e555dae81b2",
+                "sha256:ae8158d611a410c58091aa8baf24005894b4e3f40c63ff2482149481ad5395b4",
+                "sha256:de0220cc01a8bfdaa8ccd0fc934a1ead2aedca62b49b5fd4bdcdaba6f4585a03",
+                "sha256:f9099e49fb2d3571f5a81eb9ff281ce832ce8c333052e8175e2356b9c3e4a882"
+            ],
+            "index": "pypi",
+            "version": "==5.15.0"
+        },
+        "shiboken2": {
+            "hashes": [
+                "sha256:0826ce788fe55bce19a8f8a2c33d720a6ba8f59e1aab1fa9d7a53eceed3f3af5",
+                "sha256:19d5f715e5ae8a815a7f148a8614a3225dceee6fd9d5decaa7749657f0f7ccbe",
+                "sha256:41a9157fb9cc7e0c0747926b25c23c3f94d59d61736a6ff763ebc7acf6afc5cf",
+                "sha256:4b0904e0967356a36e80cde05981faa14c120141856d973ee983eac0b83633c0",
+                "sha256:5702e77ad5999ac45498c3cd47f5d078ce7406cf8dc8df74337b0cdc084bf762",
+                "sha256:a92c55363d5cd3cfdd6cd28dcf91e81a00a3aa5bb177d712817c09d26bd760db"
+            ],
+            "version": "==5.15.0"
+        }
+    },
+    "develop": {}
+}
