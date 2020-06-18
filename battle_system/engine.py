@@ -7,10 +7,11 @@ from pathlib import Path
 from pypresence import Presence
 import time
 from datetime import datetime
+from pygame.locals import *
+import sys
 # Creates our colors
 BLACK = (0, 0, 0)
 transparent = (0, 0, 0, 0)
-
 # Makes our basic player class
 class player_data(object):
     def __init__(self, player_data_file, enemy_sprite):
@@ -187,7 +188,6 @@ def render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_ba
     screenB.blit(enemy_current_hp, (452, 143))
 
 def render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, Fight_option, Pokemon_option, Bag_option, Quit_option, enemy_level, Enemy_name, Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp):
-    print("Hi, I'm blitting things")
     screen.blit(background, (0,0))
     screen.blit(player_sprite, (5,110))
     screen.blit(enemy_sprite, (150,50))
@@ -205,6 +205,7 @@ def render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, 
     screen.blit(Player_pokemon_name, (150, 125))
     screen.blit(pokemon1_max_hp, (215, 144))
     screen.blit(pokemon1_current_hp, (195, 144))
+    
 
 # Does all of our move logic
 def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text, screenB, backgroundB, playerB_sprite, enemyB_sprite, move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, enemy_nameB, player_pokemon_nameB, enemy_max_hp, enemy_current_hp):
@@ -256,8 +257,8 @@ def move_selection_option_player(screen, num_of_pokemon, font):
     move_4 = font.render(num_of_pokemon[4],True, BLACK)
     screen.blit(move_4, (65,180))
 
-def server_host_play(player1):
-    print("Game is loading up")
+# def server_host_play(player1):
+#     #print("Game is loading up")
 
 def local_host_play(player1, player2):
     # Checks to see that the pokemons have attacked yet
@@ -285,7 +286,7 @@ def local_host_play(player1, player2):
 
     now = datetime.now()
     current_time = now.strftime("%H")
-    print("Current Time =", current_time)
+    
 
     if int(current_time) >= 18  or int(current_time) >= 1 and int(current_time) < 7:
         background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "night")
@@ -311,7 +312,6 @@ def local_host_play(player1, player2):
     what_will_you_do_text = font.render("What will " + player.pokemon1[0] + " do?", True, BLACK)
     level_text = font.render(str(player.pokemon1[5]), True, BLACK)
     fight_option = font.render("FIGHT", True, BLACK)
-    fight_rec = fight_option.get_rect()
     pokemon_option = font.render("POKEéMON", True, BLACK)
     bag_option = font.render("BAG", True, BLACK)
     quit_option = font.render("QUIT", True, BLACK)
@@ -322,15 +322,19 @@ def local_host_play(player1, player2):
     pokemon_current_hp = font.render(str(player.pokemon1[7]), True, BLACK)
 
     render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, fight_option, pokemon_option, bag_option, quit_option, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
+    fight_rec1 = Rect(130, 165, 20, 10)
+    pokemon_rect1 = Rect(130, 180, 20, 10)
+    bag_rect1 = Rect(195, 165, 20, 10)
+    quit_rect1 = Rect(195, 180, 20, 10)
     
     music_string = select_music('battle_system/battle_code/resources/music/')
     pygame.mixer.music.load(music_string)
     pygame.mixer.music.play(-1)
-    print("hi, playing music")
+    
 
     # Begins the second window
     playerB_sprite_string = player.pokemon1[13]
-    print(playerB_sprite_string)
+    
     playerB_sprite =  pygame.image.load(playerB_sprite_string).convert_alpha() 
 
     enemyB_sprite_string = opponent.pokemon1[14]
@@ -351,7 +355,10 @@ def local_host_play(player1, player2):
     enemy_current_hp = font.render(str(opponent.pokemon1[7]), True, BLACK)
     enemy_max_hp = font.render(str(opponent.pokemon1[7]), True, BLACK)
     render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
-    print("Now rendering the screen")
+    fight_rec2 = Rect(380, 165, 20, 10)
+    pokemon_rect2 = Rect(380, 180, 20, 10)
+    bag_rect2 = Rect(450, 165, 20, 10)
+    quit_rect2 = Rect(450, 180, 20, 10)
     # The loop will carry on until the user exit the game (e.g. clicks the close button).
     carryOn = True
     isPokemon1 = True
@@ -367,21 +374,46 @@ def local_host_play(player1, player2):
             
         # --- Game logic should go here
         # Will be rewritten
-            pos = pygame.mouse.get_pos()
+            mouse_pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my = pygame.mouse.get_pos()
-                screen.fill(pygame.Color("black")) # erases the entire screen surface
-                render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
-                move_selection_option_player(screen, player.pokemon1, font)
-                render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
+                if fight_rec1.collidepoint(mouse_pos):
+                    print("Hi, fight been selected!")
+                    screen.fill(pygame.Color("black"))
+                    render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
+                    move_selection_option_player(screen, player.pokemon1, font)
+                    # Player's moves
+                    move1_rect1 = Rect(4,165, 50, 50)
+                    move2_rect1 = Rect(4,180, 50, 50)
+                    move3_rect1 = Rect(65,165, 50, 50)
+                    move4_rect1 = Rect(65,180, 50, 50)
 
+                    if move1_rect1.collidepoint(mouse_pos):
+                        print("Move 1 is currently being used!")
+                elif bag_rect1.collidepoint(mouse_pos):
+                    print("Bag has been selected")
 
-                if mx in range(195, 250) and my in range(164, 175):
-                    print("mouse is over 'bag option'")
-                if mx in range(128, 191) and my in range(180, 187):
-                    print("mouse is over 'pokemon option'")
-                if mx in range(194, 250) and my in range(183, 187):
-                    print("mouse is over 'quit option'")
+                elif quit_rect1.collidepoint(mouse_pos):
+                    pygame.quit()
+                    sys.exit()
+                elif fight_rec2.collidepoint(mouse_pos):
+                    print("Hi, fight been selected on the otherside!")
+                    screen.fill(pygame.Color("black"))
+                    render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
+                    # Enemey moves moves
+                    # move1_rect2 = Rect(4,165, 50, 50)
+                    # move2_rect2 = Rect(4,180, 50, 50)
+                    # move3_rect2 = Rect(65,165, 50, 50)
+                    # move4_rect2 = Rect(65,180, 50, 50)
+
+                    # if move1_rect2.collidepoint(mouse_pos):
+                    #     print("Move 1 is currently being used!")
+
+                elif bag_rect2.collidepoint(mouse_pos):
+                    print("Bag has been selected")
+
+                elif quit_rect2.collidepoint(mouse_pos):
+                    pygame.quit()
+                    sys.exit()         
                     
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
