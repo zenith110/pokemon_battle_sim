@@ -247,7 +247,7 @@ def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, b
                 print(move_name + " causes a status, no damage taken!")
 
 # Loads our menu whenever we click fight on the player side
-def move_selection_option_player(screen, num_of_pokemon, font):
+def move_selection_option_player(screen, num_of_pokemon, font, mouse_pos):
     move_1 = font.render(num_of_pokemon[1],True, BLACK)
     screen.blit(move_1, (4,165))
     move_2 = font.render(num_of_pokemon[2],True, BLACK)
@@ -256,6 +256,14 @@ def move_selection_option_player(screen, num_of_pokemon, font):
     screen.blit(move_3, (65,165))
     move_4 = font.render(num_of_pokemon[4],True, BLACK)
     screen.blit(move_4, (65,180))
+    # Player's moves
+    move1_rect1 = Rect(4,165, 50, 50)
+    move2_rect1 = Rect(4,180, 50, 50)
+    move3_rect1 = Rect(65,165, 50, 50)
+    move4_rect1 = Rect(65,180, 50, 50)
+
+    if move1_rect1.collidepoint(mouse_pos):
+        print(num_of_pokemon[1] + "is currently being used!")
 
 # def server_host_play(player1):
 #     #print("Game is loading up")
@@ -380,15 +388,8 @@ def local_host_play(player1, player2):
                     print("Hi, fight been selected!")
                     screen.fill(pygame.Color("black"))
                     render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
-                    move_selection_option_player(screen, player.pokemon1, font)
-                    # Player's moves
-                    move1_rect1 = Rect(4,165, 50, 50)
-                    move2_rect1 = Rect(4,180, 50, 50)
-                    move3_rect1 = Rect(65,165, 50, 50)
-                    move4_rect1 = Rect(65,180, 50, 50)
-
-                    if move1_rect1.collidepoint(mouse_pos):
-                        print("Move 1 is currently being used!")
+                    move_selection_option_player(screen, player.pokemon1, font, mouse_pos)
+                    
                 elif bag_rect1.collidepoint(mouse_pos):
                     print("Bag has been selected")
 
@@ -405,8 +406,7 @@ def local_host_play(player1, player2):
                     # move3_rect2 = Rect(65,165, 50, 50)
                     # move4_rect2 = Rect(65,180, 50, 50)
 
-                    # if move1_rect2.collidepoint(mouse_pos):
-                    #     print("Move 1 is currently being used!")
+                    
 
                 elif bag_rect2.collidepoint(mouse_pos):
                     print("Bag has been selected")
