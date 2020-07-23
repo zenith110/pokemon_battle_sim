@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 from ui import main_menu, create_trainer, pvp_menu
 from PySide2 import QtWidgets, QtCore, QtGui
-from PySide2.QtMultimedia import QSound
 import json
 import os
 import filecmp
 from PySide2.QtWidgets import QMessageBox
-from battle_system import engine
+from battle_system import engine, trainer_data
 import time
 from pypresence import Presence
 import glob
 import socket
 import math
+
 class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(pvp_setup, self).__init__()
@@ -32,8 +32,6 @@ class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             self.hide()
             engine.server_host_play(player)
             
-
-        
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -46,10 +44,10 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         self.pokemon5_combo.setCurrentIndex(-1)
         self.pokemon6_combo.setCurrentIndex(-1)
         self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
+        
         # Loops through the pokemon list to parse the contents
         with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
-            
             # Loops to grab the data from the JSON objects
             for i in dataBox["Name"]:
                 self.pokemon1_combo.addItem(i)
@@ -65,192 +63,10 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         self.pokemon4_combo.currentTextChanged.connect(self.add_moves_pokemon4)
         self.pokemon5_combo.currentTextChanged.connect(self.add_moves_pokemon5)
         self.pokemon6_combo.currentTextChanged.connect(self.add_moves_pokemon6)
+
+    # Saves data based upon user's input into a json file
     def save_data(self):
-        name = self.name.text()
-        image, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer sprite"), self.tr("graphics/trainer_sprite/"), self.tr("Image (*.png)"))
-        
-        pokemon1_name = self.pokemon1_combo.currentText()
-        pokemon1_move1 = self.pokemon1_move1.currentText()
-        pokemon1_move2 = self.pokemon1_move2.currentText()
-        pokemon1_move3 = self.pokemon1_move3.currentText()
-        pokemon1_move4 = self.pokemon1_move4.currentText()
-        pokemon1_level = self.pokemon1_level.value()
-        pokemon1_item = self.pokemon1_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon1_name + ".json", "r") as loop:
-                    mon_file = json.load(loop)
-        # Formula = BaseStat × 2 + 204
-        pokemon1_base_hp = mon_file["Stats"]["HP"]
-        pokemon1_base_attack = mon_file["Stats"]["Attack"]
-        pokemon1_base_defense = mon_file["Stats"]["Defense"]
-        pokemon1_base_sp_atk = mon_file["Stats"]["Sp. Atk"]
-        pokemon1_base_sp_def = mon_file["Stats"]["Sp. Def"]
-        pokemon1_base_speed = mon_file["Stats"]["Speed"]
-        pokemon1_icon = mon_file["Graphics"]["Image_dir"] + "icon.png"
-        pokemon1_front = mon_file["Graphics"]["Image_dir"] + pokemon1_name + "_front.png"
-        pokemon1_back = mon_file["Graphics"]["Image_dir"] + pokemon1_name + "_back.png"
-
-        pokemon1_max_hp = math.floor(((2 * pokemon1_base_hp + 28 + 1) * (pokemon1_level / 100) + pokemon1_level + 10))
-        pokemon1_max_attack = math.floor((2 * pokemon1_base_attack + 4 + 0) * ((pokemon1_base_attack / 100) + 5) * 0.9)
-        pokemon1_max_defense = math.floor((2 * pokemon1_base_defense + 4 + 0) * ((pokemon1_base_defense / 100) + 5) * 0.9)
-        pokemon1_max_sp_atk = math.floor((2 * pokemon1_base_sp_atk + 4 + 0) * ((pokemon1_base_sp_atk / 100) + 5) * 0.9)
-        pokemon1_max_sp_def = math.floor((2 * pokemon1_base_sp_def + 4 + 0) * ((pokemon1_base_sp_def / 100) + 5) * 0.9)
-        pokemon1_max_speed = math.floor((2 * pokemon1_base_speed + 4 + 0) * ((pokemon1_base_speed / 100) + 5) * 0.9)
-        
-        pokemon2_name = self.pokemon2_combo.currentText()
-        pokemon2_move1 = self.pokemon2_move1.currentText()
-        pokemon2_move2 = self.pokemon2_move2.currentText()
-        pokemon2_move3 = self.pokemon2_move3.currentText()
-        pokemon2_move4 = self.pokemon2_move4.currentText()
-        pokemon2_level = self.pokemon2_level.value()
-        pokemon2_item = self.pokemon2_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon2_name + ".json", "r") as loop:
-                    mon_file = json.load(loop)
-        pokemon2_base_hp = mon_file["Stats"]["HP"]
-        pokemon2_base_attack = mon_file["Stats"]["Attack"]
-        pokemon2_base_defense = mon_file["Stats"]["Defense"]
-        pokemon2_base_sp_atk = mon_file["Stats"]["Sp. Atk"]
-        pokemon2_base_sp_def = mon_file["Stats"]["Sp. Def"]
-        pokemon2_base_speed = mon_file["Stats"]["Speed"]
-        pokemon2_icon = mon_file["Graphics"]["Image_dir"] + "icon.png"
-        pokemon2_front = mon_file["Graphics"]["Image_dir"] + pokemon2_name + "_front.png"
-        pokemon2_back = mon_file["Graphics"]["Image_dir"] + pokemon2_name + "_back.png"
-
-        pokemon2_max_hp = math.floor(((2 * pokemon2_base_hp + 28 + 1) * (pokemon2_level / 100) + pokemon2_level + 10))
-        pokemon2_max_attack = math.floor((2 * pokemon2_base_attack + 4 + 0) * ((pokemon2_base_attack / 100) + 5) * 0.9)
-        pokemon2_max_defense = math.floor((2 * pokemon2_base_defense + 4 + 0) * ((pokemon2_base_defense / 100) + 5) * 0.9)
-        pokemon2_max_sp_atk = math.floor((2 * pokemon2_base_sp_atk + 4 + 0) * ((pokemon2_base_sp_atk / 100) + 5) * 0.9)
-        pokemon2_max_sp_def = math.floor((2 * pokemon2_base_sp_def + 4 + 0) * ((pokemon2_base_sp_def / 100) + 5) * 0.9)
-        pokemon2_max_speed = math.floor((2 * pokemon2_base_speed + 4 + 0) * ((pokemon2_base_speed / 100) + 5) * 0.9)
-        
-        
-        pokemon3_name = self.pokemon3_combo.currentText()
-        pokemon3_move1 = self.pokemon3_move1.currentText()
-        pokemon3_move2 = self.pokemon3_move2.currentText()
-        pokemon3_move3 = self.pokemon3_move3.currentText()
-        pokemon3_move4 = self.pokemon3_move4.currentText()
-        pokemon3_level = self.pokemon3_level.value()
-        pokemon3_item = self.pokemon3_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon3_name + ".json", "r") as loop:
-                    mon_file = json.load(loop)
-        pokemon3_base_hp = mon_file["Stats"]["HP"]
-        pokemon3_base_attack = mon_file["Stats"]["Attack"]
-        pokemon3_base_defense = mon_file["Stats"]["Defense"]
-        pokemon3_base_sp_atk = mon_file["Stats"]["Sp. Atk"]
-        pokemon3_base_sp_def = mon_file["Stats"]["Sp. Def"]
-        pokemon3_base_speed = mon_file["Stats"]["Speed"]
-        pokemon3_icon = mon_file["Graphics"]["Image_dir"] + "icon.png"
-        pokemon3_front = mon_file["Graphics"]["Image_dir"] + pokemon3_name + "_front.png"
-        pokemon3_back = mon_file["Graphics"]["Image_dir"] + pokemon3_name + "_back.png"
-
-        pokemon3_max_hp = math.floor(((2 * pokemon3_base_hp + 28 + 1) * (pokemon3_level / 100) + pokemon3_level + 10))
-        pokemon3_max_attack = math.floor((2 * pokemon3_base_attack + 4 + 0) * ((pokemon3_base_attack / 100) + 5) * 0.9)
-        pokemon3_max_defense = math.floor((2 * pokemon3_base_defense + 4 + 0) * ((pokemon3_base_defense / 100) + 5) * 0.9)
-        pokemon3_max_sp_atk = math.floor((2 * pokemon3_base_sp_atk + 4 + 0) * ((pokemon3_base_sp_atk / 100) + 5) * 0.9)
-        pokemon3_max_sp_def = math.floor((2 * pokemon3_base_sp_def + 4 + 0) * ((pokemon3_base_sp_def / 100) + 5) * 0.9)
-        pokemon3_max_speed = math.floor((2 * pokemon3_base_speed + 4 + 0) * ((pokemon3_base_speed / 100) + 5) * 0.9)
-        
-        
-        pokemon4_name = self.pokemon4_combo.currentText()
-        pokemon4_move1 = self.pokemon4_move1.currentText()
-        pokemon4_move2 = self.pokemon4_move2.currentText()
-        pokemon4_move3 = self.pokemon4_move3.currentText()
-        pokemon4_move4 = self.pokemon4_move4.currentText()
-        pokemon4_level = self.pokemon4_level.value()
-        pokemon4_item = self.pokemon4_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon4_name + ".json", "r") as loop:
-                    mon_file = json.load(loop)
-
-        pokemon4_base_hp = mon_file["Stats"]["HP"]
-        pokemon4_base_attack = mon_file["Stats"]["Attack"]
-        pokemon4_base_defense = mon_file["Stats"]["Defense"]
-        pokemon4_base_sp_atk = mon_file["Stats"]["Sp. Atk"]
-        pokemon4_base_sp_def = mon_file["Stats"]["Sp. Def"]
-        pokemon4_base_speed = mon_file["Stats"]["Speed"]
-        pokemon4_icon = mon_file["Graphics"]["Image_dir"] + "icon.png"
-        pokemon4_front = mon_file["Graphics"]["Image_dir"] + pokemon4_name + "_front.png"
-        pokemon4_back = mon_file["Graphics"]["Image_dir"] + pokemon4_name + "_back.png"
-
-        pokemon4_max_hp = math.floor(((2 * pokemon4_base_hp + 28 + 1) * (pokemon4_level / 100) + pokemon4_level + 10))
-        pokemon4_max_attack = math.floor((2 * pokemon4_base_attack + 4 + 0) * ((pokemon4_base_attack / 100) + 5) * 0.9)
-        pokemon4_max_defense = math.floor((2 * pokemon4_base_defense + 4 + 0) * ((pokemon4_base_defense / 100) + 5) * 0.9)
-        pokemon4_max_sp_atk = math.floor((2 * pokemon4_base_sp_atk + 4 + 0) * ((pokemon4_base_sp_atk / 100) + 5) * 0.9)
-        pokemon4_max_sp_def = math.floor((2 * pokemon4_base_sp_def + 4 + 0) * ((pokemon4_base_sp_def / 100) + 5) * 0.9)
-        pokemon4_max_speed = math.floor((2 * pokemon4_base_speed + 4 + 0) * ((pokemon4_base_speed / 100) + 5) * 0.9)
-
-        
-        
-        
-        pokemon5_name = self.pokemon5_combo.currentText()
-        pokemon5_move1 = self.pokemon5_move1.currentText()
-        pokemon5_move2 = self.pokemon5_move2.currentText()
-        pokemon5_move3 = self.pokemon5_move3.currentText()
-        pokemon5_move4 = self.pokemon5_move4.currentText()
-        pokemon5_level = self.pokemon5_level.value()
-        pokemon5_item = self.pokemon5_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon5_name + ".json", "r") as loop:
-                    mon_file = json.load(loop)
-        pokemon5_base_hp = mon_file["Stats"]["HP"]
-        pokemon5_base_attack = mon_file["Stats"]["Attack"]
-        pokemon5_base_defense = mon_file["Stats"]["Defense"]
-        pokemon5_base_sp_atk = mon_file["Stats"]["Sp. Atk"]
-        pokemon5_base_sp_def = mon_file["Stats"]["Sp. Def"]
-        pokemon5_base_speed = mon_file["Stats"]["Speed"]
-        pokemon5_icon = mon_file["Graphics"]["Image_dir"] + "icon.png"
-        pokemon5_front = mon_file["Graphics"]["Image_dir"] + pokemon5_name + "_front.png"
-        pokemon5_back = mon_file["Graphics"]["Image_dir"] + pokemon5_name + "_back.png"
-
-        pokemon5_max_hp = math.floor(((2 * pokemon5_base_hp + 28 + 1) * (pokemon1_level / 100) + pokemon1_level + 10))
-        pokemon5_max_attack = math.floor((2 * pokemon5_base_attack + 4 + 0) * ((pokemon1_base_attack / 100) + 5) * 0.9)
-        pokemon5_max_defense = math.floor((2 * pokemon5_base_defense + 4 + 0) * ((pokemon5_base_defense / 100) + 5) * 0.9)
-        pokemon5_max_sp_atk = math.floor((2 * pokemon5_base_sp_atk + 4 + 0) * ((pokemon5_base_sp_atk / 100) + 5) * 0.9)
-        pokemon5_max_sp_def = math.floor((2 * pokemon5_base_sp_def + 4 + 0) * ((pokemon5_base_sp_def / 100) + 5) * 0.9)
-        pokemon5_max_speed = math.floor((2 * pokemon5_base_speed + 4 + 0) * ((pokemon5_base_speed / 100) + 5) * 0.9)
-        
-        
-        pokemon6_name = self.pokemon6_combo.currentText()
-        pokemon6_move1 = self.pokemon6_move1.currentText()
-        pokemon6_move2 = self.pokemon6_move2.currentText()
-        pokemon6_move3 = self.pokemon6_move3.currentText()
-        pokemon6_move4 = self.pokemon6_move4.currentText()
-        pokemon6_level = self.pokemon6_level.value()
-        pokemon6_item = self.pokemon6_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon6_name + ".json", "r") as loop:
-                    mon_file = json.load(loop)
-        pokemon6_base_hp = mon_file["Stats"]["HP"]
-        pokemon6_base_attack = mon_file["Stats"]["Attack"]
-        pokemon6_base_defense = mon_file["Stats"]["Defense"]
-        pokemon6_base_sp_atk = mon_file["Stats"]["Sp. Atk"]
-        pokemon6_base_sp_def = mon_file["Stats"]["Sp. Def"]
-        pokemon6_base_speed = mon_file["Stats"]["Speed"]
-        pokemon6_icon = mon_file["Graphics"]["Image_dir"] + "icon.png"
-        pokemon6_front = mon_file["Graphics"]["Image_dir"] + pokemon6_name + "_front.png"
-        pokemon6_back = mon_file["Graphics"]["Image_dir"] + pokemon6_name + "_back.png"
-
-        pokemon6_max_hp = math.floor(((2 * pokemon1_base_hp + 28 + 1) * (pokemon1_level / 100) + pokemon1_level + 10))
-        pokemon6_max_attack = math.floor((2 * pokemon6_base_attack + 4 + 0) * ((pokemon6_base_attack / 100) + 5) * 0.9)
-        pokemon6_max_defense = math.floor((2 * pokemon6_base_defense + 4 + 0) * ((pokemon6_base_defense / 100) + 5) * 0.9)
-        pokemon6_max_sp_atk = math.floor((2 * pokemon6_base_sp_atk + 4 + 0) * ((pokemon6_base_sp_atk / 100) + 5) * 0.9)
-        pokemon6_max_sp_def = math.floor((2 * pokemon6_base_sp_def + 4 + 0) * ((pokemon6_base_sp_def / 100) + 5) * 0.9)
-        pokemon6_max_speed = math.floor((2 * pokemon6_base_speed + 4 + 0) * ((pokemon6_base_speed / 100) + 5) * 0.9)
-        
-        data = {}
-        data["Name"] = name
-        data["Image_url"] = image
-        data["Time_Spent"] =  "0"
-        data["Pokemon1"] = [pokemon1_name, pokemon1_move1, pokemon1_move2, pokemon1_move3, pokemon1_move4, pokemon1_level, pokemon1_item, pokemon1_max_hp, pokemon1_max_attack, pokemon1_max_defense, pokemon1_max_sp_atk, pokemon1_max_sp_def, pokemon1_max_speed, pokemon1_front, pokemon1_back, pokemon1_icon]
-        data["Pokemon2"] = [pokemon2_name, pokemon2_move1, pokemon2_move2, pokemon2_move3, pokemon2_move4, pokemon2_level, pokemon2_item, pokemon2_max_hp, pokemon2_max_attack, pokemon2_max_defense, pokemon2_max_sp_atk, pokemon2_max_sp_def, pokemon2_max_speed, pokemon2_front, pokemon2_back, pokemon2_icon]
-        data["Pokemon3"] = [pokemon3_name, pokemon3_move1, pokemon3_move2, pokemon3_move3, pokemon3_move4, pokemon3_level, pokemon3_item, pokemon3_max_hp, pokemon3_max_attack, pokemon3_max_defense, pokemon3_max_sp_atk, pokemon3_max_sp_def, pokemon3_max_speed, pokemon3_front, pokemon3_back, pokemon3_icon]
-        data["Pokemon4"] = [pokemon4_name, pokemon4_move1, pokemon4_move2, pokemon4_move3, pokemon4_move4, pokemon4_level, pokemon4_item, pokemon4_max_hp, pokemon4_max_attack, pokemon4_max_defense, pokemon4_max_sp_atk, pokemon4_max_sp_def, pokemon4_max_speed, pokemon4_front, pokemon4_back, pokemon4_icon]
-        data["Pokemon5"] = [pokemon5_name, pokemon5_move1, pokemon5_move2, pokemon5_move3, pokemon5_move4, pokemon5_level, pokemon5_item, pokemon5_max_hp, pokemon5_max_attack, pokemon5_max_defense, pokemon5_max_sp_atk, pokemon5_max_sp_def, pokemon5_max_speed, pokemon5_front, pokemon5_back, pokemon5_icon]
-        data["Pokemon6"] = [pokemon6_name, pokemon6_move1, pokemon6_move2, pokemon6_move3, pokemon6_move4, pokemon6_level, pokemon6_item, pokemon6_max_hp, pokemon6_max_attack, pokemon6_max_defense, pokemon6_max_sp_atk, pokemon6_max_sp_def, pokemon6_max_speed, pokemon6_front, pokemon6_back, pokemon6_icon]
-        
-        
-        file = open("trainer_data/" + name + ".json", "w")
-
-        # Dumps the data to the file
-        json.dump(data, file, indent = 1)
-        file.close()
-       
+        trainer_data.pokemon_json_data(self)
         self.hide()
         main_window = main_menu()
         main_window.show()
@@ -267,7 +83,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                 with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
 
-                    pokemon1_image_file = mon_file["Graphics"]["Image_dir"]
+                    pokemon1_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon1_image_path = os.path.dirname(pokemon1_image_file)
                     self.pokemon1_image.setPixmap(os.path.join(pokemon1_image_path, i + "_front.png"))
                     for j in mon_file["Moves"]:
@@ -278,6 +94,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                     
                     for k in mon_file["Items"]:
                         self.pokemon1_item.addItem(k)
+    
     def add_moves_pokemon2(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
         with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
@@ -287,7 +104,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
             if index == i:
                 with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
-                    pokemon2_image_file = mon_file["Graphics"]["Image_dir"]
+                    pokemon2_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon2_image_path = os.path.dirname(pokemon2_image_file)
                     self.pokemon2_image.setPixmap(os.path.join(pokemon2_image_path, i + "_front.png"))
                     for j in mon_file["Moves"]:
@@ -298,6 +115,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                     
                     for k in mon_file["Items"]:
                         self.pokemon2_item.addItem(k)
+
     def add_moves_pokemon3(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
         with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
@@ -307,7 +125,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
             if index == i:
                 with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
-                    pokemon3_image_file = mon_file["Graphics"]["Image_dir"]
+                    pokemon3_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon3_image_path = os.path.dirname(pokemon3_image_file)
                     self.pokemon3_image.setPixmap(os.path.join(pokemon3_image_path, i + "_front.png"))
                     for j in mon_file["Moves"]:
@@ -318,6 +136,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                     
                     for k in mon_file["Items"]:
                         self.pokemon3_item.addItem(k)
+
     def add_moves_pokemon4(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
         with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
@@ -327,7 +146,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
             if index == i:
                 with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
-                    pokemon4_image_file = mon_file["Graphics"]["Image_dir"]
+                    pokemon4_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon4_image_path = os.path.dirname(pokemon4_image_file)
                     self.pokemon4_image.setPixmap(os.path.join(pokemon4_image_path, i + "_front.png"))
                     for j in mon_file["Moves"]:
@@ -338,6 +157,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                     
                     for k in mon_file["Items"]:
                         self.pokemon4_item.addItem(k)
+
     def add_moves_pokemon5(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
         with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
@@ -347,7 +167,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
             if index == i:
                 with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
-                    pokemon5_image_file = mon_file["Graphics"]["Image_dir"]
+                    pokemon5_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon5_image_path = os.path.dirname(pokemon5_image_file)
                     self.pokemon5_image.setPixmap(os.path.join(pokemon5_image_path, i + "_front.png"))
                     for j in mon_file["Moves"]:
@@ -358,6 +178,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
 
                     for k in mon_file["Items"]:
                         self.pokemon5_item.addItem(k)
+
     def add_moves_pokemon6(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
         with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
@@ -367,7 +188,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
             if index == i:
                 with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
-                    pokemon6_image_file = mon_file["Graphics"]["Image_dir"]
+                    pokemon6_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon6_image_path = os.path.dirname(pokemon6_image_file)
                     self.pokemon6_image.setPixmap(os.path.join(pokemon6_image_path, i + "_front.png"))
                     for j in mon_file["Moves"]:
@@ -385,7 +206,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setupUi(self)
         self.new_trainer.clicked.connect(self.new_trainer_creator)
         self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
-        self.localhost.clicked.connect(self.localhost_option)
+        # self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
         self.pvp.clicked.connect(self.player_vs_player)
         # Grabs all the files that are in trainer_data that are json files
@@ -398,52 +219,50 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
 
             self.trainer_name.setText(dataBox["Name"])
             self.trainer_image.setPixmap(dataBox["Image_url"])
-            pokemon1_data = dataBox["Pokemon1"][0]
+            pokemon1_data = dataBox["Pokemon1_Stats"][0]
             with open("battle_system/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
 
-            pokemon1_icon = mon_file["Graphics"]["Image_dir"]
+            pokemon1_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon1_icon_path = os.path.dirname(pokemon1_icon)
             self.pokemon_1.setPixmap(os.path.join(pokemon1_icon_path, 'icon.png'))
 
-            pokemon2_data = dataBox["Pokemon2"][0]
+            pokemon2_data = dataBox["Pokemon2_Stats"][0]
             with open("battle_system/pokemon_data/" + pokemon2_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
-            pokemon2_icon = mon_file["Graphics"]["Image_dir"]
+            pokemon2_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon2_icon_path = os.path.dirname(pokemon2_icon)
             self.pokemon_2.setPixmap(os.path.join(pokemon2_icon_path, 'icon.png'))
 
-            pokemon3_data = dataBox["Pokemon3"][0]
+            pokemon3_data = dataBox["Pokemon3_Stats"][0]
             with open("battle_system/pokemon_data/" + pokemon3_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
-            pokemon3_icon = mon_file["Graphics"]["Image_dir"]
+            pokemon3_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon3_icon_path = os.path.dirname(pokemon3_icon)
             self.pokemon_3.setPixmap(os.path.join(pokemon3_icon_path, 'icon.png'))
 
-            pokemon4_data = dataBox["Pokemon4"][0]
+            pokemon4_data = dataBox["Pokemon4_Stats"][0]
             with open("battle_system/pokemon_data/" + pokemon4_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
-            pokemon4_icon = mon_file["Graphics"]["Image_dir"]
+            pokemon4_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon4_icon_path = os.path.dirname(pokemon4_icon)
             self.pokemon_4.setPixmap(os.path.join(pokemon4_icon_path, 'icon.png'))
 
-            pokemon5_data = dataBox["Pokemon5"][0]
+            pokemon5_data = dataBox["Pokemon5_Stats"][0]
             with open("battle_system/pokemon_data/" + pokemon5_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
-            pokemon5_icon = mon_file["Graphics"]["Image_dir"]
+            pokemon5_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon5_icon_path = os.path.dirname(pokemon5_icon)
             self.pokemon_5.setPixmap(os.path.join(pokemon5_icon_path, 'icon.png'))
 
-            pokemon6_data = dataBox["Pokemon6"][0]
+            pokemon6_data = dataBox["Pokemon6_Stats"][0]
             with open("battle_system/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
             # Allows our icon to be found and displayed
-            pokemon6_icon = mon_file["Graphics"]["Image_dir"]
+            pokemon6_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon6_icon_path = os.path.dirname(pokemon6_icon)
             self.pokemon_6.setPixmap(os.path.join(pokemon6_icon_path, 'icon.png'))
 
-            # Displays total amount of time played on the save file
-            self.time_played.setText(dataBox["Time_Spent"])
         except:
             print("No data available...please create a trainer!")
     
@@ -459,35 +278,35 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
     
         with open("battle_system/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
-        pokemon1_icon = mon_file["Graphics"]["Image_dir"]
+        pokemon1_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon1_icon_path = os.path.dirname(pokemon1_icon)
         self.pokemon_1.setPixmap(os.path.join(pokemon1_icon_path, 'icon.png'))
 
         pokemon2_data = dataBox["Pokemon2"][0]
         with open("battle_system/pokemon_data/" + pokemon2_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
-        pokemon2_icon = mon_file["Graphics"]["Image_dir"]
+        pokemon2_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon2_icon_path = os.path.dirname(pokemon2_icon)
         self.pokemon_2.setPixmap(os.path.join(pokemon2_icon_path, 'icon.png'))
 
         pokemon3_data = dataBox["Pokemon3"][0]
         with open("battle_system/pokemon_data/" + pokemon3_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
-        pokemon3_icon = mon_file["Graphics"]["Image_dir"]
+        pokemon3_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon3_icon_path = os.path.dirname(pokemon3_icon)
         self.pokemon_3.setPixmap(os.path.join(pokemon3_icon_path, 'icon.png'))
 
         pokemon4_data = dataBox["Pokemon4"][0]
         with open("battle_system/pokemon_data/" + pokemon4_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
-        pokemon4_icon = mon_file["Graphics"]["Image_dir"]
+        pokemon4_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon4_icon_path = os.path.dirname(pokemon4_icon)
         self.pokemon_4.setPixmap(os.path.join(pokemon4_icon_path, 'icon.png'))
 
         pokemon5_data = dataBox["Pokemon5"][0]
         with open("battle_system/pokemon_data/" + pokemon5_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
-        pokemon5_icon = mon_file["Graphics"]["Image_dir"]
+        pokemon5_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon5_icon_path = os.path.dirname(pokemon5_icon)
         self.pokemon_5.setPixmap(os.path.join(pokemon5_icon_path, 'icon.png'))
         
@@ -495,12 +314,11 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         with open("battle_system/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         # Allows our icon to be found and displayed
-        pokemon6_icon = mon_file["Graphics"]["Image_dir"]
+        pokemon6_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon6_icon_path = os.path.dirname(pokemon6_icon)
         self.pokemon_6.setPixmap(os.path.join(pokemon6_icon_path, 'icon.png'))
 
-        # Displays total amount of time played on the save file
-        self.time_played.setText(dataBox["Time_Spent"])
+    # Pops open the window for PVP via networking
     def player_vs_player(self):
         # Hides the window
         self.hide()
@@ -509,18 +327,18 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         trainer.show()
         trainer.exec_()
         trainer.setWindowModality(QtCore.Qt.WindowModal)
-    # Command for localhost
-    def localhost_option(self):
-        file1, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
-        file2, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open second json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
-        if filecmp.cmp(file1, file2) == True:
-            print("These files are the same, we cannot use them in the battle system unfortuantely.")
-        else:
-            print("Now entering the local host battle system!")
-            self.hide()
-            engine.local_host_play(file1, file2)
-            
-            
+
+    # # Launches local host options
+    # def localhost_option(self):
+    #     file1, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
+    #     file2, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open second json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
+    #     if filecmp.cmp(file1, file2) == True:
+    #         print("These files are the same, we cannot use them in the battle system unfortuantely.")
+    #     else:
+    #         print("Now entering the local host battle system!")
+    #         self.hide()
+    #         engine.local_host_play(file1, file2)
+                
     def new_trainer_creator(self):
         # Hides the window
         self.hide()
