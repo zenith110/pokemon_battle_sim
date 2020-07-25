@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'app.ui',
 # licensing of 'app.ui' applies.
 #
-# Created: Sat Jul 18 13:02:06 2020
+# Created: Fri Jul 24 18:01:00 2020
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "MainWindow", None, -1))
+        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "Position Editor", None, -1))
         self.label.setText(QtWidgets.QApplication.translate("MainWindow", "Front_X", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("MainWindow", "Front_Y", None, -1))
         self.label_3.setText(QtWidgets.QApplication.translate("MainWindow", "Back_X", None, -1))

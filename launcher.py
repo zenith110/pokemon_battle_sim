@@ -206,7 +206,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setupUi(self)
         self.new_trainer.clicked.connect(self.new_trainer_creator)
         self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
-        # self.localhost.clicked.connect(self.localhost_option)
+        self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
         self.pvp.clicked.connect(self.player_vs_player)
         # Grabs all the files that are in trainer_data that are json files
@@ -328,16 +328,15 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         trainer.exec_()
         trainer.setWindowModality(QtCore.Qt.WindowModal)
 
-    # # Launches local host options
-    # def localhost_option(self):
-    #     file1, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
-    #     file2, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open second json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
-    #     if filecmp.cmp(file1, file2) == True:
-    #         print("These files are the same, we cannot use them in the battle system unfortuantely.")
-    #     else:
-    #         print("Now entering the local host battle system!")
-    #         self.hide()
-    #         engine.local_host_play(file1, file2)
+    # Launches local host options
+    def localhost_option(self):
+        file1, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
+        file2, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open second json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
+        if filecmp.cmp(file1, file2) == True:
+            print("These files are the same, we cannot use them in the battle system unfortuantely.")
+        else:
+            self.hide()
+            engine.local_host_play(file1, file2)
                 
     def new_trainer_creator(self):
         # Hides the window

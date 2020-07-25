@@ -9,6 +9,7 @@ import time
 from datetime import datetime
 from pygame.locals import *
 import sys
+
 # Creates our colors
 BLACK = (0, 0, 0)
 transparent = (0, 0, 0, 0)
@@ -166,19 +167,21 @@ def render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, 
     screen.blit(pokemon1_current_hp, (195, 144))
 
 # Does the status screen for the beginning
-def status_screen_beginning(player, opponent, carryOn):
-    player_icon1 = pygame.image.load(player.pokemon1_icon).convert_alpha()
-    player_icon2 = pygame.image.load(player.pokemon2_icon).convert_alpha()
-    player_icon3 = pygame.image.load(player.pokemon3_icon).convert_alpha()
-    player_icon4 = pygame.image.load(player.pokemon4_icon).convert_alpha()
-    player_icon5 = pygame.image.load(player.pokemon5_icon).convert_alpha()
-    player_icon6 = pygame.image.load(player.pokemon6_icon).convert_alpha()
-    enemy_icon1 = pygame.image.load(opponent.pokemon1_icon).convert_alpha()
-    enemy_icon2 = pygame.image.load(opponent.pokemon2_icon).convert_alpha()
-    enemy_icon3 = pygame.image.load(opponent.pokemon3_icon).convert_alpha()
-    enemy_icon4 = pygame.image.load(opponent.pokemon4_icon).convert_alpha()
-    enemy_icon5 = pygame.image.load(opponent.pokemon5_icon).convert_alpha()
-    enemy_icon6 = pygame.image.load(opponent.pokemon6_icon).convert_alpha()
+def status_screen_state(player, opponent, screen, background):
+    player_icon1 = pygame.image.load(player.pokemon1.icon).convert_alpha()
+    player_icon2 = pygame.image.load(player.pokemon2.icon).convert_alpha()
+    player_icon3 = pygame.image.load(player.pokemon3.icon).convert_alpha()
+    player_icon4 = pygame.image.load(player.pokemon4.icon).convert_alpha()
+    player_icon5 = pygame.image.load(player.pokemon5.icon).convert_alpha()
+    player_icon6 = pygame.image.load(player.pokemon6.icon).convert_alpha()
+
+    enemy_icon1 = pygame.image.load(opponent.pokemon1.icon).convert_alpha()
+    enemy_icon2 = pygame.image.load(opponent.pokemon2.icon).convert_alpha()
+    enemy_icon3 = pygame.image.load(opponent.pokemon3.icon).convert_alpha()
+    enemy_icon4 = pygame.image.load(opponent.pokemon4.icon).convert_alpha()
+    enemy_icon5 = pygame.image.load(opponent.pokemon5.icon).convert_alpha()
+    enemy_icon6 = pygame.image.load(opponent.pokemon6.icon).convert_alpha()
+
     screen.blit(background, (250,0))
     screen.blit(enemy_icon1, (255,0))
     screen.blit(enemy_icon2, (343,0))
@@ -186,6 +189,30 @@ def status_screen_beginning(player, opponent, carryOn):
     screen.blit(enemy_icon4, (255,80))
     screen.blit(enemy_icon5, (343,80))
     screen.blit(enemy_icon6, (430,80))
+
+    enemy_icon1_rect = Rect(255,0, 50, 50)
+    enemy_icon2_rect = Rect(94,0, 50, 50)
+    enemy_icon3_rect = Rect(180,0, 50, 50)
+    enemy_icon4_rect = Rect(5,80, 50, 50)
+    enemy_icon5_rect = Rect(94,80, 50, 50)
+    enemy_icon6_rect = Rect(180,80, 50, 50)
+
+    screen.blit(background, (0,0))
+    screen.blit(player_icon1, (5,0))
+    screen.blit(player_icon2, (94,0))
+    screen.blit(player_icon3, (180,0))
+    screen.blit(player_icon4, (5,80))
+    screen.blit(player_icon5, (94,80))
+    screen.blit(player_icon6, (180,80))
+
+    player_icon1_rect = Rect(5,0, 50, 50)
+    player_icon2_rect = Rect(94,0, 50, 50)
+    player_icon3_rect = Rect(180,0, 50, 50)
+    player_icon4_rect = Rect(5,80, 50, 50)
+    player_icon5_rect = Rect(94,80, 50, 50)
+    player_icon6_rect = Rect(180,80, 50, 50)
+    carryOn = True
+    clock = pygame.time.Clock()
     # -------- Main Program Loop -----------
     while carryOn:
     # --- Main event loop
@@ -196,19 +223,68 @@ def status_screen_beginning(player, opponent, carryOn):
         # --- Game logic should go here
         # Will be rewritten
             mouse_pos = pygame.mouse.get_pos()
+            opponent_pos = pygame.mouse.get_pos()
+            if pygame.key.get_pressed()[pygame.K_q]:
+                print("The quit key has been used!")
+                pygame.quit()
+                sys.exit() 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if fight_rec.collidepoint(mouse_pos):
-                    print("Hi, fight been selected!")
-                    screen.fill(pygame.Color("black"))
-                    render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
-                    move_selection_option_player(screen, player.pokemon1, font, mouse_pos)
-                    
-                elif bag_rect.collidepoint(mouse_pos):
-                    print("Bag has been selected")
+                """
+                Checks to see if we have no fainted pokemon, if we don't, add the pokemon to the list of current pokemon
+                """
+                if(len(player.pokemon_fainted) <= 0 and len(opponent.pokemon_fainted) <= 0):
+                    """
+                    Check if the mouse has clicked, and if we have any pokemons in our load out, if not, add pokemons. Only proceed if both players have pokemon
+                    """
+                    if(len(player.pokemon_in_use) <= 0):
+                        if player_icon1_rect.collidepoint(mouse_pos):
+                            player.pokemon_in_use.append(player.pokemon1)
+                            print(player.pokemon1.name + " has joined the party!\nNow waiting for second player!\n")
+                            
+                        elif player_icon2_rect.collidepoint(mouse_pos):
+                            player.pokemon_in_use.append(player.pokemon2)
+                            print(player.pokemon2.name + " has joined the party!\nNow waiting for second player!\n")
 
-                elif quit_rect.collidepoint(mouse_pos):
-                    pygame.quit()
-                    sys.exit()              
+                        elif player_icon3_rect.collidepoint(mouse_pos):
+                            player.pokemon_in_use.append(player.pokemon3)
+                            print(player.pokemon3.name + " has joined the party!\nNow waiting for second player!\n")
+
+                    elif(len(opponent.pokemon_in_use) <= 0):
+                        if(enemy_icon1_rect.collidepoint(mouse_pos)):
+                            opponent.pokemon_in_use.append(opponent.pokemon1)
+                            print(opponent.pokemon1.name + " has joined the party!\nNow waiting for first player!\n")
+                    else:
+                        print("\nBoth players have confirmed their choices!")
+                        print("Our first challengers are: " + str(player.pokemon_in_use[0].name) + " vs " + str(opponent.pokemon_in_use[0].name))
+                
+                # else:
+                #     for i in player.pokemon_defeated:
+                #         if(i == "Pokemon1"):
+                #             print("Pokemon1 is fainted, removing the option")
+                #         elif(i == "Pokemon2"):
+                #             print("hi")
+                #         elif(i == "Pokemon3"):
+                #             print("hi")
+                #         elif(i == "Pokemon4"):
+                #             print("hi")
+                #         elif(i == "Pokemon5"):
+                #             print("hi")
+                #         elif(i == "Pokemon6"):
+                #             print("hi")
+                #     for i in opponent.pokemon_defeated:
+                #         if(i == "Pokemon1"):
+                #             print("Pokemon1 is fainted, removing the option")
+                #         elif(i == "Pokemon2"):
+                #             print("hi")
+                #         elif(i == "Pokemon3"):
+                #             print("hi")
+                #         elif(i == "Pokemon4"):
+                #             print("hi")
+                #         elif(i == "Pokemon5"):
+                #             print("hi")
+                #         elif(i == "Pokemon6"):
+                #             print("hi"
+                
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
      
@@ -366,10 +442,9 @@ def start_game(player, opponent):
     pygame.display.set_caption("Pokemon Battle Sim")
     screenB = pygame.display.set_mode((500,195), 0, 32)
 
-    now = datetime.now()
-    current_time = now.strftime("%H")
-    # Start with status screen on both sides to get pokemon data and pass it in
-
+    # now = datetime.now()
+    # current_time = now.strftime("%H")
+    # # Start with status screen on both sides to get pokemon data and pass it in
     # if int(current_time) >= 18  or int(current_time) >= 1 and int(current_time) < 7:
     #     background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "night")
     # if int(current_time) >= 7 and int(current_time) <= 11:
@@ -381,29 +456,30 @@ def start_game(player, opponent):
     # system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
     # hp_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
     # enemy_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
-    # arrow = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/arrow.png").convert_alpha()
     # move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
     # move_attack_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
-    # status_screen = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/status_screen.png").convert_alpha()
-    
+    music_string = select_music('battle_system/battle_code/resources/music/')
+    pygame.mixer.music.load(music_string)
+    pygame.mixer.music.play(-1)
+    status_screen = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/status_screen.png").convert_alpha()
+    status_screen_state(player, opponent, screen, status_screen)
+    # font = pygame.font.SysFont('arial', 12)
     # fight_option = font.render("FIGHT", True, BLACK)
     # pokemon_option = font.render("POKEéMON", True, BLACK)
     # bag_option = font.render("BAG", True, BLACK)
-    # quit_option = font.render("QUIT", True, BLACK)]
-    # fight_rec1 = Rect(130, 165, 20, 10)
-    # pokemon_rect1 = Rect(130, 180, 20, 10)
-    # bag_rect1 = Rect(195, 165, 20, 10)
-    # quit_rect1 = Rect(195, 180, 20, 10)
-
-    # #render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, fight_option, pokemon_option, bag_option, quit_option, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
+    # quit_option = font.render("QUIT", True, BLACK)
     # fight_rec1 = Rect(130, 165, 20, 10)
     # pokemon_rect1 = Rect(130, 180, 20, 10)
     # bag_rect1 = Rect(195, 165, 20, 10)
     # quit_rect1 = Rect(195, 180, 20, 10)
     
-    # music_string = select_music('battle_system/battle_code/resources/music/')
-    # pygame.mixer.music.load(music_string)
-    # pygame.mixer.music.play(-1)
+    # render1_screen(screen, background, player.pokemon1.back, opponent.pokemon1.front, system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, fight_option, pokemon_option, bag_option, quit_option, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
+    # fight_rec1 = Rect(130, 165, 20, 10)
+    # pokemon_rect1 = Rect(130, 180, 20, 10)
+    # bag_rect1 = Rect(195, 165, 20, 10)
+    # quit_rect1 = Rect(195, 180, 20, 10)
+    
+    
     
     # # Begins the second window
     # fightB_option = font.render("FIGHT", True, BLACK)
@@ -415,7 +491,7 @@ def start_game(player, opponent):
     # bag_rect2 = Rect(450, 165, 20, 10)
     # quit_rect2 = Rect(450, 180, 20, 10)
 
-    # # render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
+    # render2_screen(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
     
     # # The loop will carry on until the user exit the game (e.g. clicks the close button).
     # carryOn = True
