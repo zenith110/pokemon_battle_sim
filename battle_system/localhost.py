@@ -255,7 +255,9 @@ def status_screen_state(player, opponent, screen, background):
                             print(opponent.pokemon1.name + " has joined the party!\nNow waiting for first player!\n")
                     else:
                         print("\nBoth players have confirmed their choices!")
-                        print("Our first challengers are: " + str(player.pokemon_in_use[0].name) + " vs " + str(opponent.pokemon_in_use[0].name))
+                        print("Pokemon sent out are: " + str(player.pokemon_in_use[0].name) + " vs " + str(opponent.pokemon_in_use[0].name))
+                        carryOn = False
+                        pokemon_player_battle_state(player.pokemon_in_use[0], opponent.pokemon_in_use[0], screen)
                 
                 # else:
                 #     for i in player.pokemon_defeated:
@@ -290,8 +292,9 @@ def status_screen_state(player, opponent, screen, background):
      
         # --- Limit to 60 frames per second
         clock.tick(60)
+
 # Does all of our move logic
-def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text, screenB, backgroundB, playerB_sprite, enemyB_sprite, move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, enemy_nameB, player_pokemon_nameB, enemy_max_hp, enemy_current_hp):
+def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, background,  move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, move_text, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB):
     with open("battle_system/move_data/" + move_name + ".json", "r") as loop:
                 move = json.load(loop)
                         
@@ -347,76 +350,107 @@ def move_selection_option_player(screen, num_of_pokemon, font, mouse_pos):
 
     if move1_rect1.collidepoint(mouse_pos):
         print(num_of_pokemon[1] + "is currently being used!")
-# State for the opponent pokemon
-def opponent_battle_state():
-    print("hi")
-    # playerB_sprite_string = player.pokemon1[13]
-    # playerB_sprite =  pygame.image.load(playerB_sprite_string).convert_alpha() 
-    # enemyB_sprite_string = opponent.pokemon1[14]
-    # enemyB_sprite =  pygame.image.load(enemyB_sprite_string).convert_alpha() 
-    # what_will_you_do_textB = font.render("What will " + opponent.pokemon1[0] + " do?", True, BLACK)
-    # enemy_icon1 = pygame.image.load(opponent.pokemon1_icon).convert_alpha()
-    # enemy_icon2 = pygame.image.load(opponent.pokemon2_icon).convert_alpha()
-    # enemy_icon3 = pygame.image.load(opponent.pokemon3_icon).convert_alpha()
-    # enemy_icon4 = pygame.image.load(opponent.pokemon4_icon).convert_alpha()
-    # enemy_icon5 = pygame.image.load(opponent.pokemon5_icon).convert_alpha()
-    # enemy_icon6 = pygame.image.load(opponent.pokemon6_icon).convert_alpha()
-    # enemy_current_hp = font.render(str(opponent.pokemon1[7]), True, BLACK)
-    # enemy_max_hp = font.render(str(opponent.pokemon1[7]), True, BLACK)
-# Used to signify the battle state
-# Loads in the pokemon that will be used by the player and does all the various actions in the battle
-def pokemon_player_battle_state(player, opponent):
-    # player_sprite_string = opponent.enemy_sprite
-    # player_sprite =  pygame.image.load(player_sprite_string).convert_alpha()
-    # enemy_sprite_string = player.enemy_sprite
-    # enemy_sprite =  pygame.image.load(enemy_sprite_string).convert_alpha()
-    # font = pygame.font.SysFont(None, 12)
-    # what_will_you_do_text = font.render("What will " + player.pokemon1[0] + " do?", True, BLACK)
-    # level_text = font.render(str(player.pokemon1[5]), True, BLACK)
-    # enemy_level = font.render(str(opponent.pokemon1[5]), True, BLACK)
-    # enemy_name = font.render(str(opponent.pokemon1[0]), True, BLACK)
-    # player_pokemon_name = font.render(str(player.pokemon1[0]), True, BLACK)
-    # pokemon_max_hp = font.render(str(player.pokemon1[7]), True, BLACK)
-    # pokemon_current_hp = font.render(str(player.pokemon1[7]), True, BLACK)
+"""
+Removes everything but the name of the background
+"""
+def background_trimmer(background):
+    trim = background.replace("battle_system/battle_code/resources/graphics/battle_backgrounds/", "")
+    trim = trim.replace(".png", "")
+    trim = trim[:1].upper() + trim[1:]
+    return trim
+
+def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
+    clock = pygame.time.Clock()
+    now = datetime.now()
+    current_time = now.strftime("%H")
+    """
+    Uses time and determines what background it will be based on keywords
+    """
+    if int(current_time) >= 18  or int(current_time) >= 1 and int(current_time) < 7:
+        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "Night")
+    if int(current_time) >= 7 and int(current_time) <= 11:
+        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "Morning")
+    if int(current_time) >= 12 and int(current_time) <= 17:
+        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "Afternoon")
+    background_stand_alone = background_trimmer(background)
+    with open("battle_system/pokemon_data/" + player_pokemon.name + ".json", "r") as loop:
+            player_data = json.load(loop)
+
+    with open("battle_system/pokemon_data/" + opponent_pokemon.name + ".json", "r") as loop:
+            opponent_data = json.load(loop)
+
+    player_background_front_x = player_data["Front_Position"][background_stand_alone + "_X_Pos"]
+    player_background_front_y = player_data["Front_Position"][background_stand_alone + "_Y_Pos"]
+    player_background_back_x = player_data["Back_Position"][background_stand_alone + "_X_Pos"]
+    player_background_back_y = player_data["Back_Position"][background_stand_alone + "_Y_Pos"]
+
+    opponent_background_front_x = opponent_data["Front_Position"][background_stand_alone + "_X_Pos"]
+    opponent_background_front_y = opponent_data["Front_Position"][background_stand_alone + "_Y_Pos"]
+    opponent_background_back_x = opponent_data["Back_Position"][background_stand_alone + "_X_Pos"]
+    opponent_background_back_y = opponent_data["Back_Position"][background_stand_alone + "_Y_Pos"]
+
+    background = pygame.image.load(background).convert_alpha()
+    system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
+    hp_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
+    enemy_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
+    move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
+    move_attack_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
+    font = pygame.font.SysFont('arial', 10)
+    fight_option = font.render("FIGHT", True, BLACK)
+    pokemon_option = font.render("POKEéMON", True, BLACK)
+    bag_option = font.render("BAG", True, BLACK)
+    quit_option = font.render("QUIT", True, BLACK)
+    enemy_name = font.render(opponent_pokemon.name, True, BLACK)
+    player_pokemon_name = font.render(player_pokemon.name, True, BLACK)
+    player_pokemon_max_hp = font.render(str(player_pokemon.HP), True, BLACK)
+    what_will_you_do = font.render("What will " + player_pokemon.name + " do?", True, BLACK)
+    player_pokemon_level = font.render(str(player_pokemon.level), True, BLACK)
     fight_rec = Rect(130, 165, 20, 10)
     pokemon_rect = Rect(130, 180, 20, 10)
     bag_rect = Rect(195, 165, 20, 10)
     quit_rect = Rect(195, 180, 20, 10)
 
+    player_sprite_back = pygame.image.load(player_pokemon.back)
+    opponent_sprite_front = pygame.image.load(opponent_pokemon.front)
     screen.blit(background, (0,0))
-    screen.blit(player_sprite, (5,110))
-    screen.blit(enemy_sprite, (150,50))
+    screen.blit(background, (250, 0))
+    screen.blit(player_sprite_back, (player_background_back_x,(player_background_back_y + 110)))
+    # screen.blit(opponent_sprite_front, (150,50))
+    screen.blit(opponent_sprite_front, ((150 + opponent_background_front_x),(50 + opponent_background_front_y)))
     screen.blit(system_bar, (0,160))
     screen.blit(hp_bar, (120,113))
     screen.blit(enemy_bar, (0,20))
-    screen.blit(what_will_you_do_text, (8, 163))
-    screen.blit(level_text, (235, 124))
-    screen.blit(Fight_option, (130, 165))
-    screen.blit(Pokemon_option, (130, 180))
-    screen.blit(Bag_option, (195, 165))
-    screen.blit(Quit_option, (195, 180))
-    screen.blit(enemy_level, (81, 32))
-    screen.blit(Enemy_name, (0, 30))
-    screen.blit(Player_pokemon_name, (150, 125))
-    screen.blit(pokemon1_max_hp, (215, 144))
-    screen.blit(pokemon1_current_hp, (195, 144))
-
+    screen.blit(what_will_you_do, (8, 163))
+    screen.blit(player_pokemon_level, (205, 124))
+    screen.blit(fight_option, (130, 165))
+    screen.blit(pokemon_option, (130, 180))
+    screen.blit(bag_option, (195, 165))
+    screen.blit(quit_option, (195, 180))
+    # screen.blit(enemy_level, (81, 32))
+    screen.blit(enemy_name, (0, 30))
+    screen.blit(player_pokemon_name, (150, 125))
+    screen.blit(player_pokemon_max_hp, (215, 142))
+    # screen.blit(pokemon_, (195, 144))
+    carryOn = True
     # -------- Main Program Loop -----------
     while carryOn:
     # --- Main event loop
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 carryOn = False # Flag that we are done so we exit this loop
-            
+            if pygame.key.get_pressed()[pygame.K_q]:
+                print("The quit key has been used!")
+                pygame.quit()
+                sys.exit() 
         # --- Game logic should go here
         # Will be rewritten
             mouse_pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if fight_rec.collidepoint(mouse_pos):
                     print("Hi, fight been selected!")
-                    screen.fill(pygame.Color("black"))
-                    render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
-                    move_selection_option_player(screen, player.pokemon1, font, mouse_pos)
+                    #screen.fill(pygame.Color("black"))
+                    #render_moves(screen, background, player_sprite, enemy_sprite, move_bar, hp_bar, enemy_bar,  level_text, enemy_level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp)
+                    #move_selection_option_player(screen, player.pokemon1, font, mouse_pos)
                     
                 elif bag_rect.collidepoint(mouse_pos):
                     print("Bag has been selected")

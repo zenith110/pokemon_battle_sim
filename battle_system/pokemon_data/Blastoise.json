@@ -6,7 +6,9 @@
         "Defense": 63,
         "Sp. Atk": 80,
         "Sp. Def": 80,
-        "Speed": 60
+        "Speed": 60,
+        "Type1": "Water",
+        "Type2": "NONE"
     },
     "Moves":
     {
