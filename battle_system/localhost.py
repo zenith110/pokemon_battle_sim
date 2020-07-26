@@ -20,7 +20,7 @@ def select_background(background_dir, time_tag):
 
 def select_music(string_of_music_dir):
     music_list = []
-    for path in Path(string_of_music_dir).rglob('*.wav'):
+    for path in Path(string_of_music_dir).rglob('*.ogg'):
         path = str(path).replace("\\", "/")
         music_list.append(str(path))
     music = random.choice(music_list)
@@ -380,15 +380,18 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
     with open("assets/pokemon_data/" + opponent_pokemon.name + ".json", "r") as loop:
             opponent_data = json.load(loop)
 
-    player_background_front_x = player_data["Front_Position"][background_stand_alone + "_X_Pos"]
+    player_background_front_x = player_data["Front_Position"][background_stand_alone + "_X_Pos"] 
     player_background_front_y = player_data["Front_Position"][background_stand_alone + "_Y_Pos"]
-    player_background_back_x = player_data["Back_Position"][background_stand_alone + "_X_Pos"]
-    player_background_back_y = player_data["Back_Position"][background_stand_alone + "_Y_Pos"]
+    player_background_back_x = player_data["Back_Position"][background_stand_alone + "_X_Pos"] - player_data["Back_Position"][background_stand_alone + "_X_Pos"]
+    player_background_back_y = player_data["Back_Position"][background_stand_alone + "_Y_Pos"] - player_data["Back_Position"][background_stand_alone + "_Y_Pos"] + 100 
+    
 
-    opponent_background_front_x = opponent_data["Front_Position"][background_stand_alone + "_X_Pos"]
-    opponent_background_front_y = opponent_data["Front_Position"][background_stand_alone + "_Y_Pos"]
+    opponent_background_front_x = opponent_data["Front_Position"][background_stand_alone + "_X_Pos"] - opponent_data["Front_Position"][background_stand_alone + "_X_Pos"] - 160
+    opponent_background_front_y = opponent_data["Front_Position"][background_stand_alone + "_Y_Pos"] - opponent_data["Front_Position"][background_stand_alone + "_Y_Pos"] + 75
     opponent_background_back_x = opponent_data["Back_Position"][background_stand_alone + "_X_Pos"]
     opponent_background_back_y = opponent_data["Back_Position"][background_stand_alone + "_Y_Pos"]
+
+    
 
     background = pygame.image.load(background).convert_alpha()
     system_bar = pygame.image.load("assets/resources/graphics/battle_ui/system_bar.png").convert_alpha()
@@ -403,21 +406,28 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
     quit_option = font.render("QUIT", True, BLACK)
     enemy_name = font.render(opponent_pokemon.name, True, BLACK)
     player_pokemon_name = font.render(player_pokemon.name, True, BLACK)
+
     player_pokemon_max_hp = font.render(str(player_pokemon.HP), True, BLACK)
+
     what_will_you_do = font.render("What will " + player_pokemon.name + " do?", True, BLACK)
     player_pokemon_level = font.render(str(player_pokemon.level), True, BLACK)
+    enemy_level = font.render(str(opponent_pokemon.level), True, BLACK)
     fight_rec = Rect(130, 165, 20, 10)
     pokemon_rect = Rect(130, 180, 20, 10)
     bag_rect = Rect(195, 165, 20, 10)
     quit_rect = Rect(195, 180, 20, 10)
 
+
     player_sprite_back = pygame.image.load(player_pokemon.back)
     opponent_sprite_front = pygame.image.load(opponent_pokemon.front)
     screen.blit(background, (0,0))
     screen.blit(background, (250, 0))
-    screen.blit(player_sprite_back, (player_background_back_x,(player_background_back_y + 110)))
-    # screen.blit(opponent_sprite_front, (150,50))
-    screen.blit(opponent_sprite_front, ((150 + opponent_background_front_x),(50 + opponent_background_front_y)))
+    screen.blit(player_sprite_back, (player_background_back_x ,player_background_back_y))
+    # print("player_background_front_x: " + str(player_background_front_x) + "\nplayer_background_front_y: " + str(player_background_front_y))
+    # print("player_background_back_x:" + str(player_background_back_x) + "\nplayer_background_back_y: " + str(player_background_back_y))
+    screen.blit(opponent_sprite_front, ((10 - opponent_background_front_x) , (opponent_background_front_y - 20)))
+    # print("opponent_background_front_x: " + str(opponent_background_front_x) + "\nopponent_background_front_y: " + str(opponent_background_front_y))
+    # print("opponent_background_back_x:" + str(opponent_background_back_x) + "\nopponent_background_back_y: " + str(opponent_background_back_y))
     screen.blit(system_bar, (0,160))
     screen.blit(hp_bar, (120,113))
     screen.blit(enemy_bar, (0,20))
@@ -427,7 +437,7 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
     screen.blit(pokemon_option, (130, 180))
     screen.blit(bag_option, (195, 165))
     screen.blit(quit_option, (195, 180))
-    # screen.blit(enemy_level, (81, 32))
+    screen.blit(enemy_level, (81, 32))
     screen.blit(enemy_name, (0, 30))
     screen.blit(player_pokemon_name, (150, 125))
     screen.blit(player_pokemon_max_hp, (215, 142))
