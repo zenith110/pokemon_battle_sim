@@ -204,13 +204,15 @@ def status_screen_state(player, opponent, screen, background):
     screen.blit(player_icon4, (5,80))
     screen.blit(player_icon5, (94,80))
     screen.blit(player_icon6, (180,80))
-
+    font = pygame.font.SysFont('arial', 15)
+    start_option = font.render("START", True, BLACK)
     player_icon1_rect = Rect(5,0, 50, 50)
     player_icon2_rect = Rect(94,0, 50, 50)
     player_icon3_rect = Rect(180,0, 50, 50)
     player_icon4_rect = Rect(5,80, 50, 50)
     player_icon5_rect = Rect(94,80, 50, 50)
     player_icon6_rect = Rect(180,80, 50, 50)
+    start_rec = Rect(220, 150, 50, 50)
     carryOn = True
     clock = pygame.time.Clock()
     # -------- Main Program Loop -----------
@@ -256,8 +258,10 @@ def status_screen_state(player, opponent, screen, background):
                     else:
                         print("\nBoth players have confirmed their choices!")
                         print("Pokemon sent out are: " + str(player.pokemon_in_use[0].name) + " vs " + str(opponent.pokemon_in_use[0].name))
-                        carryOn = False
-                        pokemon_player_battle_state(player.pokemon_in_use[0], opponent.pokemon_in_use[0], screen)
+                        screen.blit(start_option, (220,150))
+                        if start_rec.collidepoint(mouse_pos):
+                            carryOn = False
+                            pokemon_player_battle_state(player.pokemon_in_use[0], opponent.pokemon_in_use[0], screen)
                 
                 # else:
                 #     for i in player.pokemon_defeated:
