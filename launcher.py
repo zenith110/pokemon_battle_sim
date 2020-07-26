@@ -16,7 +16,7 @@ class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(pvp_setup, self).__init__()
         self.setupUi(self)
-        self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
         self.data.clicked.connect(self.data_to_be_sent)
         
     def data_to_be_sent(self):
@@ -46,7 +46,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
         
         # Loops through the pokemon list to parse the contents
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
             # Loops to grab the data from the JSON objects
             for i in dataBox["Name"]:
@@ -75,12 +75,12 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         
     def add_moves_pokemon1(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
         for i in dataBox["Name"]:
             # Checks if index matches the name, then opens up the file
             if index == i:
-                with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
+                with open("assets/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
 
                     pokemon1_image_file = mon_file["Resource_data"]["Image_dir"]
@@ -97,12 +97,12 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     
     def add_moves_pokemon2(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
         for i in dataBox["Name"]:
             # Checks if index matches the name, then opens up the file
             if index == i:
-                with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
+                with open("assets/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
                     pokemon2_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon2_image_path = os.path.dirname(pokemon2_image_file)
@@ -118,12 +118,12 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
 
     def add_moves_pokemon3(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
         for i in dataBox["Name"]:
             # Checks if index matches the name, then opens up the file
             if index == i:
-                with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
+                with open("assets/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
                     pokemon3_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon3_image_path = os.path.dirname(pokemon3_image_file)
@@ -139,12 +139,12 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
 
     def add_moves_pokemon4(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
         for i in dataBox["Name"]:
             # Checks if index matches the name, then opens up the file
             if index == i:
-                with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
+                with open("assets/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
                     pokemon4_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon4_image_path = os.path.dirname(pokemon4_image_file)
@@ -160,12 +160,12 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
 
     def add_moves_pokemon5(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
         for i in dataBox["Name"]:
             # Checks if index matches the name, then opens up the file
             if index == i:
-                with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
+                with open("assets/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
                     pokemon5_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon5_image_path = os.path.dirname(pokemon5_image_file)
@@ -181,12 +181,12 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
 
     def add_moves_pokemon6(self, index):
         # Opens json file so we can match the pokemon name and parse that pokemon file
-        with open("battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             dataBox = json.load(loop)
         for i in dataBox["Name"]:
             # Checks if index matches the name, then opens up the file
             if index == i:
-                with open("battle_system/pokemon_data/" + i + ".json", "r") as loop:
+                with open("assets/pokemon_data/" + i + ".json", "r") as loop:
                     mon_file = json.load(loop)
                     pokemon6_image_file = mon_file["Resource_data"]["Image_dir"]
                     pokemon6_image_path = os.path.dirname(pokemon6_image_file)
@@ -220,7 +220,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             self.trainer_name.setText(dataBox["Name"])
             self.trainer_image.setPixmap(dataBox["Image_url"])
             pokemon1_data = dataBox["Pokemon1_Stats"][0]
-            with open("battle_system/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
+            with open("assets/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
 
             pokemon1_icon = mon_file["Resource_data"]["Image_dir"]
@@ -228,35 +228,35 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             self.pokemon_1.setPixmap(os.path.join(pokemon1_icon_path, 'icon.png'))
 
             pokemon2_data = dataBox["Pokemon2_Stats"][0]
-            with open("battle_system/pokemon_data/" + pokemon2_data + ".json", "r") as loop:
+            with open("assets/pokemon_data/" + pokemon2_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
             pokemon2_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon2_icon_path = os.path.dirname(pokemon2_icon)
             self.pokemon_2.setPixmap(os.path.join(pokemon2_icon_path, 'icon.png'))
 
             pokemon3_data = dataBox["Pokemon3_Stats"][0]
-            with open("battle_system/pokemon_data/" + pokemon3_data + ".json", "r") as loop:
+            with open("assets/pokemon_data/" + pokemon3_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
             pokemon3_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon3_icon_path = os.path.dirname(pokemon3_icon)
             self.pokemon_3.setPixmap(os.path.join(pokemon3_icon_path, 'icon.png'))
 
             pokemon4_data = dataBox["Pokemon4_Stats"][0]
-            with open("battle_system/pokemon_data/" + pokemon4_data + ".json", "r") as loop:
+            with open("assets/pokemon_data/" + pokemon4_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
             pokemon4_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon4_icon_path = os.path.dirname(pokemon4_icon)
             self.pokemon_4.setPixmap(os.path.join(pokemon4_icon_path, 'icon.png'))
 
             pokemon5_data = dataBox["Pokemon5_Stats"][0]
-            with open("battle_system/pokemon_data/" + pokemon5_data + ".json", "r") as loop:
+            with open("assets/pokemon_data/" + pokemon5_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
             pokemon5_icon = mon_file["Resource_data"]["Image_dir"]
             pokemon5_icon_path = os.path.dirname(pokemon5_icon)
             self.pokemon_5.setPixmap(os.path.join(pokemon5_icon_path, 'icon.png'))
 
             pokemon6_data = dataBox["Pokemon6_Stats"][0]
-            with open("battle_system/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
+            with open("assets/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
                         mon_file = json.load(loop)
             # Allows our icon to be found and displayed
             pokemon6_icon = mon_file["Resource_data"]["Image_dir"]
@@ -276,42 +276,42 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             
         pokemon1_data = dataBox["Pokemon1"][0]
     
-        with open("battle_system/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon1_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon1_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon1_icon_path = os.path.dirname(pokemon1_icon)
         self.pokemon_1.setPixmap(os.path.join(pokemon1_icon_path, 'icon.png'))
 
         pokemon2_data = dataBox["Pokemon2"][0]
-        with open("battle_system/pokemon_data/" + pokemon2_data + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon2_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon2_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon2_icon_path = os.path.dirname(pokemon2_icon)
         self.pokemon_2.setPixmap(os.path.join(pokemon2_icon_path, 'icon.png'))
 
         pokemon3_data = dataBox["Pokemon3"][0]
-        with open("battle_system/pokemon_data/" + pokemon3_data + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon3_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon3_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon3_icon_path = os.path.dirname(pokemon3_icon)
         self.pokemon_3.setPixmap(os.path.join(pokemon3_icon_path, 'icon.png'))
 
         pokemon4_data = dataBox["Pokemon4"][0]
-        with open("battle_system/pokemon_data/" + pokemon4_data + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon4_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon4_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon4_icon_path = os.path.dirname(pokemon4_icon)
         self.pokemon_4.setPixmap(os.path.join(pokemon4_icon_path, 'icon.png'))
 
         pokemon5_data = dataBox["Pokemon5"][0]
-        with open("battle_system/pokemon_data/" + pokemon5_data + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon5_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon5_icon = mon_file["Resource_data"]["Image_dir"]
         pokemon5_icon_path = os.path.dirname(pokemon5_icon)
         self.pokemon_5.setPixmap(os.path.join(pokemon5_icon_path, 'icon.png'))
         
         pokemon6_data = dataBox["Pokemon6"][0]
-        with open("battle_system/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon6_data + ".json", "r") as loop:
                     mon_file = json.load(loop)
         # Allows our icon to be found and displayed
         pokemon6_icon = mon_file["Resource_data"]["Image_dir"]

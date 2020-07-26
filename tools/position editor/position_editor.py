@@ -17,7 +17,7 @@ class tool(app.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setupUi(self)
         with open("backgrounds.json", "r") as loop:
                 background = json.load(loop)
-        with open("../../battle_system/pokemon_data/list_of_pokemon.json", "r") as loop:
+        with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
             pokemon = json.load(loop)
         for i in pokemon["Name"]:
             self.pokemon.addItem(i)
@@ -30,7 +30,7 @@ class tool(app.Ui_MainWindow, QtWidgets.QMainWindow):
     Saves all data used so far into the respective pokemon json file
     """
     def save_data(self):
-        with open("../../battle_system/pokemon_data/" + data.name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + data.name + ".json", "r") as loop:
                         mon_file = json.load(loop)
         
         mon_file["Front_Position"][data.background + "_X_Pos"] = int(self.front_x.text())
@@ -39,7 +39,7 @@ class tool(app.Ui_MainWindow, QtWidgets.QMainWindow):
         mon_file["Back_Position"][data.background + "_Y_Pos"] = int(self.back_y.text())
         
 
-        file = open("../../battle_system/pokemon_data/" + data.name + ".json", "w")
+        file = open("assets/pokemon_data/" + data.name + ".json", "w")
         # Dumps the data to the file
         json.dump(mon_file, file, indent = 1)
         print("Dumping data now...")
@@ -49,9 +49,9 @@ class tool(app.Ui_MainWindow, QtWidgets.QMainWindow):
     Updates the pokemon position, sprites based on selected pokemon
     """
     def pokemon_change(self, index):
-        with open("../../battle_system/pokemon_data/" + index + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + index + ".json", "r") as loop:
                         mon_file = json.load(loop)
-        front_path = "../../battle_system/battle_code/resources/graphics/pokemon_sprites" + "/" + index + "/"
+        front_path = "assets/resources/graphics/pokemon_sprites" + "/" + index + "/"
         front = os.path.dirname(front_path)
         self.front.setPixmap(os.path.join(front, index + "_front.png"))
         try:
@@ -61,7 +61,7 @@ class tool(app.Ui_MainWindow, QtWidgets.QMainWindow):
             self.front_y.setText("101")
             self.front.setGeometry(64, 64, 61, 101)
             
-        back_path = "../../battle_system/battle_code/resources/graphics/pokemon_sprites" + "/" + index + "/"
+        back_path = "assets/resources/graphics/pokemon_sprites" + "/" + index + "/"
         back = os.path.dirname(back_path)
         self.back.setPixmap(os.path.join(front, index + "_back.png"))
         try:
@@ -76,7 +76,7 @@ class tool(app.Ui_MainWindow, QtWidgets.QMainWindow):
     Updates the background depending on the index selected in the combobox
     """
     def background_change(self, index):
-        background_dir = os.path.dirname("../../battle_system/battle_code/resources/graphics/battle_backgrounds/")
+        background_dir = os.path.dirname("assets/resources/graphics/battle_backgrounds/")
         self.background.setPixmap(os.path.join(background_dir, index + ".png"))
         data.background = index
         

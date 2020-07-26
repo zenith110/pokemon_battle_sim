@@ -20,7 +20,7 @@ def select_background(background_dir, time_tag):
 
 def select_music(string_of_music_dir):
     music_list = []
-    for path in Path(string_of_music_dir).rglob('*.ogg'):
+    for path in Path(string_of_music_dir).rglob('*.wav'):
         path = str(path).replace("\\", "/")
         music_list.append(str(path))
     music = random.choice(music_list)
@@ -295,7 +295,7 @@ def status_screen_state(player, opponent, screen, background):
 
 # Does all of our move logic
 def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, background,  move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, move_text, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB):
-    with open("battle_system/move_data/" + move_name + ".json", "r") as loop:
+    with open("assets/move_data/" + move_name + ".json", "r") as loop:
                 move = json.load(loop)
                         
     damage = move["Data"]["Base_Damage"]
@@ -354,7 +354,7 @@ def move_selection_option_player(screen, num_of_pokemon, font, mouse_pos):
 Removes everything but the name of the background
 """
 def background_trimmer(background):
-    trim = background.replace("battle_system/battle_code/resources/graphics/battle_backgrounds/", "")
+    trim = background.replace("assets/resources/graphics/battle_backgrounds/", "")
     trim = trim.replace(".png", "")
     trim = trim[:1].upper() + trim[1:]
     return trim
@@ -367,16 +367,17 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
     Uses time and determines what background it will be based on keywords
     """
     if int(current_time) >= 18  or int(current_time) >= 1 and int(current_time) < 7:
-        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "Night")
-    if int(current_time) >= 7 and int(current_time) <= 11:
-        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "Morning")
-    if int(current_time) >= 12 and int(current_time) <= 17:
-        background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "Afternoon")
+        background = select_background("assets/resources/graphics/battle_backgrounds/", "Night")
+    elif int(current_time) >= 7 and int(current_time) <= 11:
+        background = select_background("assets/resources/graphics/battle_backgrounds/", "Morning")
+    elif int(current_time) >= 12 and int(current_time) <= 17:
+        background = select_background("assets/resources/graphics/battle_backgrounds/", "Afternoon")
+    
     background_stand_alone = background_trimmer(background)
-    with open("battle_system/pokemon_data/" + player_pokemon.name + ".json", "r") as loop:
+    with open("assets/pokemon_data/" + player_pokemon.name + ".json", "r") as loop:
             player_data = json.load(loop)
 
-    with open("battle_system/pokemon_data/" + opponent_pokemon.name + ".json", "r") as loop:
+    with open("assets/pokemon_data/" + opponent_pokemon.name + ".json", "r") as loop:
             opponent_data = json.load(loop)
 
     player_background_front_x = player_data["Front_Position"][background_stand_alone + "_X_Pos"]
@@ -390,11 +391,11 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
     opponent_background_back_y = opponent_data["Back_Position"][background_stand_alone + "_Y_Pos"]
 
     background = pygame.image.load(background).convert_alpha()
-    system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
-    hp_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
-    enemy_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
-    move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
-    move_attack_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
+    system_bar = pygame.image.load("assets/resources/graphics/battle_ui/system_bar.png").convert_alpha()
+    hp_bar = pygame.image.load("assets/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
+    enemy_bar = pygame.image.load("assets/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
+    move_bar = pygame.image.load("assets/resources/graphics/battle_ui/move_bar.png").convert_alpha()
+    move_attack_bar = pygame.image.load("assets/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
     font = pygame.font.SysFont('arial', 10)
     fight_option = font.render("FIGHT", True, BLACK)
     pokemon_option = font.render("POKEéMON", True, BLACK)
@@ -466,7 +467,7 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
 # Loads in our basic assets that will be loaded each fight
 def start_game(player, opponent):
     pygame.init()
-    with open("battle_system/battle_code/config/game_config.json", "r") as loop:
+    with open("assets/config/game_config.json", "r") as loop:
                 gameconfig = json.load(loop)
     
     width = gameconfig["Resolution"]["Width"]
@@ -480,22 +481,22 @@ def start_game(player, opponent):
     # current_time = now.strftime("%H")
     # # Start with status screen on both sides to get pokemon data and pass it in
     # if int(current_time) >= 18  or int(current_time) >= 1 and int(current_time) < 7:
-    #     background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "night")
+    #     background = select_background("assets/resources/graphics/battle_backgrounds/", "night")
     # if int(current_time) >= 7 and int(current_time) <= 11:
-    #     background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "morning")
+    #     background = select_background("assets/resources/graphics/battle_backgrounds/", "morning")
     # if int(current_time) >= 12 and int(current_time) <= 17:
-    #     background = select_background("battle_system/battle_code/resources/graphics/battle_backgrounds/", "afternoon")
+    #     background = select_background("assets/resources/graphics/battle_backgrounds/", "afternoon")
 
     # background = pygame.image.load(background).convert_alpha()
-    # system_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/system_bar.png").convert_alpha()
-    # hp_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
-    # enemy_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
-    # move_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/move_bar.png").convert_alpha()
-    # move_attack_bar = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
-    music_string = select_music('battle_system/battle_code/resources/music/')
+    # system_bar = pygame.image.load("assets/resources/graphics/battle_ui/system_bar.png").convert_alpha()
+    # hp_bar = pygame.image.load("assets/resources/graphics/battle_ui/hp_bar.png").convert_alpha()
+    # enemy_bar = pygame.image.load("assets/resources/graphics/battle_ui/enemy_hp_bar.png").convert_alpha()
+    # move_bar = pygame.image.load("assets/resources/graphics/battle_ui/move_bar.png").convert_alpha()
+    # move_attack_bar = pygame.image.load("assets/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
+    music_string = select_music('assets/resources/music/')
     pygame.mixer.music.load(music_string)
     pygame.mixer.music.play(-1)
-    status_screen = pygame.image.load("battle_system/battle_code/resources/graphics/battle_ui/status_screen.png").convert_alpha()
+    status_screen = pygame.image.load("assets/resources/graphics/battle_ui/status_screen.png").convert_alpha()
     status_screen_state(player, opponent, screen, status_screen)
     # font = pygame.font.SysFont('arial', 12)
     # fight_option = font.render("FIGHT", True, BLACK)

@@ -1,6 +1,6 @@
 {
  "Name": "aaa",
- "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/graphics/trainer_sprite/trainer_01.png",
+ "Image_url": "C:/Users/Abrahan/Downloads/pokemon_battle_sim/trainer_data/trainer_01.png",
  "Pokemon1_Stats": [
   "Bulbasaur",
   "Growl",
@@ -15,9 +15,9 @@
   681,
   681,
   461,
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon1_Morning_1": [
   0,
@@ -177,9 +177,9 @@
   681,
   681,
   461,
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon2_Morning_1": [
   0,
@@ -339,9 +339,9 @@
   681,
   681,
   461,
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon3_Morning_1": [
   0,
@@ -489,10 +489,10 @@
  ],
  "Pokemon4_Stats": [
   "Bulbasaur",
-  "Growl",
-  "Growl",
-  "Growl",
-  "Growl",
+  "Tackle",
+  "Tackle",
+  "Tackle",
+  "Tackle",
   0,
   "Potion",
   10,
@@ -501,9 +501,9 @@
   681,
   681,
   461,
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon4_Morning_1": [
   0,
@@ -663,9 +663,9 @@
   681,
   681,
   461,
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon5_Morning_1": [
   0,
@@ -825,9 +825,9 @@
   681,
   681,
   461,
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
-  "battle_system/battle_code/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon6_Morning_1": [
   0,

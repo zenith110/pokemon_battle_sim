@@ -1,0 +1,12 @@
+{
+    "Data":
+    {
+        "Status": "Status-effect",
+        "Base_Damage": 0,
+        "Description": "Lowers the defense of the opponent pokemon",
+        "Type": "Normal"
+    }
+    
+
+    
+}

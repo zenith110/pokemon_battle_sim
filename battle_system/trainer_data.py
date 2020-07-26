@@ -3,7 +3,7 @@ import json
 import math
 def pokemon_json_data(self):
         name = self.name.text()
-        profile_image, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer sprite"), self.tr("graphics/trainer_sprite/"), self.tr("Image (*.png)"))
+        profile_image, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer sprite"), self.tr("trainer_data/"), self.tr("Image (*.png)"))
         
         pokemon1_name = self.pokemon1_combo.currentText()
         pokemon1_move1 = self.pokemon1_move1.currentText()
@@ -12,7 +12,7 @@ def pokemon_json_data(self):
         pokemon1_move4 = self.pokemon1_move4.currentText()
         pokemon1_level = self.pokemon1_level.value()
         pokemon1_item = self.pokemon1_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon1_name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon1_name + ".json", "r") as loop:
                     mon_file = json.load(loop)
         # Formula = BaseStat × 2 + 204
         pokemon1_base_hp = mon_file["Stats"]["HP"]
@@ -147,7 +147,7 @@ def pokemon_json_data(self):
         pokemon2_move4 = self.pokemon2_move4.currentText()
         pokemon2_level = self.pokemon2_level.value()
         pokemon2_item = self.pokemon2_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon2_name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon2_name + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon2_base_hp = mon_file["Stats"]["HP"]
         pokemon2_base_attack = mon_file["Stats"]["Attack"]
@@ -279,7 +279,7 @@ def pokemon_json_data(self):
         pokemon3_move4 = self.pokemon3_move4.currentText()
         pokemon3_level = self.pokemon3_level.value()
         pokemon3_item = self.pokemon3_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon3_name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon3_name + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon3_base_hp = mon_file["Stats"]["HP"]
         pokemon3_base_attack = mon_file["Stats"]["Attack"]
@@ -411,7 +411,7 @@ def pokemon_json_data(self):
         pokemon4_move4 = self.pokemon4_move4.currentText()
         pokemon4_level = self.pokemon4_level.value()
         pokemon4_item = self.pokemon4_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon4_name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon4_name + ".json", "r") as loop:
                     mon_file = json.load(loop)
 
         pokemon4_base_hp = mon_file["Stats"]["HP"]
@@ -543,7 +543,7 @@ def pokemon_json_data(self):
         pokemon5_move4 = self.pokemon5_move4.currentText()
         pokemon5_level = self.pokemon5_level.value()
         pokemon5_item = self.pokemon5_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon5_name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon5_name + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon5_base_hp = mon_file["Stats"]["HP"]
         pokemon5_base_attack = mon_file["Stats"]["Attack"]
@@ -676,7 +676,7 @@ def pokemon_json_data(self):
         pokemon6_move4 = self.pokemon6_move4.currentText()
         pokemon6_level = self.pokemon6_level.value()
         pokemon6_item = self.pokemon6_item.currentText()
-        with open("battle_system/pokemon_data/" + pokemon6_name + ".json", "r") as loop:
+        with open("assets/pokemon_data/" + pokemon6_name + ".json", "r") as loop:
                     mon_file = json.load(loop)
         pokemon6_base_hp = mon_file["Stats"]["HP"]
         pokemon6_base_attack = mon_file["Stats"]["Attack"]
