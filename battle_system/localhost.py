@@ -18,12 +18,13 @@ def select_background(background_dir, time_tag):
     background = random.choice(backgrounds)
     return background_dir + background
 
-def select_music(string_of_music_dir):
+def select_music(string_of_music_dir, player):
     music_list = []
     for path in Path(string_of_music_dir).rglob('*.ogg'):
         path = str(path).replace("\\", "/")
         music_list.append(str(path))
     music = random.choice(music_list)
+    player.music = music
     return music
 
 def render_pokemon_fainted(screen, background, player_sprite, move_bar, hp_bar, level_text,  Player_pokemon_name, pokemon1_max_hp, pokemon1_current_hp, move_text):
@@ -167,7 +168,7 @@ def render1_screen(screen, background, player_sprite, enemy_sprite, system_bar, 
     screen.blit(pokemon1_current_hp, (195, 144))
 
 # Does the status screen for the beginning
-def status_screen_state(player, opponent, screen, background):
+def status_screen_state(player, opponent, screen, background, RPC):
     player_icon1 = pygame.image.load(player.pokemon1.icon).convert_alpha()
     player_icon2 = pygame.image.load(player.pokemon2.icon).convert_alpha()
     player_icon3 = pygame.image.load(player.pokemon3.icon).convert_alpha()
@@ -241,6 +242,7 @@ def status_screen_state(player, opponent, screen, background):
                     if(len(player.pokemon_in_use) <= 0):
                         if player_icon1_rect.collidepoint(mouse_pos):
                             player.pokemon_in_use.append(player.pokemon1)
+                            print(RPC.update(state="In battle screen", details= player.name + " has selected " + player.pokemon1.name))  # Set the presence
                             print(player.pokemon1.name + " has joined the party!\nNow waiting for second player!\n")
                             
                         elif player_icon2_rect.collidepoint(mouse_pos):
@@ -258,6 +260,7 @@ def status_screen_state(player, opponent, screen, background):
                     else:
                         print("\nBoth players have confirmed their choices!")
                         print("Pokemon sent out are: " + str(player.pokemon_in_use[0].name) + " vs " + str(opponent.pokemon_in_use[0].name))
+                        print(RPC.update(state="In battle screen localhost", details= player.name + "'s " + str(player.pokemon_in_use[0].name) + " vs " + opponent.name + "'s " + str(opponent.pokemon_in_use[0].name)))  # Set the presence
                         screen.blit(start_option, (220,150))
                         if start_rec.collidepoint(mouse_pos):
                             carryOn = False
@@ -479,7 +482,7 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen):
         # --- Limit to 60 frames per second
         clock.tick(60)
 # Loads in our basic assets that will be loaded each fight
-def start_game(player, opponent):
+def start_game(player, opponent, rpc):
     pygame.init()
     with open("assets/config/game_config.json", "r") as loop:
                 gameconfig = json.load(loop)
@@ -508,10 +511,10 @@ def start_game(player, opponent):
     # move_bar = pygame.image.load("assets/resources/graphics/battle_ui/move_bar.png").convert_alpha()
     # move_attack_bar = pygame.image.load("assets/resources/graphics/battle_ui/attack_bar.png").convert_alpha()
     music_string = select_music('assets/resources/music/')
-    pygame.mixer.music.load(music_string)
+    pygame.mixer.music.load(music_string, player)
     pygame.mixer.music.play(-1)
     status_screen = pygame.image.load("assets/resources/graphics/battle_ui/status_screen.png").convert_alpha()
-    status_screen_state(player, opponent, screen, status_screen)
+    status_screen_state(player, opponent, screen, status_screen, rpc)
     # font = pygame.font.SysFont('arial', 12)
     # fight_option = font.render("FIGHT", True, BLACK)
     # pokemon_option = font.render("POKEéMON", True, BLACK)

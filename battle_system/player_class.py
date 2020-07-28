@@ -26,6 +26,7 @@ class pokemon(object):
         self.icon = player_data[pokemon_list_name + "_Stats"][15]
         self.is_defeated = False
         self.turn_passed = False
+        self.music = ""
 
         self.Morning_1 = background(player_data[pokemon_list_name + "_Morning_1"][0], player_data[pokemon_list_name + "_Morning_1"][1], player_data[pokemon_list_name + "_Morning_1"][2], player_data[pokemon_list_name + "_Morning_1"][3])
         self.Morning_2 = background(player_data[pokemon_list_name + "_Morning_2"][0], player_data[pokemon_list_name + "_Morning_2"][1], player_data[pokemon_list_name + "_Morning_2"][2], player_data[pokemon_list_name + "_Morning_2"][3])

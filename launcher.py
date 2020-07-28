@@ -5,32 +5,46 @@ import json
 import os
 import filecmp
 from PySide2.QtWidgets import QMessageBox
-from battle_system import engine, trainer_data
+from battle_system import engine, trainer_data, network
 import time
 from pypresence import Presence
 import glob
 import socket
 import math
 
-class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
-    def __init__(self):
-        super(pvp_setup, self).__init__()
-        self.setupUi(self)
-        self.setWindowIcon(QtGui.QIcon('icon.png'))
-        self.data.clicked.connect(self.data_to_be_sent)
-        
-    def data_to_be_sent(self):
-        HOST = self.ip.text()  # The server's hostname or IP address
-        PORT = 65432        # The port used by the server
-        player, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((HOST, PORT))
-            print("Hello, the ip is: " + HOST)
-            print("Now loading game...")
-            data = s.recv(1024)
-            # Hides the window
-            self.hide()
-            engine.server_host_play(player)
+# class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
+#     # def __init__(self):
+#     #     super(pvp_setup, self).__init__()
+#     #     self.setupUi(self)
+#     #     self.setWindowIcon(QtGui.QIcon('icon.png'))
+#     #     self.data.clicked.connect(self.data_to_be_sent)
+    
+
+    
+#     # def data_to_be_sent(self):
+#     #     HOST = self.ip.text()  # The server's hostname or IP address
+#     #     PORT = 5050       # The port used by the server
+#     #     player, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open first json file"), self.tr("trainer_data"), self.tr("json (*.json)"))
+#     #     HEADER = 128
+#     #     client = Client()
+#     #     client.connect(HOST, PORT).send(player)
+#     #     response = client.recv()
+#     #     # response now is {'data': {'some_list': [123, 456]}}
+#     #     client.close()
+#     #     # Hides the window
+#     #     self.hide()
+#     #     #engine.server_host_play()
+
+#     """
+#     How we send messages
+#     """
+#     def send(self, msg, HEADER, FORMAT, client):
+#         message = msg.encode(FORMAT)
+#         msg_length = len(message)
+#         send_length = str(msg_length).encode(FORMAT)
+#         send_length += b' ' * (HEADER -len(send_length))
+#         client.send(send_length)
+#         client.send(message)
             
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
@@ -208,7 +222,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
         self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
-        self.pvp.clicked.connect(self.player_vs_player)
+        # self.pvp.clicked.connect(self.player_vs_player)
         # Grabs all the files that are in trainer_data that are json files
         list_of_files = glob.glob('trainer_data/*.json') 
         # Grabs the one with the latest updates and saves it to the launcher
