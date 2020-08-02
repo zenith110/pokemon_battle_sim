@@ -75,6 +75,7 @@ class player_data(object):
         self.has_selected = False
         self.has_switched = False
         self.pokemon_in_use = []
+        self.pokemon_defeated = []
 def make_data(data):
     end_result = player_data(data, "")
     return end_result

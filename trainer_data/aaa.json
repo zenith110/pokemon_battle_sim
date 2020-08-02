@@ -68,40 +68,40 @@
   0
  ],
  "Pokemon1_Afternoon_1": [
-  61,
+  145,
   101,
-  61,
-  101
+  0,
+  163
  ],
  "Pokemon1_Afternoon_2": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon1_Afternoon_3": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon1_Afternoon_4": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon1_Afternoon_5": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon1_Afternoon_6": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon1_Afternoon_7": [
   0,
@@ -110,10 +110,10 @@
   0
  ],
  "Pokemon1_Afternoon_8": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon1_Night_1": [
   0,
@@ -164,7 +164,7 @@
   0
  ],
  "Pokemon2_Stats": [
-  "Blastoise",
+  "Bulbasaur",
   "Growl",
   "Growl",
   "Growl",
@@ -172,14 +172,14 @@
   0,
   "Potion",
   10,
-  647,
-  658,
-  856,
-  856,
-  624,
-  "assets/resources/graphics/pokemon_sprites/Blastoise/Blastoise_front.png",
-  "assets/resources/graphics/pokemon_sprites/Blastoise/Blastoise_back.png",
-  "assets/resources/graphics/pokemon_sprites/Blastoise/icon.png"
+  503,
+  503,
+  681,
+  681,
+  461,
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon2_Morning_1": [
   0,
@@ -230,40 +230,40 @@
   0
  ],
  "Pokemon2_Afternoon_1": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon2_Afternoon_2": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon2_Afternoon_3": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon2_Afternoon_4": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon2_Afternoon_5": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon2_Afternoon_6": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon2_Afternoon_7": [
   0,
@@ -272,10 +272,10 @@
   0
  ],
  "Pokemon2_Afternoon_8": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon2_Night_1": [
   0,
@@ -326,22 +326,22 @@
   0
  ],
  "Pokemon3_Stats": [
-  "Wartortle",
-  "Tackle",
-  "Tackle",
-  "Tackle",
-  "Tackle",
+  "Bulbasaur",
+  "Growl",
+  "Growl",
+  "Growl",
+  "Growl",
   0,
   "Potion",
   10,
-  647,
-  658,
-  856,
-  856,
-  624,
-  "assets/resources/graphics/pokemon_sprites/Wartortle/Wartortle_front.png",
-  "assets/resources/graphics/pokemon_sprites/Wartortle/Wartortle_back.png",
-  "assets/resources/graphics/pokemon_sprites/Wartortle/icon.png"
+  503,
+  503,
+  681,
+  681,
+  461,
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon3_Morning_1": [
   0,
@@ -392,40 +392,40 @@
   0
  ],
  "Pokemon3_Afternoon_1": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon3_Afternoon_2": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon3_Afternoon_3": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon3_Afternoon_4": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon3_Afternoon_5": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon3_Afternoon_6": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon3_Afternoon_7": [
   0,
@@ -434,10 +434,10 @@
   0
  ],
  "Pokemon3_Afternoon_8": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon3_Night_1": [
   0,
@@ -488,22 +488,22 @@
   0
  ],
  "Pokemon4_Stats": [
-  "Ivysaur",
-  "Tackle",
-  "Tackle",
-  "Tackle",
-  "Tackle",
+  "Bulbasaur",
+  "Growl",
+  "Growl",
+  "Growl",
+  "Growl",
   0,
   "Potion",
   10,
-  647,
-  658,
-  856,
-  856,
-  624,
-  "assets/resources/graphics/pokemon_sprites/Ivysaur/Ivysaur_front.png",
-  "assets/resources/graphics/pokemon_sprites/Ivysaur/Ivysaur_back.png",
-  "assets/resources/graphics/pokemon_sprites/Ivysaur/icon.png"
+  503,
+  503,
+  681,
+  681,
+  461,
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon4_Morning_1": [
   0,
@@ -554,40 +554,40 @@
   0
  ],
  "Pokemon4_Afternoon_1": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon4_Afternoon_2": [
-  10,
-  10,
+  145,
+  101,
   0,
-  0
+  163
  ],
  "Pokemon4_Afternoon_3": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon4_Afternoon_4": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon4_Afternoon_5": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon4_Afternoon_6": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon4_Afternoon_7": [
   0,
@@ -596,10 +596,10 @@
   0
  ],
  "Pokemon4_Afternoon_8": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon4_Night_1": [
   0,
@@ -650,22 +650,22 @@
   0
  ],
  "Pokemon5_Stats": [
-  "Venusaur",
-  "Tackle",
-  "Tackle",
-  "Tackle",
-  "Tackle",
+  "Bulbasaur",
+  "Growl",
+  "Growl",
+  "Growl",
+  "Growl",
   0,
   "Potion",
   10,
-  830,
-  891,
-  1101,
-  1101,
-  856,
-  "assets/resources/graphics/pokemon_sprites/Venusaur/Venusaur_front.png",
-  "assets/resources/graphics/pokemon_sprites/Venusaur/Venusaur_back.png",
-  "assets/resources/graphics/pokemon_sprites/Venusaur/icon.png"
+  503,
+  503,
+  681,
+  681,
+  461,
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_front.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/Bulbasaur_back.png",
+  "assets/resources/graphics/pokemon_sprites/Bulbasaur/icon.png"
  ],
  "Pokemon5_Morning_1": [
   0,
@@ -716,40 +716,40 @@
   0
  ],
  "Pokemon5_Afternoon_1": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon5_Afternoon_2": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon5_Afternoon_3": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon5_Afternoon_4": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon5_Afternoon_5": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon5_Afternoon_6": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon5_Afternoon_7": [
   0,
@@ -758,10 +758,10 @@
   0
  ],
  "Pokemon5_Afternoon_8": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon5_Night_1": [
   0,
@@ -878,40 +878,40 @@
   0
  ],
  "Pokemon6_Afternoon_1": [
-  61,
+  145,
   101,
-  61,
-  101
+  0,
+  163
  ],
  "Pokemon6_Afternoon_2": [
+  145,
+  101,
   0,
-  0,
-  0,
-  0
+  163
  ],
  "Pokemon6_Afternoon_3": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon6_Afternoon_4": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon6_Afternoon_5": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon6_Afternoon_6": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon6_Afternoon_7": [
   0,
@@ -920,10 +920,10 @@
   0
  ],
  "Pokemon6_Afternoon_8": [
-  0,
-  0,
-  0,
-  0
+  210,
+  75,
+  40,
+  130
  ],
  "Pokemon6_Night_1": [
   0,

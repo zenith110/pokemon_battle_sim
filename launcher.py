@@ -219,7 +219,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         super(main_menu, self).__init__()
         self.setupUi(self)
         self.new_trainer.clicked.connect(self.new_trainer_creator)
-        self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
         self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
         # self.pvp.clicked.connect(self.player_vs_player)
