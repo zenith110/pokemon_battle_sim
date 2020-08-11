@@ -5,6 +5,7 @@ from pygame.locals import *
 from require import require
 import sys
 screen1_render = require("screen1_render_utils.py")
+button = require("button.py")
 BLACK = (0, 0, 0)
 # Does all of our move logic
 def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, background,  move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y):
@@ -20,23 +21,25 @@ def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, b
     while carryOn:  
         # Checks if we have a damage hitting move
         if(status == "Damage"):
-            # Checks if have any health
+            # Checks if opponent have any health
             if(enemy_current_health > 0):
-            # Take away the enemy's health
-                enemy_current_health -= damage
-                screen.fill(pygame.Color("black")) # erases the entire screen surface
-                pokemon_current_hp = font.render(str(current_health), True, BLACK)
-                move_text = font.render(player_pokemon + " attacks "+ opponent_pokemon + " with " + move_name + " dealing " + str(damage) + " damage", True, BLACK)
-                render1_attack_menu_bar(screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text)
-                enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
-                what_will_you_do_textB = font.render(opponent_pokemon[0] + " was dealt " + str(damage) + " damage from " + player_pokemon[0] + "'s " + move_name, True, BLACK)
-                render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
-                                    
-                screenB.fill(pygame.Color("black"))
-                what_will_you_do_textB = font.render("What will " + opponent.pokemon + " do?", True, BLACK)
-                render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
-                # render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
-
+                if(opponent_pokemon.has_selected and player_pokemon.has_selected ):
+                # Take away the enemy's health
+                    enemy_current_health -= damage
+                    screen.fill(pygame.Color("black")) # erases the entire screen surface
+                    pokemon_current_hp = font.render(str(current_health), True, BLACK)
+                    move_text = font.render(player_pokemon + " attacks "+ opponent_pokemon + " with " + move_name + " dealing " + str(damage) + " damage", True, BLACK)
+                    render1_attack_menu_bar(screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text)
+                    enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
+                    what_will_you_do_textB = font.render(opponent_pokemon[0] + " was dealt " + str(damage) + " damage from " + player_pokemon[0] + "'s " + move_name, True, BLACK)
+                    render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
+                                        
+                    screenB.fill(pygame.Color("black"))
+                    what_will_you_do_textB = font.render("What will " + opponent.pokemon + " do?", True, BLACK)
+                    render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
+                    # render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
+                else:
+                    print("We need to wait for the opponent to select a move first before we execute!")
                 if(enemy_current_health <= 0):
                     screenB.fill(pygame.Color("black")) # erases the entire screen surface
                     enemy_current_health = 0
@@ -77,18 +80,10 @@ def move_selection_option_player(screen, pokemon, opponent, font, mouse_pos, car
     
     screen.blit(player_sprite, (player_background_back_x ,player_background_back_y))
     screen.blit(opponent_sprite, ((10 - opponent_backgound_front_x) , (opponent_background_front_y - 20)))
-    move_1 = font.render(pokemon.move_1,True, BLACK)
-    screen.blit(move_1, (4,165))
-    move_2 = font.render(pokemon.move_2,True, BLACK)
-    screen.blit(move_2, (4,180))
-    move_3 = font.render(pokemon.move_3,True, BLACK)
-    screen.blit(move_3, (65,165))
-    move_4 = font.render(pokemon.move_4,True, BLACK)
-    screen.blit(move_4, (65,180))
-    move1_rect = Rect(4,165, 50, 50)
-    move2_rect = Rect(4,180, 50, 50)
-    move3_rect = Rect(65,165, 50, 50)
-    move4_rect = Rect(65,180, 50, 50)
+    move_1 = button.make_battle_button(font, pokemon.move_1, "", 4, 165, screen)
+    move_2 = button.make_battle_button(font, pokemon.move_2, "", 4, 180, screen)
+    move_3 = button.make_battle_button(font, pokemon.move_3, "", 65, 165, screen)
+    move_4 = button.make_battle_button(font, pokemon.move_4, "", 65, 180, screen)
     carryOn = True
     while carryOn:
     # --- Main event loop
@@ -105,19 +100,19 @@ def move_selection_option_player(screen, pokemon, opponent, font, mouse_pos, car
                 pygame.quit()
                 sys.exit() 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                 if move1_rect.collidepoint(mouse_pos):
+                 if move_1.rect.collidepoint(mouse_pos):
                      print(pokemon.move_1 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_1, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
-                 elif move2_rect.collidepoint(mouse_pos):
+                 elif move_2.rect.collidepoint(mouse_pos):
                      print(pokemon.move_2 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_2, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
-                 elif move3_rect.collidepoint(mouse_pos):
+                 elif move_3.rect.collidepoint(mouse_pos):
                      print(pokemon.move_3 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_3, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
-                 elif move4_rect.collidepoint(mouse_pos):
+                 elif move_4.rect.collidepoint(mouse_pos):
                      print(pokemon.move_4 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_4, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)

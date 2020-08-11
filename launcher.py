@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from ui import main_menu, create_trainer, pvp_menu
+from ui import main_menu, pvp_menu, create_trainer, updater
 from PySide2 import QtWidgets, QtCore, QtGui
 import json
 import os
@@ -11,7 +11,9 @@ from pypresence import Presence
 import glob
 import socket
 import math
-
+from bs4 import BeautifulSoup
+import requests
+import re
 # class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
 #     # def __init__(self):
 #     #     super(pvp_setup, self).__init__()
@@ -45,7 +47,10 @@ import math
 #         send_length += b' ' * (HEADER -len(send_length))
 #         client.send(send_length)
 #         client.send(message)
-            
+class updater_window(updater.Ui_MainWindow, QtWidgets.QMainWindow):
+    def __init__(self):
+        super(updater_window, self).__init__()
+        self.setupUi(self)
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -57,7 +62,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
         self.pokemon4_combo.setCurrentIndex(-1)
         self.pokemon5_combo.setCurrentIndex(-1)
         self.pokemon6_combo.setCurrentIndex(-1)
-        self.setWindowIcon(QtGui.QIcon('graphics/icon.png'))
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
         
         # Loops through the pokemon list to parse the contents
         with open("assets/pokemon_data/list_of_pokemon.json", "r") as loop:
@@ -212,7 +217,7 @@ class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
                         self.pokemon6_move4.addItem(j)
 
                     for k in mon_file["Items"]:
-                        self.pokemon6_item.addItem(k)
+                        self.pokemon6_item.addItem(k)           
 
 class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
@@ -222,8 +227,28 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('icon.png'))
         self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
-        # self.pvp.clicked.connect(self.player_vs_player)
+
+        # Check for updates from the github if they're available 
+        with open("assets/config/game_config.json", "r") as loop:
+                        game_file = json.load(loop)
+        version = game_file["Version"]
+        pattern = re.compile(r"alpha_")
+        release_url = "https://github.com/zenith110/pokemon_battle_sim/releases"
+        release_page = requests.get(release_url)
+        version_obj = BeautifulSoup(release_page.text, "html.parser")
+        latest_version = version_obj.find(text=pattern)
+        latest_version = latest_version.replace("alpha_", "").replace(".exe", "")
+        if(latest_version == version):
+            print("The versions are the same right now!")
+        else:
+            print("Launching updater...Newest version available!")
+            updater_prompt = updater_window()
+            updater_prompt.show()
+            updater_prompt.exec_()
+            updater_prompt.setWindowModality(QtCore.Qt.WindowModal)
+
         # Grabs all the files that are in trainer_data that are json files
+
         list_of_files = glob.glob('trainer_data/*.json') 
         # Grabs the one with the latest updates and saves it to the launcher
         try:
@@ -280,6 +305,8 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         except:
             print("No data available...please create a trainer!")
     
+    
+
     def load_trainer_data(self):
         trainer_file, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer profile"), self.tr("trainer_data"), self.tr("json (*.json)"))
         with open(trainer_file, "r") as loop:

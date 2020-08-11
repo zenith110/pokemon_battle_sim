@@ -1,65 +1,35 @@
 from pygame.locals import *
 import pygame
 from require import require
+import os
+import sys
 battle_render = require("battle_render.py")
 BLACK = (0, 0, 0)
-transparent = (0, 0, 0, 0)
-class button(object):
-    def __init__(self, x, y, text, graphic):
-        self.text = text
-        print("hi")
-    def get_text(self):
-        return self.text
+button = require("button.py")
 
 """
 Used for the beginning, and whenever a pokemon is defeated and updates accordingly
 """
 def status_screen_state(player, opponent, screen, background, RPC, screenB):
-    player_icon1 = pygame.image.load(player.pokemon1.icon).convert_alpha()
-    player_icon2 = pygame.image.load(player.pokemon2.icon).convert_alpha()
-    player_icon3 = pygame.image.load(player.pokemon3.icon).convert_alpha()
-    player_icon4 = pygame.image.load(player.pokemon4.icon).convert_alpha()
-    player_icon5 = pygame.image.load(player.pokemon5.icon).convert_alpha()
-    player_icon6 = pygame.image.load(player.pokemon6.icon).convert_alpha()
-
-    enemy_icon1 = pygame.image.load(opponent.pokemon1.icon).convert_alpha()
-    enemy_icon2 = pygame.image.load(opponent.pokemon2.icon).convert_alpha()
-    enemy_icon3 = pygame.image.load(opponent.pokemon3.icon).convert_alpha()
-    enemy_icon4 = pygame.image.load(opponent.pokemon4.icon).convert_alpha()
-    enemy_icon5 = pygame.image.load(opponent.pokemon5.icon).convert_alpha()
-    enemy_icon6 = pygame.image.load(opponent.pokemon6.icon).convert_alpha()
+    
 
     screen.blit(background, (250,0))
-    screen.blit(enemy_icon1, (255,0))
-    screen.blit(enemy_icon2, (343,0))
-    screen.blit(enemy_icon3, (430,0))
-    screen.blit(enemy_icon4, (255,80))
-    screen.blit(enemy_icon5, (343,80))
-    screen.blit(enemy_icon6, (430,80))
-
-    enemy_icon1_rect = Rect(255,0, 50, 50)
-    enemy_icon2_rect = Rect(343,0, 50, 50)
-    enemy_icon3_rect = Rect(430,0, 50, 50)
-    enemy_icon4_rect = Rect(255,80, 50, 50)
-    enemy_icon5_rect = Rect(343,80, 50, 50)
-    enemy_icon6_rect = Rect(430,80, 50, 50)
-
     screen.blit(background, (0,0))
-    screen.blit(player_icon1, (5,0))
-    screen.blit(player_icon2, (94,0))
-    screen.blit(player_icon3, (180,0))
-    screen.blit(player_icon4, (5,80))
-    screen.blit(player_icon5, (94,80))
-    screen.blit(player_icon6, (180,80))
+    player_icon1 = button.make_icon_button("", player.pokemon1.icon, 5, 0, screen)
+    player_icon2 = button.make_icon_button("", player.pokemon2.icon, 94, 0, screen)
+    player_icon3 = button.make_icon_button("", player.pokemon3.icon, 180, 0, screen)
+    player_icon4 = button.make_icon_button("", player.pokemon4.icon, 5, 80, screen)
+    player_icon5 = button.make_icon_button("", player.pokemon5.icon, 94, 80, screen)
+    player_icon6 = button.make_icon_button("", player.pokemon6.icon, 180, 80, screen)
 
+    enemy_icon1 = button.make_icon_button("", opponent.pokemon1.icon, 255, 0, screen)
+    enemy_icon2 = button.make_icon_button("", opponent.pokemon2.icon, 343, 0, screen)
+    enemy_icon3 = button.make_icon_button("", opponent.pokemon3.icon, 430, 0, screen)
+    enemy_icon4 = button.make_icon_button("", opponent.pokemon4.icon, 255, 80, screen)
+    enemy_icon5 = button.make_icon_button("", opponent.pokemon5.icon, 343, 80, screen)
+    enemy_icon6 = button.make_icon_button("", opponent.pokemon6.icon, 430, 80, screen)
     font = pygame.font.SysFont('arial', 15)
     start_option = font.render("START", True, BLACK)
-    player_icon1_rect = Rect(5,0, 50, 50)
-    player_icon2_rect = Rect(94,0, 50, 50)
-    player_icon3_rect = Rect(180,0, 50, 50)
-    player_icon4_rect = Rect(5,80, 50, 50)
-    player_icon5_rect = Rect(94,80, 50, 50)
-    player_icon6_rect = Rect(180,80, 50, 50)
     carryOn = True
     clock = pygame.time.Clock()
     # -------- Main Program Loop -----------
@@ -86,48 +56,48 @@ def status_screen_state(player, opponent, screen, background, RPC, screenB):
                     Check if the mouse has clicked, and if we have any pokemons in our load out, if not, add pokemons. Only proceed if both players have pokemon
                     """
                     if(len(player.pokemon_in_use) <= 0):
-                        if player_icon1_rect.collidepoint(mouse_pos):
+                        if player_icon1.rect.collidepoint(mouse_pos):
                             player.pokemon_in_use.append(player.pokemon1)
                             RPC.update(state="In battle screen", details= player.name + " has selected " + player.pokemon1.name) # Set the presence
                             print(player.pokemon1.name + " has joined the party!\nNow waiting for second player!\n")
                             
-                        elif player_icon2_rect.collidepoint(mouse_pos):
+                        elif player_icon2.rect.collidepoint(mouse_pos):
                             player.pokemon_in_use.append(player.pokemon2)
                             RPC.update(state="In battle screen", details= player.name + " has selected " + player.pokemon2.name)  # Set the presence
                             print(player.pokemon2.name + " has joined the party!\nNow waiting for second player!\n")
 
-                        elif player_icon3_rect.collidepoint(mouse_pos):
+                        elif player_icon3.rect.collidepoint(mouse_pos):
                             player.pokemon_in_use.append(player.pokemon3)
                             RPC.update(state="In battle screen", details= player.name + " has selected " + player.pokemon3.name)  # Set the presence
                             print(player.pokemon3.name + " has joined the party!\nNow waiting for second player!\n")
+                            selected_pokemon = button.make_icon_button("", "assets/resources/graphics/battle_ui/selected_pokemon.png", 5, 0, screen)
 
                     # Logic check for the opponent pokemon 
                     elif(len(opponent.pokemon_in_use) <= 0):
-                        if(enemy_icon1_rect.collidepoint(mouse_pos)):
+                        if(enemy_icon1.rect.collidepoint(mouse_pos)):
                             opponent.pokemon_in_use.append(opponent.pokemon1)
                             print(opponent.pokemon1.name + " has joined the party!\nNow waiting for first player!\n")
-                        elif(enemy_icon2_rect.collidepoint(mouse_pos)):
+                        elif(enemy_icon2.rect.collidepoint(mouse_pos)):
                             opponent.pokemon_in_use.append(opponent.pokemon2)
                             print(opponent.pokemon2.name + " has joined the party!\nNow waiting for first player!\n")
-                        elif(enemy_icon3_rect.collidepoint(mouse_pos)):
+                        elif(enemy_icon3.rect.collidepoint(mouse_pos)):
                             opponent.pokemon_in_use.append(opponent.pokemon3)
                             print(opponent.pokemon3.name + " has joined the party!\nNow waiting for first player!\n")
-                        elif(enemy_icon4_rect.collidepoint(mouse_pos)):
+                        elif(enemy_icon4.rect.collidepoint(mouse_pos)):
                             opponent.pokemon_in_use.append(opponent.pokemon4)
                             print(opponent.pokemon4.name + " has joined the party!\nNow waiting for first player!\n")
-                        elif(enemy_icon5_rect.collidepoint(mouse_pos)):
+                        elif(enemy_icon5.rect.collidepoint(mouse_pos)):
                             opponent.pokemon_in_use.append(opponent.pokemon5)
                             print(opponent.pokemon5.name + " has joined the party!\nNow waiting for first player!\n")
-                        elif(enemy_icon6_rect.collidepoint(mouse_pos)):
+                        elif(enemy_icon6.rect.collidepoint(mouse_pos)):
                             opponent.pokemon_in_use.append(opponent.pokemon6)
                             print(opponent.pokemon6.name + " has joined the party!\nNow waiting for first player!\n")
                     else:
                         print("\nBoth players have confirmed their choices!")
                         print("Pokemon sent out are: " + str(player.pokemon_in_use[0].name) + " vs " + str(opponent.pokemon_in_use[0].name))
-                        RPC.update(state=player.name + "'s " + str(player.pokemon_in_use[0].name) + " vs " + opponent.name + "'s " + str(opponent.pokemon_in_use[0].name), details="🎵 " + player.music + " is currently being played")  # Set the presence
-                        screen.blit(start_option, (220,150))
-                        start_rec = Rect(220, 150, 50, 50)
-                        if start_rec.collidepoint(mouse_pos):
+                        RPC.update(state=player.name + "'s " + str(player.pokemon_in_use[0].name) + " vs " + opponent.name + "'s " + str(opponent.pokemon_in_use[0].name), details="🎵 " + player.music + " is currently being played")
+                        start_option = button.make_start_button(font, "START", "assets/resources/graphics/battle_ui/generic_ui_box.png", 220, 150, screen)
+                        if start_option.rect.collidepoint(mouse_pos):
                             carryOn = False
                             battle_render.pokemon_player_battle_state(player.pokemon_in_use[0], opponent.pokemon_in_use[0], screen, screenB)
                 

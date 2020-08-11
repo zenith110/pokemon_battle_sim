@@ -9,6 +9,7 @@ import os
 import json
 from pygame.locals import *
 from require import require
+import sys
 moves_util = require("moves_util.py")
 BLACK = (0, 0, 0)
 """
@@ -54,16 +55,16 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen, screen
     with open("assets/pokemon_data/" + opponent_pokemon.name + ".json", "r") as loop:
             opponent_data = json.load(loop)
 
-    player_background_front_x = player_data["Front_Position"][background_stand_alone + "_X_Pos"] + 100
-    player_background_front_y = player_data["Front_Position"][background_stand_alone + "_Y_Pos"] + 100
-    player_background_back_x = player_data["Back_Position"][background_stand_alone + "_X_Pos"] - player_data["Back_Position"][background_stand_alone + "_X_Pos"]
-    player_background_back_y = player_data["Back_Position"][background_stand_alone + "_Y_Pos"] - player_data["Back_Position"][background_stand_alone + "_Y_Pos"] + 100 
+    player_background_front_x = player_data["Front_Position"][background_stand_alone][0] + 400
+    player_background_front_y = player_data["Front_Position"][background_stand_alone][1] + 50
+    player_background_back_x = player_data["Back_Position"][background_stand_alone][0] - player_data["Back_Position"][background_stand_alone][0]
+    player_background_back_y = player_data["Back_Position"][background_stand_alone][1] - player_data["Back_Position"][background_stand_alone][1] + 100 
     
 
-    opponent_background_front_x = opponent_data["Front_Position"][background_stand_alone + "_X_Pos"] - opponent_data["Front_Position"][background_stand_alone + "_X_Pos"] - 160
-    opponent_background_front_y = opponent_data["Front_Position"][background_stand_alone + "_Y_Pos"] - opponent_data["Front_Position"][background_stand_alone + "_Y_Pos"] + 75
-    opponent_background_back_x = opponent_data["Back_Position"][background_stand_alone + "_X_Pos"] 
-    opponent_background_back_y = opponent_data["Back_Position"][background_stand_alone + "_Y_Pos"]
+    opponent_background_front_x = opponent_data["Front_Position"][background_stand_alone][0] - opponent_data["Front_Position"][background_stand_alone][0] - 160
+    opponent_background_front_y = opponent_data["Front_Position"][background_stand_alone][1] - opponent_data["Front_Position"][background_stand_alone][1] + 75
+    opponent_background_back_x = opponent_data["Back_Position"][background_stand_alone][0] 
+    opponent_background_back_y = opponent_data["Back_Position"][background_stand_alone][1]
 
     
     background = pygame.image.load(background).convert_alpha()
@@ -86,10 +87,16 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen, screen
     what_will_you_do = font.render("What will " + player_pokemon.name + " do?", True, BLACK)
     player_pokemon_level = font.render(str(player_pokemon.level), True, BLACK)
     enemy_level = font.render(str(opponent_pokemon.level), True, BLACK)
+
     fight_rec = Rect(130, 165, 20, 10)
     pokemon_rect = Rect(130, 180, 20, 10)
     bag_rect = Rect(195, 165, 20, 10)
     quit_rect = Rect(195, 180, 20, 10)
+
+    opponent_fight_rec = Rect(380, 165, 20, 10)
+    opponent_pokemon_rect = Rect(380, 180, 20, 10)
+    opponent_bag_rect = Rect(450, 165, 20, 10)
+    opponent_quit_rect = Rect(450, 180, 20, 10)
 
 
     player_sprite_back = pygame.image.load(player_pokemon.back)
@@ -108,15 +115,22 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen, screen
    
     what_will_you_do_textB = ("What will " + opponent_pokemon.name + " do?", True, BLACK)
     screen.blit(system_bar, (0,160))
-    screen.blit(system_bar, (0, 280))
+    screen.blit(system_bar, (250, 160))
     screen.blit(hp_bar, (120,113))
     screen.blit(enemy_bar, (0,20))
     screen.blit(what_will_you_do, (8, 163))
     screen.blit(player_pokemon_level, (205, 124))
+
     screen.blit(fight_option, (130, 165))
     screen.blit(pokemon_option, (130, 180))
     screen.blit(bag_option, (195, 165))
     screen.blit(quit_option, (195, 180))
+
+    screen.blit(fight_option, (380, 165))
+    screen.blit(pokemon_option, (380, 180))
+    screen.blit(bag_option, (450, 165))
+    screen.blit(quit_option, (450, 180))
+
     screen.blit(enemy_level, (81, 32))
     screen.blit(enemy_name, (0, 30))
     screen.blit(player_pokemon_name, (150, 125))
@@ -137,12 +151,34 @@ def pokemon_player_battle_state(player_pokemon, opponent_pokemon, screen, screen
         # Will be rewritten
             mouse_pos = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                """
+                Fight check for both sides, due to player picking whichever after
+                """
                 if fight_rec.collidepoint(mouse_pos):
-                    print("Hi, fight been selected!")
-                    screen.fill(pygame.Color("black"))
-                    carryOn = False
-                    moves_util.move_selection_option_player(screen, player_pokemon, opponent_pokemon, font, mouse_pos, carryOn, clock, move_bar, hp_bar, enemy_bar, player_pokemon_level, enemy_level, enemy_name, player_pokemon_name, player_pokemon_max_hp, background, player_sprite_back, opponent_sprite_front, opponent_background_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB, background, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, enemy_level, player_pokemon_level)
-                    
+                    player_pokemon.has_selected = True
+                    if(player_pokemon.has_selected and opponent_pokemon.has_selected):
+                        print("Hi, fight been selected!")
+                        screen.fill(pygame.Color("black"))
+                        carryOn = False
+                        moves_util.move_selection_option_player(screen, player_pokemon, opponent_pokemon, font, mouse_pos, carryOn, clock, move_bar, hp_bar, enemy_bar, player_pokemon_level, enemy_level, enemy_name, player_pokemon_name, player_pokemon_max_hp, background, player_sprite_back, opponent_sprite_front, opponent_background_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB, background, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, enemy_level, player_pokemon_level)
+                    elif(player_pokemon.has_selected and not opponent_pokemon.has_selected):
+                        print("Only the player has selected, waiting!")
+                    elif(not player_pokemon.has_selected and opponent_pokemon.has_selected):
+                        print("Only the opponent has selected, need from both!")
+                """
+                Fight check for both sides, due to player picking whichever after
+                """
+                if opponent_fight_rec.collidepoint(mouse_pos):
+                    opponent_pokemon.has_selected = True
+                    if(player_pokemon.has_selected and opponent_pokemon.has_selected):
+                        print("Hi, fight been selected!")
+                        screen.fill(pygame.Color("black"))
+                        carryOn = False
+                        moves_util.move_selection_option_player(screen, player_pokemon, opponent_pokemon, font, mouse_pos, carryOn, clock, move_bar, hp_bar, enemy_bar, player_pokemon_level, enemy_level, enemy_name, player_pokemon_name, player_pokemon_max_hp, background, player_sprite_back, opponent_sprite_front, opponent_background_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB, background, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, enemy_level, player_pokemon_level)
+                    elif(player_pokemon.has_selected and not opponent_pokemon.has_selected):
+                        print("Only the player has selected, waiting!")
+                    elif(not player_pokemon.has_selected and opponent_pokemon.has_selected):
+                        print("Only the opponent has selected, need from both!")
                 elif bag_rect.collidepoint(mouse_pos):
                     print("Bag has been selected")
 

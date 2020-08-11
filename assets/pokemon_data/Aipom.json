@@ -1,0 +1,417 @@
+{
+ "Stats": {
+  "HP": 55,
+  "Attack": 70,
+  "Defense": 55,
+  "Sp. Atk": 40,
+  "Sp. Def": 55,
+  "Speed": 85,
+  "Type1": "Normal",
+  "Type2": "None"
+ },
+ "Moves": {
+  "Double Slap": 15,
+  "Mega Punch": 80,
+  "Fire Punch": 75,
+  "Ice Punch": 75,
+  "Thunder Punch": 75,
+  "Scratch": 40,
+  "Cut": 50,
+  "Slam": 80,
+  "Mega Kick": 120,
+  "Sand Attack": 0,
+  "Headbutt": 70,
+  "Body Slam": 85,
+  "Double Edge": 120,
+  "Tail Whip": 0,
+  "Low Kick": 0,
+  "Counter": 0,
+  "Seismic Toss": 0,
+  "Strength": 80,
+  "Solar Beam": 120,
+  "Thunderbolt": 90,
+  "Thunder Wave": 0,
+  "Thunder": 110,
+  "Dig": 80,
+  "Toxic": 0,
+  "Agility": 0,
+  "Mimic": 0,
+  "Screech": 0,
+  "Double Team": 0,
+  "Defense Curl": 0,
+  "Metronome": 0,
+  "Swift": 60,
+  "Dream Eater": 100,
+  "Fury Swipes": 18,
+  "Rest": 0,
+  "Substitute": 0,
+  "Thief": 60,
+  "Nightmare": 0,
+  "Snore": 50,
+  "Curse": 0,
+  "Spite": 0,
+  "Protect": 0,
+  "Mud Slap": 20,
+  "Zap Cannon": 120,
+  "Detect": 0,
+  "Endure": 0,
+  "Swagger": 0,
+  "Fury Cutter": 40,
+  "Attract": 0,
+  "Sleep Talk": 0,
+  "Return": 0,
+  "Frustration": 0,
+  "Dynamic Punch": 100,
+  "Baton Pass": 0,
+  "Pursuit": 40,
+  "Iron Tail": 100,
+  "Hidden Power": 60,
+  "Rain Dance": 0,
+  "Sunny Day": 0,
+  "Shadow Ball": 80,
+  "Rock Smash": 40,
+  "Beat Up": 0,
+  "Fake Out": 40,
+  "Uproar": 90,
+  "Facade": 70,
+  "Focus Punch": 150,
+  "Taunt": 0,
+  "Role Play": 0,
+  "Revenge": 60,
+  "Brick Break": 75,
+  "Knock Off": 65,
+  "Snatch": 0,
+  "Secret Power": 70,
+  "Astonish": 30,
+  "Tickle": 0,
+  "Aerial Ace": 60,
+  "Bounce": 85,
+  "Covet": 60,
+  "Shock Wave": 60,
+  "Water Pulse": 60,
+  "Natural Gift": 0,
+  "U Turn": 70,
+  "Payback": 50,
+  "Fling": 0,
+  "Last Resort": 140,
+  "Seed Bomb": 80,
+  "Switcheroo": 0,
+  "Nasty Plot": 0,
+  "Shadow Claw": 70,
+  "Gunk Shot": 120,
+  "Captivate": 0,
+  "Grass Knot": 0,
+  "Double Hit": 35,
+  "Hone Claws": 0,
+  "Low Sweep": 65,
+  "Foul Play": 95,
+  "Round": 60,
+  "Quick Guard": 0,
+  "Acrobatics": 55,
+  "Retaliate": 70,
+  "Work Up": 0,
+  "Tail Slap": 25,
+  "Confide": 0,
+  "Power Up Punch": 40
+ },
+ "Items": {
+  "Master-ball": 0,
+  "Ultra-ball": 0,
+  "Great-ball": 0,
+  "Poke-ball": 0,
+  "Safari-ball": 0,
+  "Net-ball": 0,
+  "Dive-ball": 0,
+  "Nest-ball": 0,
+  "Repeat-ball": 0,
+  "Timer-ball": 0,
+  "Luxury-ball": 0,
+  "Premier-ball": 0,
+  "Dusk-ball": 0,
+  "Heal-ball": 0,
+  "Quick-ball": 0,
+  "Cherish-ball": 0,
+  "Potion": 0,
+  "Antidote": 0,
+  "Burn-heal": 0,
+  "Ice-heal": 0,
+  "Awakening": 0,
+  "Paralyze-heal": 0,
+  "Full-restore": 0,
+  "Max-potion": 0,
+  "Hyper-potion": 0,
+  "Super-potion": 0,
+  "Full-heal": 0,
+  "Revive": 0,
+  "Max-revive": 0,
+  "Fresh-water": 0,
+  "Soda-pop": 0,
+  "Lemonade": 0,
+  "Moomoo-milk": 0,
+  "Energy-powder": 0,
+  "Energy-root": 0,
+  "Heal-powder": 0,
+  "Revival-herb": 0,
+  "Ether": 0,
+  "Max-ether": 0,
+  "Elixir": 0,
+  "Max-elixir": 0,
+  "Lava-cookie": 0,
+  "Berry-juice": 0,
+  "Sacred-ash": 0,
+  "Hp-up": 0,
+  "Protein": 0,
+  "Iron": 0,
+  "Carbos": 0,
+  "Calcium": 0,
+  "Rare-candy": 0,
+  "Pp-up": 0,
+  "Zinc": 0,
+  "Pp-max": 0,
+  "Old-gateau": 0,
+  "Guard-spec": 0,
+  "Dire-hit": 0,
+  "X-attack": 0,
+  "X-defense": 0,
+  "X-speed": 0,
+  "X-accuracy": 0,
+  "X-sp-atk": 0,
+  "X-sp-def": 0,
+  "Poke-doll": 0,
+  "Fluffy-tail": 0,
+  "Blue-flute": 0,
+  "Yellow-flute": 0,
+  "Red-flute": 0,
+  "Black-flute": 0,
+  "White-flute": 0,
+  "Shoal-salt": 0,
+  "Shoal-shell": 0,
+  "Red-shard": 0,
+  "Blue-shard": 0,
+  "Yellow-shard": 0,
+  "Green-shard": 0,
+  "Super-repel": 0,
+  "Max-repel": 0,
+  "Escape-rope": 0,
+  "Repel": 0,
+  "Sun-stone": 0,
+  "Moon-stone": 0,
+  "Fire-stone": 0,
+  "Thunder-stone": 0,
+  "Water-stone": 0,
+  "Leaf-stone": 0,
+  "Tiny-mushroom": 0,
+  "Big-mushroom": 0,
+  "Pearl": 0,
+  "Big-pearl": 0,
+  "Stardust": 0,
+  "Star-piece": 0,
+  "Nugget": 0,
+  "Heart-scale": 0,
+  "Honey": 0,
+  "Growth-mulch": 0,
+  "Damp-mulch": 0,
+  "Stable-mulch": 0,
+  "Gooey-mulch": 0,
+  "Root-fossil": 0
+ },
+ "Resource_data": {
+  "Image_dir": "assets/resources/graphics/pokemon_sprites/Aipom/"
+ },
+ "Front_Position": {
+  "Morning_1": [
+   0,
+   0
+  ],
+  "Morning_2": [
+   0,
+   0
+  ],
+  "Morning_3": [
+   0,
+   0
+  ],
+  "Morning_4": [
+   0,
+   0
+  ],
+  "Morning_5": [
+   0,
+   0
+  ],
+  "Morning_6": [
+   0,
+   0
+  ],
+  "Morning_7": [
+   0,
+   0
+  ],
+  "Morning_8": [
+   0,
+   0
+  ],
+  "Afternoon_1": [
+   0,
+   0
+  ],
+  "Afternoon_2": [
+   0,
+   0
+  ],
+  "Afternoon_3": [
+   0,
+   0
+  ],
+  "Afternoon_4": [
+   0,
+   0
+  ],
+  "Afternoon_5": [
+   0,
+   0
+  ],
+  "Afternoon_6": [
+   0,
+   0
+  ],
+  "Afternoon_7": [
+   0,
+   0
+  ],
+  "Afternoon_8": [
+   0,
+   0
+  ],
+  "Night_1": [
+   0,
+   0
+  ],
+  "Night_2": [
+   0,
+   0
+  ],
+  "Night_3": [
+   0,
+   0
+  ],
+  "Night_4": [
+   0,
+   0
+  ],
+  "Night_5": [
+   0,
+   0
+  ],
+  "Night_6": [
+   0,
+   0
+  ],
+  "Night_7": [
+   0,
+   0
+  ],
+  "Night_8": [
+   0,
+   0
+  ]
+ },
+ "Back_Position": {
+  "Morning_1": [
+   0,
+   0
+  ],
+  "Morning_2": [
+   0,
+   0
+  ],
+  "Morning_3": [
+   0,
+   0
+  ],
+  "Morning_4": [
+   0,
+   0
+  ],
+  "Morning_5": [
+   0,
+   0
+  ],
+  "Morning_6": [
+   0,
+   0
+  ],
+  "Morning_7": [
+   0,
+   0
+  ],
+  "Morning_8": [
+   0,
+   0
+  ],
+  "Afternoon_1": [
+   0,
+   0
+  ],
+  "Afternoon_2": [
+   0,
+   0
+  ],
+  "Afternoon_3": [
+   0,
+   0
+  ],
+  "Afternoon_4": [
+   0,
+   0
+  ],
+  "Afternoon_5": [
+   0,
+   0
+  ],
+  "Afternoon_6": [
+   0,
+   0
+  ],
+  "Afternoon_7": [
+   0,
+   0
+  ],
+  "Afternoon_8": [
+   0,
+   0
+  ],
+  "Night_1": [
+   0,
+   0
+  ],
+  "Night_2": [
+   0,
+   0
+  ],
+  "Night_3": [
+   0,
+   0
+  ],
+  "Night_4": [
+   0,
+   0
+  ],
+  "Night_5": [
+   0,
+   0
+  ],
+  "Night_6": [
+   0,
+   0
+  ],
+  "Night_7": [
+   0,
+   0
+  ],
+  "Night_8": [
+   0,
+   0
+  ]
+ }
+}

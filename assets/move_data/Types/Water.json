@@ -1,0 +1,25 @@
+{
+    "Super-Effective":
+    {
+        "Grass": 30,
+        "Electric": 30
+    },
+
+    "Weak-against":
+    {
+        "Water": 20,
+        "Grass": 20,
+        "Dragon": 20
+    },
+
+    "Resistant":
+    {
+        "Steel": -10,
+        "Fire": -10,
+        "Water": -10,
+        "Ice": -10
+    }
+    
+
+    
+}

@@ -3,6 +3,8 @@ from pypresence import Presence
 import pygame
 import json
 import sys
+from require import require
+button = require("button.py")
 BLACK = (0, 0, 0)
 """
 Does the logic checking depending on status
@@ -63,7 +65,7 @@ def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, b
             what_will_you_do_text = font.render("What will " + player_pokemon.name + " do?", True, BLACK)
             what_will_you_do_textB = font.render("What will " + opponent_pokemon.name + " do?", True, BLACK)
             carryOn = False
-            render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
+            render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
             #render2_screen_after_hit(screenB, background, opponent_pokemon.back, player_pokemon.front, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
@@ -88,18 +90,10 @@ def move_selection_option_player(screen, pokemon, opponent, font, mouse_pos, car
     
     screen.blit(player_sprite, (player_background_back_x ,player_background_back_y))
     screen.blit(opponent_sprite, ((10 - opponent_backgound_front_x) , (opponent_background_front_y - 20)))
-    move_1 = font.render(pokemon.move_1,True, BLACK)
-    screen.blit(move_1, (4,165))
-    move_2 = font.render(pokemon.move_2,True, BLACK)
-    screen.blit(move_2, (4,180))
-    move_3 = font.render(pokemon.move_3,True, BLACK)
-    screen.blit(move_3, (65,165))
-    move_4 = font.render(pokemon.move_4,True, BLACK)
-    screen.blit(move_4, (65,180))
-    move1_rect = Rect(4,165, 50, 50)
-    move2_rect = Rect(4,180, 50, 50)
-    move3_rect = Rect(65,165, 50, 50)
-    move4_rect = Rect(65,180, 50, 50)
+    move_1 = button.make_battle_button(font, pokemon.move_1, "", 4, 165, screen)
+    move_2 = button.make_battle_button(font, pokemon.move_2, "", 4, 180, screen)
+    move_3 = button.make_battle_button(font, pokemon.move_3, "", 65, 165, screen)
+    move_4 = button.make_battle_button(font, pokemon.move_4, "", 65, 180, screen)
     carryOn = True
     while carryOn:
     # --- Main event loop
@@ -116,19 +110,19 @@ def move_selection_option_player(screen, pokemon, opponent, font, mouse_pos, car
                 pygame.quit()
                 sys.exit() 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                 if move1_rect.collidepoint(mouse_pos):
+                 if move_1.rect.collidepoint(mouse_pos):
                      print(pokemon.move_1 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_1, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
-                 elif move2_rect.collidepoint(mouse_pos):
+                 elif move_2.rect.collidepoint(mouse_pos):
                      print(pokemon.move_2 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_2, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
-                 elif move3_rect.collidepoint(mouse_pos):
+                 elif move_3.rect.collidepoint(mouse_pos):
                      print(pokemon.move_3 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_3, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
-                 elif move4_rect.collidepoint(mouse_pos):
+                 elif move_4.rect.collidepoint(mouse_pos):
                      print(pokemon.move_4 + " has been selected!")
                      carryOn = False
                      local_host_move_logic(pokemon.move_4, pokemon, opponent, screen, background,  move_attack_bar, hp_bar, enemy_bar,  player_pokemon_level, enemy_level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y)
