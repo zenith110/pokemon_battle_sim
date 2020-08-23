@@ -4,8 +4,8 @@ import json
 from pygame.locals import *
 from require import require
 import sys
-screen1_render = require("screen1_render_utils.py")
-button = require("button.py")
+from battle_system.localhost_utils import screen1_render_utils
+from battle_system.localhost_utils import button
 BLACK = (0, 0, 0)
 # Does all of our move logic
 def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, background,  move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, screenB, backgroundB,  move_attack_barB, hp_barB, enemy_barB, what_will_you_do_textB, level_textB, enemy_levelB, carryOn, clock, font, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y):
@@ -29,14 +29,14 @@ def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, b
                     screen.fill(pygame.Color("black")) # erases the entire screen surface
                     pokemon_current_hp = font.render(str(current_health), True, BLACK)
                     move_text = font.render(player_pokemon + " attacks "+ opponent_pokemon + " with " + move_name + " dealing " + str(damage) + " damage", True, BLACK)
-                    render1_attack_menu_bar(screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text)
+                    screen1_render_utils.render1_attack_menu_bar(screen, background, player_sprite, enemy_sprite, move_attack_bar, hp_bar, enemy_bar,  level_text, enemy_Level, enemy_name, player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text)
                     enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
                     what_will_you_do_textB = font.render(opponent_pokemon[0] + " was dealt " + str(damage) + " damage from " + player_pokemon[0] + "'s " + move_name, True, BLACK)
                     render2_screen_during_hit(screenB, background, playerB_sprite, enemyB_sprite, move_attack_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, Enemy_Level, Enemy_name, Player_pokemon_name, enemy_max_hp, enemy_current_hp)
                                         
                     screenB.fill(pygame.Color("black"))
                     what_will_you_do_textB = font.render("What will " + opponent.pokemon + " do?", True, BLACK)
-                    render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
+                    screen1_render_utils.render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
                     # render2_screen_after_hit(screenB, background, playerB_sprite, enemyB_sprite, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
                 else:
                     print("We need to wait for the opponent to select a move first before we execute!")
@@ -45,7 +45,7 @@ def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, b
                     enemy_current_health = 0
                     enemy_current_hp = font.render(str(enemy_current_health), True, BLACK)
                     move_text = font.render(opponent_pokemon + " has fainted! Now awaiting for next pokemon", True, BLACK)
-                    render_pokemon_fainted(screen, background, player_sprite, move_attack_bar, hp_bar, level_text,  player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text)
+                    screen1_render_utils.render_pokemon_fainted(screen, background, player_sprite, move_attack_bar, hp_bar, level_text,  player_pokemon_name, pokemon_max_hp, pokemon_current_hp, move_text)
                     # Keeps track of the pokemon who has fainted
                     opponent_pokemon.fainted.append(opponent_pokemon)
                     render2_status_screen(screenB, status_screen, enemy_icon1, enemy_icon2, enemy_icon3, enemy_icon4, enemy_icon5, enemy_icon6)
@@ -57,7 +57,7 @@ def local_host_move_logic(move_name, player_pokemon, opponent_pokemon, screen, b
             what_will_you_do_text = font.render("What will " + player_pokemon.name + " do?", True, BLACK)
             what_will_you_do_textB = font.render("What will " + opponent_pokemon.name + " do?", True, BLACK)
             carryOn = False
-            screen1_render.render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
+            screen1_render_utils.render1_screen(screen, background, pygame.image.load(player_pokemon.back), pygame.image.load(opponent_pokemon.front), system_bar, hp_bar, enemy_bar, what_will_you_do_text, level_text, enemy_Level, font.render(opponent_pokemon.name, True, BLACK), font.render(player_pokemon.name, True, BLACK), pokemon_max_hp, pokemon_current_hp, font, carryOn, clock, player_pokemon, opponent_pokemon, opponent_backgound_front_x, opponent_background_front_y, player_background_back_x, player_background_back_y, screenB)
             #render2_screen_after_hit(screenB, background, opponent_pokemon.back, player_pokemon.front, system_bar, hp_bar, enemy_bar, what_will_you_do_textB, level_text, fightB_option, pokemonB_option, bagB_option, quitB_option, enemy_level, enemy_name, player_pokemon_name, enemy_max_hp, enemy_current_hp)
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()

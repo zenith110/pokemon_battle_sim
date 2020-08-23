@@ -8,9 +8,8 @@ from pathlib import Path
 import os
 import json
 from pygame.locals import *
-from require import require
 import sys
-moves_util = require("moves_util.py")
+from battle_system.localhost_utils import moves_util
 BLACK = (0, 0, 0)
 """
 Selects the background using a util function

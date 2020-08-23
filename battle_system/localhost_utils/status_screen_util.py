@@ -1,11 +1,10 @@
 from pygame.locals import *
 import pygame
-from require import require
 import os
 import sys
-battle_render = require("battle_render.py")
+from battle_system.localhost_utils import battle_render
+from battle_system.localhost_utils import button
 BLACK = (0, 0, 0)
-button = require("button.py")
 
 """
 Used for the beginning, and whenever a pokemon is defeated and updates accordingly

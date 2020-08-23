@@ -4,7 +4,7 @@ import pygame
 import json
 import sys
 from require import require
-button = require("button.py")
+from battle_system.localhost_utils import button
 BLACK = (0, 0, 0)
 """
 Does the logic checking depending on status

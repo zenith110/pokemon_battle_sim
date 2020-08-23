@@ -7,8 +7,7 @@ from pathlib import Path
 from pypresence import Presence
 from pygame.locals import *
 import sys
-from require import require
-status_screen_util = require("localhost_utils/status_screen_util.py")
+from battle_system.localhost_utils import status_screen_util
 """
 Created by Abrahan Nevarez
 zenith110 - Github

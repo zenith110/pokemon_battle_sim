@@ -47,10 +47,10 @@ import re
 #         send_length += b' ' * (HEADER -len(send_length))
 #         client.send(send_length)
 #         client.send(message)
-class updater_window(updater.Ui_MainWindow, QtWidgets.QMainWindow):
-    def __init__(self):
-        super(updater_window, self).__init__()
-        self.setupUi(self)
+# class updater_window(updater.Ui_MainWindow, QtWidgets.QMainWindow):
+#     def __init__(self):
+#         super(updater_window, self).__init__()
+#         self.setupUi(self)
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -238,14 +238,15 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         version_obj = BeautifulSoup(release_page.text, "html.parser")
         latest_version = version_obj.find(text=pattern)
         latest_version = latest_version.replace("alpha_", "").replace(".exe", "")
+        print("Current version of the game is alpha-" + version)
         if(latest_version == version):
             print("The versions are the same right now!")
-        else:
-            print("Launching updater...Newest version available!")
-            updater_prompt = updater_window()
-            updater_prompt.show()
-            updater_prompt.exec_()
-            updater_prompt.setWindowModality(QtCore.Qt.WindowModal)
+        # else:
+        #     print("Launching updater...Newest version available!")
+        #     updater_prompt = updater_window()
+        #     updater_prompt.show()
+        #     updater_prompt.exec_()
+        #     updater_prompt.setWindowModality(QtCore.Qt.WindowModal)
 
         # Grabs all the files that are in trainer_data that are json files
 
