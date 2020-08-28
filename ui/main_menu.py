@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'main_menu.ui',
 # licensing of 'main_menu.ui' applies.
 #
-# Created: Sun May 24 13:06:38 2020
+# Created: Fri Aug 28 15:21:27 2020
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,9 +28,9 @@ class Ui_MainWindow(object):
         self.pvp = QtWidgets.QPushButton(self.centralwidget)
         self.pvp.setGeometry(QtCore.QRect(330, 0, 111, 23))
         self.pvp.setObjectName("pvp")
-        self.options = QtWidgets.QPushButton(self.centralwidget)
-        self.options.setGeometry(QtCore.QRect(440, 0, 111, 23))
-        self.options.setObjectName("options")
+        self.updater = QtWidgets.QPushButton(self.centralwidget)
+        self.updater.setGeometry(QtCore.QRect(440, 0, 111, 23))
+        self.updater.setObjectName("updater")
         self.credits = QtWidgets.QPushButton(self.centralwidget)
         self.credits.setGeometry(QtCore.QRect(550, 0, 111, 23))
         self.credits.setObjectName("credits")
@@ -71,7 +71,7 @@ class Ui_MainWindow(object):
         self.load_trainer.setObjectName("load_trainer")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 657, 30))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 657, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -86,7 +86,7 @@ class Ui_MainWindow(object):
         self.new_trainer.setText(QtWidgets.QApplication.translate("MainWindow", "New Trainer", None, -1))
         self.localhost.setText(QtWidgets.QApplication.translate("MainWindow", "Localhost", None, -1))
         self.pvp.setText(QtWidgets.QApplication.translate("MainWindow", "Player Vs Player", None, -1))
-        self.options.setText(QtWidgets.QApplication.translate("MainWindow", "Options", None, -1))
+        self.updater.setText(QtWidgets.QApplication.translate("MainWindow", "Updater", None, -1))
         self.credits.setText(QtWidgets.QApplication.translate("MainWindow", "Credits", None, -1))
         self.load_trainer.setText(QtWidgets.QApplication.translate("MainWindow", "Load Trainer", None, -1))
 

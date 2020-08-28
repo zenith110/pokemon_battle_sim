@@ -57,7 +57,7 @@
      <string>Player Vs Player</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="options">
+   <widget class="QPushButton" name="updater">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -67,7 +67,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Options</string>
+     <string>Updater</string>
     </property>
    </widget>
    <widget class="QPushButton" name="credits">
@@ -207,7 +207,7 @@
      <x>0</x>
      <y>0</y>
      <width>657</width>
-     <height>30</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

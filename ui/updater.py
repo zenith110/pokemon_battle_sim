@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'updater.ui',
 # licensing of 'updater.ui' applies.
 #
-# Created: Mon Aug 10 16:58:41 2020
+# Created: Fri Aug 28 15:04:23 2020
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!

@@ -14,6 +14,8 @@ import math
 from bs4 import BeautifulSoup
 import requests
 import re
+from clint.textui import progress
+import sys
 # class pvp_setup(pvp_menu.Ui_MainWindow, QtWidgets.QMainWindow):
 #     # def __init__(self):
 #     #     super(pvp_setup, self).__init__()
@@ -47,10 +49,31 @@ import re
 #         send_length += b' ' * (HEADER -len(send_length))
 #         client.send(send_length)
 #         client.send(message)
-# class updater_window(updater.Ui_MainWindow, QtWidgets.QMainWindow):
-#     def __init__(self):
-#         super(updater_window, self).__init__()
-#         self.setupUi(self)
+class updater_window(updater.Ui_MainWindow, QtWidgets.QMainWindow):
+    def __init__(self):
+        super(updater_window, self).__init__()
+        self.setupUi(self)
+        self.yes.clicked.connect(self.download_game)
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
+    def download_game(self):
+        pattern = re.compile(r"alpha-")
+        release_url = "https://github.com/zenith110/pokemon_battle_sim/releases"
+        release_page = requests.get(release_url)
+        version_obj = BeautifulSoup(release_page.text, "html.parser")
+        latest_version = version_obj.find(text=pattern)
+        try:
+            release_directory, _blank = QtWidgets.QFileDialog.getSaveFileName(self, self.tr("Where to install the latest release"), self.tr(""), self.tr("(*.exe)"))
+            release_exe_url = "https://github.com/zenith110/pokemon_battle_sim/releases/download/" + latest_version +"/" + latest_version + ".exe"
+            release_response = requests.get(release_exe_url, stream=True)
+            with open(release_directory, "wb") as f:
+                total_length = int(release_response.headers.get('content-length'))
+                for chunk in progress.bar(release_response.iter_content(chunk_size=1024), expected_size=(total_length/1024) + 1): 
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+        except:
+            print("Try again with a directory!")
+        quit()
 class trainer_creator(create_trainer.Ui_mainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(trainer_creator, self).__init__()
@@ -227,29 +250,9 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('icon.png'))
         self.localhost.clicked.connect(self.localhost_option)
         self.load_trainer.clicked.connect(self.load_trainer_data)
-
-        # Check for updates from the github if they're available 
-        with open("assets/config/game_config.json", "r") as loop:
-                        game_file = json.load(loop)
-        version = game_file["Version"]
-        pattern = re.compile(r"alpha_")
-        release_url = "https://github.com/zenith110/pokemon_battle_sim/releases"
-        release_page = requests.get(release_url)
-        version_obj = BeautifulSoup(release_page.text, "html.parser")
-        latest_version = version_obj.find(text=pattern)
-        latest_version = latest_version.replace("alpha_", "").replace(".exe", "")
-        print("Current version of the game is alpha-" + version)
-        if(latest_version == version):
-            print("The versions are the same right now!")
-        # else:
-        #     print("Launching updater...Newest version available!")
-        #     updater_prompt = updater_window()
-        #     updater_prompt.show()
-        #     updater_prompt.exec_()
-        #     updater_prompt.setWindowModality(QtCore.Qt.WindowModal)
-
+        self.updater.clicked.connect(self.updater_button)
+        
         # Grabs all the files that are in trainer_data that are json files
-
         list_of_files = glob.glob('trainer_data/*.json') 
         # Grabs the one with the latest updates and saves it to the launcher
         try:
@@ -307,7 +310,26 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             print("No data available...please create a trainer!")
     
     
+    def updater_button(self):
+        # Check for updates from the github if they're available 
+        with open("assets/config/game_config.json", "r") as loop:
+                        game_file = json.load(loop)
+        version = game_file["Version"]
+        pattern = re.compile(r"alpha-")
+        release_url = "https://github.com/zenith110/pokemon_battle_sim/releases"
+        release_page = requests.get(release_url)
+        version_obj = BeautifulSoup(release_page.text, "html.parser")
+        latest_version = version_obj.find(text=pattern)
+        latest_version = latest_version.replace("alpha-", "").replace(".exe", "")
 
+        if(str(version) != str(latest_version)):
+            self.hide()
+            updater_prompt = updater_window()
+            updater_prompt.show()
+            updater_prompt.exec_()
+            updater_prompt.setWindowModality(QtCore.Qt.WindowModal)
+        else:
+            print("Currently on the latest release")
     def load_trainer_data(self):
         trainer_file, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer profile"), self.tr("trainer_data"), self.tr("json (*.json)"))
         with open(trainer_file, "r") as loop:
