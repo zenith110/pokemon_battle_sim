@@ -49,6 +49,9 @@ import sys
 #         send_length += b' ' * (HEADER -len(send_length))
 #         client.send(send_length)
 #         client.send(message)
+"""
+Logic code for updating the window for new versions
+"""
 class updater_window(updater.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(updater_window, self).__init__()
@@ -309,7 +312,9 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
         except:
             print("No data available...please create a trainer!")
     
-    
+    """
+    Updates the game to the latest version by downloading the .exe for windows
+    """
     def updater_button(self):
         # Check for updates from the github if they're available 
         with open("assets/config/game_config.json", "r") as loop:
@@ -330,6 +335,7 @@ class main_menu(main_menu.Ui_MainWindow, QtWidgets.QMainWindow):
             updater_prompt.setWindowModality(QtCore.Qt.WindowModal)
         else:
             print("Currently on the latest release")
+
     def load_trainer_data(self):
         trainer_file, _blank = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open trainer profile"), self.tr("trainer_data"), self.tr("json (*.json)"))
         with open(trainer_file, "r") as loop:
